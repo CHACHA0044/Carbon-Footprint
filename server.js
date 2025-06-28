@@ -38,7 +38,8 @@ console.log('🔄 footprintRoutes loaded:', typeof footprintRoutes === 'function
 // ✅ Register routes
 app.use('/auth', require('./routes/auth'));
 
-app.use('/api/footprint', footprintRoutes);
+app.use('/footprint', footprintRoutes);
+
 
 // ✅ Test root route
 app.get('/', (req, res) => {
