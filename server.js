@@ -1,3 +1,4 @@
+delete process.env.DEBUG_URL;
 require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
@@ -8,7 +9,7 @@ const app = express();
 
 // ✅ Define allowed CORS origins
 const allowedOrigins = ['https://carbon-footprint-1yac.onrender.com'];
-
+console.log('📌 process.env.DEBUG_URL after delete:', process.env.DEBUG_URL);
 // ✅ Setup CORS
 app.use(cors({
   origin: allowedOrigins,
