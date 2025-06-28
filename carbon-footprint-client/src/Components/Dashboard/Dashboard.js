@@ -19,9 +19,10 @@ const Dashboard = () => {
         setUser(storedUser);
       }
 
-      const res = await fetch('http://localhost:5000/api/footprint/history', {
-        headers: { Authorization: `Bearer ${token}` },
-      });
+      const res = await fetch(`${process.env.REACT_APP_API_URL}/api/footprint/history`, {
+  headers: { Authorization: `Bearer ${token}` },
+});
+
 
       const result = await res.json();
       setData(Array.isArray(result) ? result : result.history || []);
@@ -37,9 +38,14 @@ const Dashboard = () => {
     fetchHistory();
   }, [version]);
 
-  useEffect(() => {
+ useEffect(() => {
+  if (location.state?.updated) {
     fetchHistory();
-  }, [location.state && location.state.updated]);
+    // Optional: Clear the state to prevent infinite fetches
+    window.history.replaceState({}, document.title);
+  }
+}, [location.state?.updated]);
+
 
   useEffect(() => {
     const handleClickOutside = (event) => {
