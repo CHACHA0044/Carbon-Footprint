@@ -19,7 +19,7 @@ const PageWrapper = ({ children, backgroundImage }) => {
 
   return (
     <div
-      className="min-h-screen bg-cover bg-center bg-no-repeat bg-fixed md:no-scroll"
+      className="min-h-screen bg-cover bg-center bg-no-repeat md:bg-fixed bg-black transition-opacity duration-700 opacity-50"
       style={{
         backgroundImage: backgroundImage ? `url(${backgroundImage})` : 'none',
       }}
