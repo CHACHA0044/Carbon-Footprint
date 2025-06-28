@@ -1,5 +1,13 @@
 {
-  "rewrites": [
-    { "source": "**", "destination": "/index.html" }
+  "headers": {
+    "/**": {
+      "Access-Control-Allow-Origin": "*"
+    }
+  },
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "/index.html"
+    }
   ]
 }
