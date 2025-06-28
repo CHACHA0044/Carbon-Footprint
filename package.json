@@ -22,7 +22,7 @@
     "concurrently": "^9.1.2"
   },
   "engines": {
-  "node": "18.x"
+  "node": "20.x"
 },
 "Dependencies": {
   "react-router-dom": "6.17.0",
