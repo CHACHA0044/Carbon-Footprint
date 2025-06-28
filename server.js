@@ -10,7 +10,11 @@ const authRoutes = require('./routes/auth');
 const footprintRoutes = require('./routes/footprint');
 
 // Middleware
-app.use(cors());
+app.use(cors({
+  origin: 'https://carbon-footprint-client.onrender.com', // replace with your frontend's actual Render domain once deployed
+  credentials: true
+}));
+
 app.use(express.json());
 
 // Route mounting
