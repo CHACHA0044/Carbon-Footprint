@@ -36,8 +36,8 @@ console.log('🔄 authRoutes loaded:', typeof authRoutes === 'function');
 console.log('🔄 footprintRoutes loaded:', typeof footprintRoutes === 'function');
 
 // ✅ Register routes
-app.use('/api/auth', authRoutes);
-app.use('/api/footprint', footprintRoutes);
+app.use('/api/footprint', require('./routes/footprint'));
+app.use('/api/auth', require('./routes/auth'));
 
 
 // ✅ Test root route
