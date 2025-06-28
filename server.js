@@ -1,13 +1,12 @@
-require('dotenv').config();
+const dotenv = require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
-const authRoutes = require('./routes/auth');
-app.use('/api/auth', authRoutes);
 
 // ✅ Create Express app
 const app = express();
-
+const authRoutes = require('./routes/auth');
+const footprintRoutes = require('./routes/footprint');
 // ✅ Define allowed CORS origins
 const allowedOrigins = ['https://carbon-footprint-1yac.onrender.com'];
 console.log('📌 process.env.DEBUG_URL after delete:', process.env.DEBUG_URL);
@@ -29,8 +28,7 @@ app.options('*', cors({
 app.use(express.json());
 
 // ✅ Load routes
-const authRoutes = require('./routes/auth');
-const footprintRoutes = require('./routes/footprint');
+
 
 // ✅ Debug logs before registering routes
 console.log('🔄 Loading routes...');
@@ -38,9 +36,8 @@ console.log('🔄 authRoutes loaded:', typeof authRoutes === 'function');
 console.log('🔄 footprintRoutes loaded:', typeof footprintRoutes === 'function');
 
 // ✅ Register routes
-app.use('/auth', require('./routes/auth'));
-
-app.use('/footprint', footprintRoutes);
+app.use('/api/auth', authRoutes);
+app.use('/api/footprint', footprintRoutes);
 
 
 // ✅ Test root route
