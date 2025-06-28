@@ -18,7 +18,7 @@ const EditFootprintForm = () => {
   useEffect(() => {
     const fetchEntry = async () => {
       try {
-        const res = await API.get(`/footprint/${id}`, {
+        const res = await API.get(`/api/footprint/${id}`, {
   headers: { Authorization: `Bearer ${token}` }
 });
         const entry = res.data;

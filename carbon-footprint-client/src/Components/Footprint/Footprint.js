@@ -60,7 +60,7 @@ const handleSubmit = async (e) => {
   e.preventDefault();
   const token = localStorage.getItem('token');
   try {
-    const res = await API.post('/footprint', formData, {
+    const res = await API.post('/api/footprint', formData, {
       headers: { Authorization: `Bearer ${token}` }
     });
 
