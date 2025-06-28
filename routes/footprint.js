@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const authenticateToken = require('../middleware/authMiddleware');
+const authenticateToken = require('../middleware/authmiddleware');
 const CarbonEntry = require('../models/CarbonEntry');
 
 // POST: Create entry
