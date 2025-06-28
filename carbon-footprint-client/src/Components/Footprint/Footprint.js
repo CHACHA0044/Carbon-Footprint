@@ -1,3 +1,4 @@
+import API from '../../../api/api';
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import PageWrapper from 'common/PageWrapper';
@@ -56,32 +57,28 @@ const navigate = useNavigate(); // INIT
 const handleSubmit = async (e) => {
   e.preventDefault();
   const token = localStorage.getItem('token');
-if (!token) {
+  if (!token) {
     alert('❌ Please login first.');
     navigate('/login');
     return;
   }
+
   try {
-    const response = await fetch('http://localhost:5000/api/footprint', {
-      method: 'POST',
+    const response = await API.post('/footprint', formData, {
       headers: {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${token}`
-      },
-      body: JSON.stringify(formData)
+      }
     });
 
-    const data = await response.json();
+    const data = response.data;
 
-    if (response.ok) {
-      alert(`✅ ${data.message}`);
-      navigate('/dashboard'); // 👈 redirect to Dashboard
-    } else {
-      alert(`❌ ${data.error}`);
-    }
+    alert(`✅ ${data.message || 'Footprint entry submitted successfully'}`);
+    navigate('/dashboard'); // 👈 redirect to Dashboard
   } catch (err) {
+    const errorMsg = err.response?.data?.error || 'Something went wrong';
     console.error('❌ Error:', err);
-    alert('Something went wrong');
+    alert(`❌ ${errorMsg}`);
   }
 };
 

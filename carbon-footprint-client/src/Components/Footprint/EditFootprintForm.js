@@ -1,3 +1,4 @@
+import API from '../../../api/api';
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import PageWrapper from 'common/PageWrapper';
@@ -17,15 +18,10 @@ const EditFootprintForm = () => {
   useEffect(() => {
     const fetchEntry = async () => {
       try {
-        const res = await fetch(`http://localhost:5000/api/footprint/${id}`, {
-          headers: { Authorization: `Bearer ${token}` }
-        });
-        const entry = await res.json();
-        if (!res.ok) {
-          alert(entry.error || 'Entry not found');
-          return;
-        }
-
+        const res = await API.get(`/footprint/${id}`, {
+  headers: { Authorization: `Bearer ${token}` }
+});
+        const entry = res.data;
         setForm({
           food: entry.food || { type: '', amountKg: '' },
           transport: entry.transport || [],
@@ -53,24 +49,16 @@ const EditFootprintForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await fetch(`http://localhost:5000/api/footprint/${id}`, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}`
-        },
-        body: JSON.stringify(form)
-      });
-      const data = await res.json();
-      if (res.ok) {
-        alert('Entry updated successfully');
-        navigate('/dashboard', { state: { updated: Date.now() } });
-      } else {
-        alert(data.error || 'Update failed');
-      }
-    } catch (err) {
-      alert('Something went wrong');
-    }
+  const res = await API.put(`/footprint/${id}`, form, {
+    headers: { Authorization: `Bearer ${token}` }
+  });
+
+  alert('Entry updated successfully');
+  navigate('/dashboard', { state: { updated: Date.now() } });
+} catch (err) {
+  const errorMsg = err.response?.data?.error || 'Update failed';
+  alert(errorMsg);
+}
   };
 
   if (loading) return <p className="text-center text-white">Loading entry...</p>;

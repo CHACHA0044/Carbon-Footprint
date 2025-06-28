@@ -1,3 +1,4 @@
+import API from '../../../api/api';
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import PageWrapper from 'common/PageWrapper';
@@ -25,38 +26,29 @@ const Login = () => {
   };
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
+  e.preventDefault();
 
-    try {
-      const response = await fetch('http://localhost:5000/api/auth/login', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(formData)
-      });
+  try {
+    const { data } = await API.post('/auth/login', formData);
 
-      const data = await response.json();
+    // ✅ Save token and user info
+    localStorage.setItem('token', data.token);
+    localStorage.setItem('user', JSON.stringify(data.user));
+    setSuccess('😎');
+    setError('');
 
-      if (response.ok) {
-        // ✅ Save token and user info
-        localStorage.setItem('token', data.token);
-        localStorage.setItem('user', JSON.stringify(data.user));
-        setSuccess('😎');
-        setError('');
-
-        // ✅ Redirect after a short delay
-        setTimeout(() => navigate('/dashboard'), 1500);
-      } else {
-        setSuccess('');
-        setError(data.error || '❌ Login failed. Please try again.');
-      }
-    } catch (err) {
-      console.error('❌ Login error:', err);
-      setSuccess('');
+    // ✅ Redirect after a short delay
+    setTimeout(() => navigate('/dashboard'), 1500);
+  } catch (err) {
+    console.error('❌ Login error:', err);
+    setSuccess('');
+    if (err.response && err.response.data) {
+      setError(err.response.data.error || '❌ Login failed. Please try again.');
+    } else {
       setError('❌ Something went wrong. Please try again.');
     }
-  };
+  }
+};
 
   return (
     <PageWrapper backgroundImage="/images/register-bk.jpg">
