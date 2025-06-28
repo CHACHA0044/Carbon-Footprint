@@ -24,7 +24,7 @@ const History = () => {
       });
 
       const data = response.data;
-      setHistory(data.history || data);
+      setHistory(data);
     } catch (err) {
       setError('An error occurred while fetching history');
     }
