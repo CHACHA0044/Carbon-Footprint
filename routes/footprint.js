@@ -3,133 +3,124 @@ const router = express.Router();
 const authenticateToken = require('../middleware/authmiddleware');
 const CarbonEntry = require('../models/CarbonEntry');
 
-// POST: Create entry
-// POST: Create entry
+// ✅ POST: Create entry
 router.post('/', authenticateToken, async (req, res) => {
-    
   try {
     const data = req.body;
     const userId = req.user.id;
 
-    // FOOD (realistic monthly values based on global averages)
-let foodEmission = 0;
-if (data.food) {
-  const { type, amountKg } = data.food;
-  const factor = 
-    type === 'Animal based' ? 6.0 :       // kg CO₂e per kg for meat/dairy
-    type === 'Plant based' ? 1.5 :        // for veg-based items
-    3.8;                                  // mixed average
-  if (amountKg) foodEmission = factor * amountKg;
-}
+    // FOOD
+    let foodEmission = 0;
+    if (data.food) {
+      const { type, amountKg } = data.food;
+      const factor = 
+        type === 'Animal based' ? 6.0 :
+        type === 'Plant based' ? 1.5 :
+        3.8;
+      if (amountKg) foodEmission = factor * amountKg;
+    }
 
-// TRANSPORT (per km, based on reliable sources)
-let transportTotal = 0;
-const transportWithEmissions = [];
+    // TRANSPORT
+    let transportTotal = 0;
+    const transportWithEmissions = [];
+    (data.transport || []).forEach(item => {
+      const { mode, distanceKm } = item;
+      const factor = {
+        Car: 0.192,
+        Bike: 0.016,
+        Bus: 0.089,
+        Metro: 0.041,
+        Walking: 0.00,
+        Train: 0.049,
+        Flights: 0.254
+      }[mode] || 0;
 
-(data.transport || []).forEach(item => {
-  const { mode, distanceKm } = item;
-  const factor = {
-    Car: 0.192,        // kg CO₂e per km (average fuel economy car)
-    Bike: 0.016,       // includes food intake
-    Bus: 0.089,        // per passenger
-    Metro: 0.041,
-    Walking: 0.00,     // zero emission
-    Train: 0.049,      // varies regionally
-    Flights: 0.254     // economy short-haul average
-  }[mode] || 0;
+      const emissionKg = factor * distanceKm;
+      transportTotal += emissionKg;
+      transportWithEmissions.push({ mode, distanceKm, emissionKg });
+    });
 
-  const emissionKg = factor * distanceKm;
-  transportTotal += emissionKg;
-  transportWithEmissions.push({ mode, distanceKm, emissionKg });
-});
+    // ELECTRICITY
+    let electricityTotal = 0;
+    const electricityWithEmissions = [];
+    (data.electricity || []).forEach(item => {
+      const { source, consumptionKwh } = item;
+      const factor = {
+        Coal: 0.94,
+        Solar: 0.05,
+        Wind: 0.01,
+        Hydro: 0.02,
+        Mixed: 0.45
+      }[source] || 0;
 
-// ELECTRICITY (per kWh, regional estimates)
-let electricityTotal = 0;
-const electricityWithEmissions = [];
+      const emissionKg = factor * consumptionKwh;
+      electricityTotal += emissionKg;
+      electricityWithEmissions.push({ source, consumptionKwh, emissionKg });
+    });
 
-(data.electricity || []).forEach(item => {
-  const { source, consumptionKwh } = item;
-  const factor = {
-    Coal: 0.94,       // kg CO₂e per kWh
-    Solar: 0.05,
-    Wind: 0.01,
-    Hydro: 0.02,
-    Mixed: 0.45       // average blend
-  }[source] || 0;
+    // WASTE
+    let wasteTotal = 0;
+    const wasteWithEmissions = [];
+    (data.waste || []).forEach(item => {
+      const plasticKg = item.plasticKg || 0;
+      const paperKg = item.paperKg || 0;
+      const foodWasteKg = item.foodWasteKg || 0;
 
-  const emissionKg = factor * consumptionKwh;
-  electricityTotal += emissionKg;
-  electricityWithEmissions.push({ source, consumptionKwh, emissionKg });
-});
+      const emissionKg =
+        plasticKg * 5.8 +
+        paperKg * 1.3 +
+        foodWasteKg * 2.5;
 
-// WASTE (per kg of waste type)
-let wasteTotal = 0;
-const wasteWithEmissions = [];
+      wasteTotal += emissionKg;
+      wasteWithEmissions.push({ plasticKg, paperKg, foodWasteKg, emissionKg });
+    });
 
-(data.waste || []).forEach(item => {
-  const plasticKg = item.plasticKg || 0;
-  const paperKg = item.paperKg || 0;
-  const foodWasteKg = item.foodWasteKg || 0;
+    // TOTAL + SUGGESTIONS
+    const totalEmissionKg = parseFloat(
+      (foodEmission + transportTotal + electricityTotal + wasteTotal).toFixed(2)
+    );
 
-  const emissionKg = 
-    plasticKg * 5.8 +     // kg CO₂e per kg plastic
-    paperKg * 1.3 +       // kg CO₂e per kg paper
-    foodWasteKg * 2.5;    // kg CO₂e per kg food waste
+    let suggestions = '';
+    if (totalEmissionKg <= 300) {
+      suggestions =
+        "🎉 Great job! Your monthly carbon footprint is well below average. Keep up your sustainable lifestyle, and consider going even further — like planting trees, reducing plastic use, or helping others calculate their footprint.";
+    } else {
+      if (foodEmission > 80) {
+        suggestions += '🥩 Try reducing meat and dairy intake, and explore more plant-based meals. ';
+      } else if (foodEmission > 40) {
+        suggestions += '🥗 Great start! Reducing portion sizes or mixing with more plant-based meals can help. ';
+      }
 
-  wasteTotal += emissionKg;
-  wasteWithEmissions.push({ plasticKg, paperKg, foodWasteKg, emissionKg });
-});
+      if (transportTotal > 100) {
+        suggestions += '🚗 Consider using public transport, carpooling, or biking for shorter trips. ';
+      } else if (transportTotal > 50) {
+        suggestions += '🚌 Good effort! Try reducing car use a bit more if possible. ';
+      }
 
-// TOTAL + SUGGESTIONS
-const totalEmissionKg = parseFloat(
-  (foodEmission + transportTotal + electricityTotal + wasteTotal).toFixed(2)
-);
+      if (electricityTotal > 100) {
+        suggestions += '⚡ Switch to energy-efficient appliances or renewable energy if you can. ';
+      } else if (electricityTotal > 50) {
+        suggestions += '💡 Try reducing device standby time or using solar alternatives. ';
+      }
 
+      if (wasteTotal > 50) {
+        suggestions += '🗑️ Reduce single-use plastics and improve recycling habits. ';
+      } else if (wasteTotal > 30) {
+        suggestions += '♻️ Consider composting and reusing more at home. ';
+      }
 
-let suggestions = '';
+      suggestions += '🌱 Every small step helps. Keep making eco-friendly choices and inspire others too!';
+    }
 
-if (totalEmissionKg <= 300) {
-  suggestions =
-    "🎉 Great job! Your monthly carbon footprint is well below average. Keep up your sustainable lifestyle, and consider going even further — like planting trees, reducing plastic use, or helping others calculate their footprint.";
-} else {
-  if (foodEmission > 80) {
-    suggestions += '🥩 Try reducing meat and dairy intake, and explore more plant-based meals. ';
-  } else if (foodEmission > 40) {
-    suggestions += '🥗 Great start! Reducing portion sizes or mixing with more plant-based meals can help. ';
-  }
-
-  if (transportTotal > 100) {
-    suggestions += '🚗 Consider using public transport, carpooling, or biking for shorter trips. ';
-  } else if (transportTotal > 50) {
-    suggestions += '🚌 Good effort! Try reducing car use a bit more if possible. ';
-  }
-
-  if (electricityTotal > 100) {
-    suggestions += '⚡ Switch to energy-efficient appliances or renewable energy if you can. ';
-  } else if (electricityTotal > 50) {
-    suggestions += '💡 Try reducing device standby time or using solar alternatives. ';
-  }
-
-  if (wasteTotal > 50) {
-    suggestions += '🗑️ Reduce single-use plastics and improve recycling habits. ';
-  } else if (wasteTotal > 30) {
-    suggestions += '♻️ Consider composting and reusing more at home. ';
-  }
-
-  // Add motivational ending
-  suggestions += '🌱 Every small step helps. Keep making eco-friendly choices and inspire others too!';
-}
-
-    // SAVE
     const newEntry = await CarbonEntry.create({
-      user: userId,  // if you want to filter by user ID later
+      user: userId,
       food: data.food,
       transport: transportWithEmissions,
       electricity: electricityWithEmissions,
       waste: wasteWithEmissions,
       totalEmissionKg,
       suggestions,
-      email: req.user.email  // or remove this if you're no longer using email
+      email: req.user.email
     });
 
     console.log("✅ Emission entry saved:", newEntry._id);
@@ -148,7 +139,17 @@ if (totalEmissionKg <= 300) {
 });
 
 
-// ✅ GET all history
+// ✅ DELETE all (STATIC - must come before :id route)
+router.delete('/clear/all', authenticateToken, async (req, res) => {
+  try {
+    await CarbonEntry.deleteMany({ email: req.user.email });
+    res.json({ message: 'All entries cleared' });
+  } catch (err) {
+    res.status(500).json({ error: 'Error clearing entries' });
+  }
+});
+
+// ✅ GET all history (STATIC - must come before :id route)
 router.get('/history', authenticateToken, async (req, res) => {
   try {
     const userEmail = req.user.email;
@@ -160,7 +161,7 @@ router.get('/history', authenticateToken, async (req, res) => {
   }
 });
 
-// ✅ GET single entry
+// ✅ GET single entry (DYNAMIC)
 router.get('/:id', authenticateToken, async (req, res) => {
   try {
     const entry = await CarbonEntry.findById(req.params.id);
@@ -171,120 +172,110 @@ router.get('/:id', authenticateToken, async (req, res) => {
   }
 });
 
-// ✅ UPDATE emission entry
+// ✅ UPDATE entry (DYNAMIC)
 router.put('/:id', authenticateToken, async (req, res) => {
   try {
     const data = req.body;
 
-    // Recalculate emissions — same as in POST
+    // Same calculation logic reused
     let foodEmission = 0;
-if (data.food) {
-  const { type, amountKg } = data.food;
-  const factor = 
-    type === 'Animal based' ? 6.0 :       // kg CO₂e per kg for meat/dairy
-    type === 'Plant based' ? 1.5 :        // for veg-based items
-    3.8;                                  // mixed average
-  if (amountKg) foodEmission = factor * amountKg;
-}
+    if (data.food) {
+      const { type, amountKg } = data.food;
+      const factor = 
+        type === 'Animal based' ? 6.0 :
+        type === 'Plant based' ? 1.5 :
+        3.8;
+      if (amountKg) foodEmission = factor * amountKg;
+    }
 
-// TRANSPORT (per km, based on reliable sources)
-let transportTotal = 0;
-const transportWithEmissions = [];
+    let transportTotal = 0;
+    const transportWithEmissions = [];
+    (data.transport || []).forEach(item => {
+      const { mode, distanceKm } = item;
+      const factor = {
+        Car: 0.192,
+        Bike: 0.016,
+        Bus: 0.089,
+        Metro: 0.041,
+        Walking: 0.00,
+        Train: 0.049,
+        Flights: 0.254
+      }[mode] || 0;
 
-(data.transport || []).forEach(item => {
-  const { mode, distanceKm } = item;
-  const factor = {
-    Car: 0.192,        // kg CO₂e per km (average fuel economy car)
-    Bike: 0.016,       // includes food intake
-    Bus: 0.089,        // per passenger
-    Metro: 0.041,
-    Walking: 0.00,     // zero emission
-    Train: 0.049,      // varies regionally
-    Flights: 0.254     // economy short-haul average
-  }[mode] || 0;
+      const emissionKg = factor * distanceKm;
+      transportTotal += emissionKg;
+      transportWithEmissions.push({ mode, distanceKm, emissionKg });
+    });
 
-  const emissionKg = factor * distanceKm;
-  transportTotal += emissionKg;
-  transportWithEmissions.push({ mode, distanceKm, emissionKg });
-});
+    let electricityTotal = 0;
+    const electricityWithEmissions = [];
+    (data.electricity || []).forEach(item => {
+      const { source, consumptionKwh } = item;
+      const factor = {
+        Coal: 0.94,
+        Solar: 0.05,
+        Wind: 0.01,
+        Hydro: 0.02,
+        Mixed: 0.45
+      }[source] || 0;
 
-// ELECTRICITY (per kWh, regional estimates)
-let electricityTotal = 0;
-const electricityWithEmissions = [];
+      const emissionKg = factor * consumptionKwh;
+      electricityTotal += emissionKg;
+      electricityWithEmissions.push({ source, consumptionKwh, emissionKg });
+    });
 
-(data.electricity || []).forEach(item => {
-  const { source, consumptionKwh } = item;
-  const factor = {
-    Coal: 0.94,       // kg CO₂e per kWh
-    Solar: 0.05,
-    Wind: 0.01,
-    Hydro: 0.02,
-    Mixed: 0.45       // average blend
-  }[source] || 0;
+    let wasteTotal = 0;
+    const wasteWithEmissions = [];
+    (data.waste || []).forEach(item => {
+      const plasticKg = item.plasticKg || 0;
+      const paperKg = item.paperKg || 0;
+      const foodWasteKg = item.foodWasteKg || 0;
 
-  const emissionKg = factor * consumptionKwh;
-  electricityTotal += emissionKg;
-  electricityWithEmissions.push({ source, consumptionKwh, emissionKg });
-});
+      const emissionKg =
+        plasticKg * 5.8 +
+        paperKg * 1.3 +
+        foodWasteKg * 2.5;
 
-// WASTE (per kg of waste type)
-let wasteTotal = 0;
-const wasteWithEmissions = [];
+      wasteTotal += emissionKg;
+      wasteWithEmissions.push({ plasticKg, paperKg, foodWasteKg, emissionKg });
+    });
 
-(data.waste || []).forEach(item => {
-  const plasticKg = item.plasticKg || 0;
-  const paperKg = item.paperKg || 0;
-  const foodWasteKg = item.foodWasteKg || 0;
+    const totalEmissionKg = parseFloat(
+      (foodEmission + transportTotal + electricityTotal + wasteTotal).toFixed(2)
+    );
 
-  const emissionKg = 
-    plasticKg * 5.8 +     // kg CO₂e per kg plastic
-    paperKg * 1.3 +       // kg CO₂e per kg paper
-    foodWasteKg * 2.5;    // kg CO₂e per kg food waste
+    let suggestions = '';
+    if (totalEmissionKg <= 300) {
+      suggestions =
+        "🎉 Great job! Your monthly carbon footprint is well below average. Keep up your sustainable lifestyle, and consider going even further — like planting trees, reducing plastic use, or helping others calculate their footprint.";
+    } else {
+      if (foodEmission > 80) {
+        suggestions += '🥩 Try reducing meat and dairy intake, and explore more plant-based meals. ';
+      } else if (foodEmission > 40) {
+        suggestions += '🥗 Great start! Reducing portion sizes or mixing with more plant-based meals can help. ';
+      }
 
-  wasteTotal += emissionKg;
-  wasteWithEmissions.push({ plasticKg, paperKg, foodWasteKg, emissionKg });
-});
+      if (transportTotal > 100) {
+        suggestions += '🚗 Consider using public transport, carpooling, or biking for shorter trips. ';
+      } else if (transportTotal > 50) {
+        suggestions += '🚌 Good effort! Try reducing car use a bit more if possible. ';
+      }
 
-// TOTAL + SUGGESTIONS
-const totalEmissionKg = parseFloat(
-  (foodEmission + transportTotal + electricityTotal + wasteTotal).toFixed(2)
-);
+      if (electricityTotal > 100) {
+        suggestions += '⚡ Switch to energy-efficient appliances or renewable energy if you can. ';
+      } else if (electricityTotal > 50) {
+        suggestions += '💡 Try reducing device standby time or using solar alternatives. ';
+      }
 
+      if (wasteTotal > 50) {
+        suggestions += '🗑️ Reduce single-use plastics and improve recycling habits. ';
+      } else if (wasteTotal > 30) {
+        suggestions += '♻️ Consider composting and reusing more at home. ';
+      }
 
-let suggestions = '';
+      suggestions += '🌱 Every small step helps. Keep making eco-friendly choices and inspire others too!';
+    }
 
-if (totalEmissionKg <= 300) {
-  suggestions =
-    "🎉 Great job! Your monthly carbon footprint is well below average. Keep up your sustainable lifestyle, and consider going even further — like planting trees, reducing plastic use, or helping others calculate their footprint.";
-} else {
-  if (foodEmission > 80) {
-    suggestions += '🥩 Try reducing meat and dairy intake, and explore more plant-based meals. ';
-  } else if (foodEmission > 40) {
-    suggestions += '🥗 Great start! Reducing portion sizes or mixing with more plant-based meals can help. ';
-  }
-
-  if (transportTotal > 100) {
-    suggestions += '🚗 Consider using public transport, carpooling, or biking for shorter trips. ';
-  } else if (transportTotal > 50) {
-    suggestions += '🚌 Good effort! Try reducing car use a bit more if possible. ';
-  }
-
-  if (electricityTotal > 100) {
-    suggestions += '⚡ Switch to energy-efficient appliances or renewable energy if you can. ';
-  } else if (electricityTotal > 50) {
-    suggestions += '💡 Try reducing device standby time or using solar alternatives. ';
-  }
-
-  if (wasteTotal > 50) {
-    suggestions += '🗑️ Reduce single-use plastics and improve recycling habits. ';
-  } else if (wasteTotal > 30) {
-    suggestions += '♻️ Consider composting and reusing more at home. ';
-  }
-
-  // Add motivational ending
-  suggestions += '🌱 Every small step helps. Keep making eco-friendly choices and inspire others too!';
-}
-    // Update the document
     const updated = await CarbonEntry.findByIdAndUpdate(
       req.params.id,
       {
@@ -309,7 +300,7 @@ if (totalEmissionKg <= 300) {
   }
 });
 
-// ✅ DELETE one
+// ✅ DELETE single entry (DYNAMIC)
 router.delete('/:id', authenticateToken, async (req, res) => {
   try {
     const deleted = await CarbonEntry.findByIdAndDelete(req.params.id);
@@ -317,16 +308,6 @@ router.delete('/:id', authenticateToken, async (req, res) => {
     res.json({ message: 'Entry deleted' });
   } catch (err) {
     res.status(500).json({ error: 'Error deleting entry' });
-  }
-});
-
-// ✅ DELETE all
-router.delete('/clear/all', authenticateToken, async (req, res) => {
-  try {
-    await CarbonEntry.deleteMany({ email: req.user.email });
-    res.json({ message: 'All entries cleared' });
-  } catch (err) {
-    res.status(500).json({ error: 'Error clearing entries' });
   }
 });
 
