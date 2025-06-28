@@ -57,30 +57,20 @@ const navigate = useNavigate(); // INIT
 const handleSubmit = async (e) => {
   e.preventDefault();
   const token = localStorage.getItem('token');
-  if (!token) {
-    alert('❌ Please login first.');
-    navigate('/login');
-    return;
-  }
-
   try {
-    const response = await API.post('/footprint', formData, {
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`
-      }
+    const res = await API.post('/footprint', formData, {
+      headers: { Authorization: `Bearer ${token}` }
     });
 
-    const data = response.data;
-
-    alert(`✅ ${data.message || 'Footprint entry submitted successfully'}`);
-    navigate('/dashboard'); // 👈 redirect to Dashboard
+    alert('Entry submitted successfully');
+    navigate('/dashboard', { state: { updated: Date.now() } });
   } catch (err) {
     const errorMsg = err.response?.data?.error || 'Something went wrong';
-    console.error('❌ Error:', err);
+    console.error('❌ Submission Error:', err);
     alert(`❌ ${errorMsg}`);
   }
 };
+
 
   return (
     <PageWrapper backgroundImage="/images/dashboard-bk.jpg">

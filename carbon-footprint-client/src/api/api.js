@@ -2,7 +2,7 @@ import axios from 'axios';
 
 // ✅ Replace localhost with your live Render backend URL
 const API = axios.create({
-  baseURL: 'https://carbon-backend-ra0j.onrender.com/api',
+  baseURL: process.env.REACT_APP_API_URL || 'http://localhost:5000/api', // fallback for dev
 });
 
 API.interceptors.request.use((req) => {
