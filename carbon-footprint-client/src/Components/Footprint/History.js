@@ -17,7 +17,7 @@ const History = () => {
 
   const fetchHistory = async () => {
     try {
-      const response = await API.get('/api/footprint/history', {
+      const response = await API.get('/footprint/history', {
         headers: {
           Authorization: `Bearer ${token}`
         }
