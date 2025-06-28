@@ -1,4 +1,3 @@
-delete process.env.DEBUG_URL;
 require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');

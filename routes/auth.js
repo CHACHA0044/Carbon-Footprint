@@ -76,5 +76,6 @@ router.post('/login', async (req, res) => {
 router.get('/test', (req, res) => {
   res.send('✅ Auth route is working');
 });
-console.log('🧪 authRoutes contents:', authRoutes);
+console.log('🔍 Auth router loaded:', router.stack.length);
+
 module.exports = router;

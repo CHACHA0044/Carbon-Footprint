@@ -311,6 +311,4 @@ router.delete('/:id', authenticateToken, async (req, res) => {
   }
 });
 
-console.log('🧪 footprintRoutes contents:', footprintRoutes);
-
 module.exports = router;
