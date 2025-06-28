@@ -3,6 +3,8 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import PageWrapper from 'common/PageWrapper';
 
+const token = localStorage.getItem('token');
+
 const Footprint = () => {
   const [formData, setFormData] = useState({
     food: { type: '', amountKg: '' },
