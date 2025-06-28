@@ -2,14 +2,17 @@ const dotenv = require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
+const path = require('path');
 
 // ✅ Create Express app
 const app = express();
 const authRoutes = require('./routes/auth');
 const footprintRoutes = require('./routes/footprint');
+
 // ✅ Define allowed CORS origins
 const allowedOrigins = ['https://carbon-footprint-1yac.onrender.com'];
 console.log('📌 process.env.DEBUG_URL after delete:', process.env.DEBUG_URL);
+
 // ✅ Setup CORS
 app.use(cors({
   origin: allowedOrigins,
@@ -27,28 +30,22 @@ app.options('*', cors({
 // ✅ Body parser middleware
 app.use(express.json());
 
-// ✅ Load routes
-
-
-// ✅ Debug logs before registering routes
-console.log('🔄 Loading routes...');
-console.log('🔄 authRoutes loaded:', typeof authRoutes === 'function');
-console.log('🔄 footprintRoutes loaded:', typeof footprintRoutes === 'function');
-
-// ✅ Register routes
-app.use('/api/footprint', require('./routes/footprint'));
-app.use('/api/auth', require('./routes/auth'));
-
+// ✅ Register API routes
+app.use('/api/footprint', footprintRoutes);
+app.use('/api/auth', authRoutes);
 
 // ✅ Test root route
-app.get('/', (req, res) => {
+app.get('/api', (req, res) => {
   res.send('🌍 Carbon Footprint API is running!');
 });
 
-// ✅ Log environment variables (for debug only – remove in production)
-console.log('🌐 Environment Test Variable:', process.env.TEST || 'Not set');
-console.log('🌐 MONGO_URI:', process.env.MONGO_URI ? 'Loaded' : 'Missing');
-console.log('🌐 PORT:', process.env.PORT);
+// ✅ Serve React frontend (after all /api routes)
+const clientBuildPath = path.join(__dirname, '../carbon-footprint-client/build');
+app.use(express.static(clientBuildPath));
+
+app.get('*', (req, res) => {
+  res.sendFile(path.join(clientBuildPath, 'index.html'));
+});
 
 // ✅ MongoDB connection
 mongoose.connect(process.env.MONGO_URI, {
@@ -61,7 +58,7 @@ mongoose.connect(process.env.MONGO_URI, {
   console.error('❌ MongoDB connection error:', err.message);
 });
 
-// ✅ Start the server
+// ✅ Start the server (after everything is setup)
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
   console.log(`🚀 Server is running on port ${PORT}`);
