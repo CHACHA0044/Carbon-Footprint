@@ -1,4 +1,5 @@
-import API from '../../api/api';
+import API from '../../../api/api';
+
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import PageWrapper from 'common/PageWrapper'; 
