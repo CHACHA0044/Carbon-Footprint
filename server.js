@@ -1,3 +1,4 @@
+
 require('dotenv').config(); 
 const express = require('express');
 const mongoose = require('mongoose');
@@ -5,19 +6,28 @@ const cors = require('cors');
 
 const app = express();
 
-// Load routes
-const authRoutes = require('./routes/auth');
-const footprintRoutes = require('./routes/footprint');
+// ✅ Allow your frontend's Render domain
+const allowedOrigins = ['https://carbon-footprint-1yac.onrender.com'];
 
-// Middleware
 app.use(cors({
-  origin: 'https://carbon-footprint-1yac.onrender.com', // replace with your frontend's actual Render domain once deployed
-  credentials: true
+  origin: allowedOrigins,
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization']
+}));
+
+// ✅ Explicitly handle preflight
+app.options('*', cors({
+  origin: allowedOrigins,
+  credentials: true,
 }));
 
 app.use(express.json());
 
-// Route mounting
+// Routes
+const authRoutes = require('./routes/auth');
+const footprintRoutes = require('./routes/footprint');
+
 app.use('/api/auth', authRoutes);
 app.use('/api/footprint', footprintRoutes);
 
@@ -34,12 +44,10 @@ mongoose.connect(process.env.MONGO_URI, {
   console.error('❌ MongoDB connection error:', err);
 });
 
-// Root route
 app.get('/', (req, res) => {
   res.send('Carbon Footprint API is running!');
 });
 
-// Start server
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
   console.log(`🚀 Server running on port ${PORT}`);
