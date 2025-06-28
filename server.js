@@ -39,13 +39,6 @@ app.get('/api', (req, res) => {
   res.send('🌍 Carbon Footprint API is running!');
 });
 
-// ✅ Serve React frontend (after all /api routes)
-const clientBuildPath = path.join(__dirname, '../carbon-footprint-client/build');
-app.use(express.static(clientBuildPath));
-
-app.get('*', (req, res) => {
-  res.sendFile(path.join(clientBuildPath, 'index.html'));
-});
 
 // ✅ MongoDB connection
 mongoose.connect(process.env.MONGO_URI, {
