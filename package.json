@@ -23,5 +23,9 @@
   },
   "engines": {
   "node": "18.x"
+},
+"Dependencies": {
+  "react-router-dom": "6.17.0",
+  "path-to-regexp": "6.2.1"
 }
 }
