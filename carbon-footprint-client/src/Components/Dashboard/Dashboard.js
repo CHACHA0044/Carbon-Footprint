@@ -10,7 +10,7 @@ const Dashboard = () => {
   const [version, setVersion] = useState(0);
   const sectionRefs = useRef([]);
   const location = useLocation();
-  const navigate = useNavigate();
+  const navigate = useNavigate(); 
 
   const fetchHistory = async () => {
     try {
