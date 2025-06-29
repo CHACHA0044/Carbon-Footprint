@@ -34,13 +34,13 @@ const Login = () => {
   try {
     const { data } = await API.post('/auth/login', formData);
 
-    // ✅ Save token and user info
+    // saving token and user info
     localStorage.setItem('token', data.token);
     localStorage.setItem('user', JSON.stringify(data.user));
     setSuccess('😎');
     setError('');
 
-    // ✅ Redirect after a short delay
+    // redirect after a short delay
     setTimeout(() => navigate('/dashboard'), 500);
   } catch (err) {
     console.error('❌ Login error:', err);
@@ -97,7 +97,7 @@ const Login = () => {
       Logging in...
     </>
   ) : (
-    'Login'
+    'Login Successful'
   )}
 </button>
 
