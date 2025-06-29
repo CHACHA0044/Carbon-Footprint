@@ -9,6 +9,10 @@ const PageWrapper = ({ children, backgroundImage }) => {
     setDarkMode(isDark);
     document.documentElement.classList.toggle('dark', isDark);
   }, []);
+  useEffect(() => {
+  const img = new Image();
+  img.src = backgroundImage;
+}, [backgroundImage]);
 
   const toggleTheme = () => {
     const newMode = !darkMode;
