@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 
 const PageWrapper = ({ children, backgroundImage }) => {
   const [darkMode, setDarkMode] = useState(false);
-
+  const [bgLoaded, setBgLoaded] = useState(false);
   useEffect(() => {
     const stored = localStorage.getItem('theme');
     const isDark = stored === 'dark';
@@ -10,9 +10,12 @@ const PageWrapper = ({ children, backgroundImage }) => {
     document.documentElement.classList.toggle('dark', isDark);
   }, []);
   useEffect(() => {
-  const img = new Image();
-  img.src = backgroundImage;
-}, [backgroundImage]);
+    if (backgroundImage) {
+      const img = new Image();
+      img.src = backgroundImage;
+      img.onload = () => setBgLoaded(true);
+    }
+  }, [backgroundImage]);
 
   const toggleTheme = () => {
     const newMode = !darkMode;
@@ -23,7 +26,7 @@ const PageWrapper = ({ children, backgroundImage }) => {
 
   return (
     <div
-      className="min-h-screen flex justify-center bg-cover bg-center bg-no-repeat bg-fixed"
+      className="min-h-screen flex justify-start items-center bg-cover bg-center bg-no-repeat bg-fixed transition-opacity duration-500 ${bgLoaded ? 'opacity-100' : 'opacity-0'}"
       style={{
         backgroundImage: backgroundImage ? `url(${backgroundImage})` : 'none',
         backgroundAttachment: 'fixed',

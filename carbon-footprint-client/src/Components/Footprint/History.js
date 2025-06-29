@@ -90,13 +90,13 @@ const History = () => {
               <p className="italic">💡 Suggestions: {entry.suggestions}</p>
               <div className="mt-3 flex gap-3">
                 <button
-                  className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-1 rounded"
+                  className="bg-blue-500 hover:bg-blue-800 text-emerald-500 dark:text-white px-4 py-1 rounded"
                   onClick={() => navigate(`/edit/${entry._id}`)}
                 >
                   Edit
                 </button>
                 <button
-                  className="bg-red-500 hover:bg-red-600 text-white px-4 py-1 rounded"
+                  className="bg-red-500 hover:bg-red-800 text-emerald-500 dark:text-white px-4 py-1 rounded"
                   onClick={() => handleDelete(entry._id)}
                 >
                   Delete
@@ -109,7 +109,7 @@ const History = () => {
         {history.length > 0 && (
           <button
             onClick={handleClearAll}
-            className="mt-6 bg-red-600 hover:bg-red-700 text-white px-6 py-2 rounded block mx-auto"
+            className="mt-6 bg-red-500 hover:bg-red-800 text-emerald-500 dark:text-white px-6 py-2 rounded block mx-auto"
           >
             🗑️ Clear All History
           </button>

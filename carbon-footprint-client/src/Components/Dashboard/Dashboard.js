@@ -65,15 +65,15 @@ const Dashboard = () => {
   };
 
   return (
-    <PageWrapper backgroundImage="/images/dashboard-bk.jpg">
-      <div className="w-full min-h-screen flex flex-col text-emerald-500 dark:text-gray-100 px-6 py-6">
+    <PageWrapper backgroundImage="/images/dashboard-bk.webp">
+      <div className="w-full flex flex-col text-emerald-500 dark:text-gray-100 px-6 py-6">
         <header className="flex justify-between items-center mb-4">
           <h1 className="text-xl font-semibold">
             🫡 Welcome, {user?.name || 'User'}
           </h1>
         </header>
 
-        <div className="text-center text-4xl md:text-6xl font-bold tracking-tight mb-6 text-emerald-700 dark:text-white">
+        <div className="text-center text-4xl md:text-6xl font-bold tracking-tight mb-6 text-emerald-500 dark:text-white">
           Your Climate Dashboard
         </div>
 
@@ -86,8 +86,8 @@ const Dashboard = () => {
                 key={index}
                 className="bg-white/20 dark:bg-gray-800/40 backdrop-blur-md rounded-xl p-4 shadow-md text-sm"
               >
-                <p className="text-2xl md:text-3xl font-semibold text-emerald-600 dark:text-white"><strong>Total Emission:</strong> {entry.totalEmissionKg} kg CO2</p>
-                <p className="text-2xl md:text-3xl font-semibold text-emerald-600 dark:text-white"><strong>Suggestions:</strong> {entry.suggestions}</p>
+                <p className="text-2xl md:text-3xl font-semibold text-emerald-500 dark:text-white"><strong>Total Emission:</strong> {entry.totalEmissionKg} kg CO2</p>
+                <p className="text-2xl md:text-3xl font-semibold text-emerald-500 dark:text-white"><strong>Suggestions:</strong> {entry.suggestions}</p>
               </div>
             ))
           ) : (
@@ -97,6 +97,7 @@ const Dashboard = () => {
           )}
 
           {/* Expandable Sections */}
+          <div className="max-h-[400px] overflow-y-auto pr-2">
           {[
             {
               id: 'understanding',
@@ -177,38 +178,40 @@ const Dashboard = () => {
       setOpenSection((prev) => (prev === section.id ? null : section.id))
     }
   >
-    <h2 className="text-2xl md:text-3xl font-bold text-emerald-600 dark:text-white mb-2">
+    <h2 className="text-2xl md:text-3xl font-bold text-emerald-500 dark:text-white mb-2">
       {section.title}
     </h2>
     <div
       className={`transition-all duration-500 ease-in-out overflow-hidden ${
-        openSection === section.id ? 'max-h-[1000px] opacity-100 mt-2' : 'max-h-0 opacity-0'
+        openSection === section.id ? 'max-h-[500px] opacity-y-auto opacity-100 mt-2' : 'max-h-0 opacity-0'
       }`}
     >
       {section.content}
     </div>
   </section>
-))}
+))
+
+}</div>
         </main>
 
         <footer className="flex flex-col sm:flex-row justify-between items-center mt-8 gap-4">
           <Link
             to="/footprint"
-            className="px-4 py-2 text-white bg-transparent border border-white rounded hover:bg-emerald-500 hover:text-black transition"
+            className="px-4 py-2 text-emerald-500 dark:text-white bg-transparent border border-white rounded hover:bg-emerald-700 hover:text-black transition"
           >
             Submit New Entry
           </Link>
 
           <Link
             to="/history"
-            className="px-4 py-2 text-white bg-transparent border border-white rounded hover:bg-emerald-500 hover:text-black transition"
+            className="px-4 py-2 text-emerald-500 dark:text-white bg-transparent border border-white rounded hover:bg-emerald-700 hover:text-black transition"
           >
             Edit Entries
           </Link>
 
           <button
             onClick={handleLogout}
-            className="px-4 py-2 text-white bg-transparent border border-white rounded hover:bg-emerald-500 hover:text-black transition"
+            className="px-4 py-2 text-emerald-500 dark:text-white bg-transparent border border-white rounded hover:bg-emerald-700 hover:text-black transition"
           >
             Logout
           </button>
