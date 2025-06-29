@@ -38,7 +38,7 @@ const Login = () => {
     setError('');
 
     // ✅ Redirect after a short delay
-    setTimeout(() => navigate('/dashboard'), 1500);
+    setTimeout(() => navigate('/dashboard'), 500);
   } catch (err) {
     console.error('❌ Login error:', err);
     setSuccess('');
