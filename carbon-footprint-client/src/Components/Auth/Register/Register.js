@@ -39,7 +39,7 @@ const Register = () => {
       localStorage.setItem('token', response.data.token || '');
       setSuccess('🥂');
       setError('');
-      setTimeout(() => navigate('/login'), 500);
+      setTimeout(() => navigate('/login'), 1500);
     } catch (error) {
       console.error('❌ Registration error:', error);
       const msg = error.response?.data?.error || '❌ Registration failed. Try again.';
