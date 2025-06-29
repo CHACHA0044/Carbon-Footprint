@@ -23,6 +23,7 @@ const Register = () => {
 
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -38,13 +39,15 @@ const Register = () => {
       localStorage.setItem('token', response.data.token || '');
       setSuccess('🥂 Welcome aboard!');
       setError('');
-      setTimeout(() => navigate('/login'), 1500);
+      setTimeout(() => navigate('/login'), 500);
     } catch (error) {
       console.error('❌ Registration error:', error);
       const msg = error.response?.data?.error || '❌ Registration failed. Try again.';
       setError(msg);
       setSuccess('');
       setFormData({ name: '', email: '', password: '' });
+    } finally{
+      setLoading(false);
     }
   };
 
