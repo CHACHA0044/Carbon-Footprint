@@ -42,7 +42,6 @@ const Dashboard = () => {
  useEffect(() => {
   if (location.state?.updated) {
     fetchHistory();
-    // Optional: Clear the state to prevent infinite fetches
     window.history.replaceState({}, document.title);
   }
 }, [location.state?.updated]);

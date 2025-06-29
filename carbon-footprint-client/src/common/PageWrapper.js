@@ -19,9 +19,11 @@ const PageWrapper = ({ children, backgroundImage }) => {
 
   return (
     <div
-      className="min-h-screen bg-cover bg-center bg-no-repeat md:bg-fixed"
+      className="min-h-screen flex flex-col bg-cover bg-center bg-no-repeat md:bg-fixed"
       style={{
         backgroundImage: backgroundImage ? `url(${backgroundImage})` : 'none',
+        backgroundAttachment: 'local',
+        backgroundSize: 'cover',
       }}
     >
       {/* Dark Mode Button */}
@@ -34,7 +36,7 @@ const PageWrapper = ({ children, backgroundImage }) => {
         </button>
       </div>
 
-      <div className="min-h-screen w-full flex flex-col items-center justify-center">
+      <div className="min-h-screen w-full flex-1 flex-col items-center justify-center overflow-y-auto">
         {children}
       </div>
     </div>
