@@ -37,7 +37,7 @@ const Register = () => {
       const response = await API.post('/auth/register', formData);
 
       localStorage.setItem('token', response.data.token || '');
-      setSuccess('🥂 Welcome aboard!');
+      setSuccess('🥂');
       setError('');
       setTimeout(() => navigate('/login'), 500);
     } catch (error) {
@@ -93,7 +93,23 @@ const Register = () => {
             autoComplete="new-password"
             title="Just for this app"
           />
-          <button type="submit" className={`${buttonBase} ${buttonGreen}`}>Submit</button>
+           <button
+            type="submit"
+            className={`${buttonBase} ${buttonGreen}`}
+            disabled={loading || !!success}
+          >
+            {loading
+              ? (<>
+      <svg className="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"></path>
+      </svg>
+      Registering...
+    </>)
+              : success
+              ? 'Registration Successful'
+              : 'Submit'}
+          </button>
         </form>
       </div>
     </PageWrapper>
