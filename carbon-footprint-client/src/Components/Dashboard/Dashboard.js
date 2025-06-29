@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { Link, useLocation } from 'react-router-dom'; 
+import { Link, useLocation, useNavigate } from 'react-router-dom'; 
 import PageWrapper from 'common/PageWrapper';
 
 const Dashboard = () => {
@@ -10,6 +10,7 @@ const Dashboard = () => {
   const [version, setVersion] = useState(0);
   const sectionRefs = useRef([]);
   const location = useLocation();
+  const navigate = useNavigate();
 
   const fetchHistory = async () => {
     try {
@@ -61,7 +62,7 @@ const Dashboard = () => {
   const handleLogout = () => {
     localStorage.removeItem('token');
     localStorage.removeItem('user');
-    window.location.href = '/login';
+    navigate('/home');
   };
 
   return (
