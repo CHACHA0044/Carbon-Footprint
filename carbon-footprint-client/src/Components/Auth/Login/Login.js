@@ -96,9 +96,12 @@ const Login = () => {
       </svg>
       Logging in...
     </>
-  ) : (
+  ) : success
+  ? (
     'Login Successful'
-  )}
+  )
+  : 'Login'
+}
 </button>
 
         </form>
