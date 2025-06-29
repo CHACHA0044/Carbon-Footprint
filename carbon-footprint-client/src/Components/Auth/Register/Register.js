@@ -95,7 +95,7 @@ const Register = () => {
           />
            <button
             type="submit"
-            className={`${buttonBase} ${buttonGreen}`}
+            className={`${buttonBase} ${buttonGreen} flex items-center justify-center gap-2`}
             disabled={loading || !!success}
           >
             {loading
@@ -105,10 +105,9 @@ const Register = () => {
         <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"></path>
       </svg>
       Registering...
-    </>)
-              : success
-              ? 'Registration Successful'
-              : 'Submit'}
+      </>) : success
+            ? ('Registration Successful')
+            : 'Submit'}
           </button>
         </form>
       </div>
