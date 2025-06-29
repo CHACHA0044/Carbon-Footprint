@@ -100,7 +100,7 @@ const Login = () => {
   ? (
     'Login Successful'
   )
-  : 'Login'
+  : 'Submit'
 }
 </button>
 
