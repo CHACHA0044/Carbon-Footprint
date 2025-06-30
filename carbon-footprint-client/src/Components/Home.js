@@ -4,7 +4,7 @@ import PageWrapper from 'common/PageWrapper';
 
 const Home = ({ isLoggedIn, user }) => {
   return (
-    <PageWrapper backgroundImage="/images/register-bk.jpg">
+    <PageWrapper backgroundImage="/images/register-bk.webp">
       <div className="min-h-screen flex flex-col text-lime-700 dark:text-fuchsia-50 transition-colors duration-500">
         {/* Header */}
         <header className="w-full fixed top-0 left-0 z-40 justify-between items-center px-6 py-4 bg-black/60 dark:bg-black/80 backdrop-blur-md">
