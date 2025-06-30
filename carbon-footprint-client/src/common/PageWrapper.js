@@ -13,7 +13,7 @@ const PageWrapper = ({ children, backgroundImage }) => {
     if (backgroundImage) {
       const img = new Image();
       img.src = backgroundImage;
-      img.onload = () => setBgLoaded(true);
+      img.onload = () => document.body.classList.add('bg-loaded');
     }
   }, [backgroundImage]);
 
@@ -28,7 +28,7 @@ const PageWrapper = ({ children, backgroundImage }) => {
     <div
       className="min-h-screen flex justify-start items-center bg-cover bg-center bg-no-repeat bg-fixed transition-opacity duration-500 ${bgLoaded ? 'opacity-100' : 'opacity-0'}"
       style={{
-        backgroundImage: backgroundImage ? `url(${backgroundImage})` : 'none',
+        backgroundImage: `url(${backgroundImage})`,
         backgroundAttachment: 'fixed',
         backgroundSize: 'cover',
         backgroundPosition: 'center',
