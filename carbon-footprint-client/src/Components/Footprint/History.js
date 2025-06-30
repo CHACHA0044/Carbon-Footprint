@@ -72,7 +72,7 @@ const History = () => {
 
   return (
     <PageWrapper backgroundImage="/images/history-bk.webp">
-      <div className="max-w-4xl mx-auto p-6 text-green-500 dark:text-white">
+      <div className="w-full flex-1 flex-col px-6 py-6 overflow-y-auto text-emerald-500 dark:text-white">
         <h2 className="text-3xl font-bold mb-6 text-center">Emission History</h2>
 
         {error && <p className="text-red-500 text-center mb-4">{error}</p>}

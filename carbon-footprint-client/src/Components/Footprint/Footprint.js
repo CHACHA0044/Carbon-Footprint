@@ -76,7 +76,7 @@ const handleSubmit = async (e) => {
 
   return (
     <PageWrapper backgroundImage="/images/dashboard-bk.webp">
-      <div className="flex flex-col items-center justify-center w-full px-4">
+      <div className="flex flex-col items-center justify-center w-full px-6 py-6 overflow-y-auto">
         <form
           onSubmit={handleSubmit}
           className="w-full max-w-xl p-6 bg-white/10 dark:bg-black/30 backdrop-blur-lg rounded-xl text-white space-y-6 shadow-xl transition-all duration-500"
