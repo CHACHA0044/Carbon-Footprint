@@ -26,6 +26,10 @@ module.exports = {
       backgroundImage: {
         'dashboard': "url('/images/dashboard-bk.webp')",
       },
+       willChange: {
+        scroll: 'scroll-position',
+        transform: 'transform',
+      },
     },
   },
   plugins: [],

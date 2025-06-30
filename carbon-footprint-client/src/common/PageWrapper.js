@@ -31,6 +31,8 @@ const PageWrapper = ({ children, backgroundImage }) => {
         backgroundImage: backgroundImage ? `url(${backgroundImage})` : 'none',
         backgroundAttachment: 'fixed',
         backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        backgroundRepeat: 'no-repeat',
       }}
     >
       {/* Dark Mode Button */}
@@ -43,7 +45,7 @@ const PageWrapper = ({ children, backgroundImage }) => {
         </button>
       </div>
 
-      <div className="max-w-screen-xl w-full flex items-center justify-center overflow-y-auto">
+      <div className="max-w-screen-xl w-full flex-1 items-center justify-center overflow-y-auto">
         {children}
       </div>
     </div>

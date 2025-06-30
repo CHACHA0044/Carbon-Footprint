@@ -73,7 +73,7 @@ const Dashboard = () => {
           </h1>
         </header>
 
-        <div className="text-center text-4xl md:text-6xl font-bold tracking-tight mb-6 text-emerald-500 dark:text-white">
+        <div className="text-center text-4xl md:text-6xl font-bold tracking-tight mb-6 text-emerald-500 dark:text-white will-change-scroll">
           Your Climate Dashboard
         </div>
 
@@ -97,7 +97,7 @@ const Dashboard = () => {
           )}
 
           {/* Expandable Sections */}
-          <div className="max-h-[400px] overflow-y-auto pr-2">
+          <div className="max-h-[400px] overflow-y-auto pr-2 will-change-transform">
           {[
             {
               id: 'understanding',
