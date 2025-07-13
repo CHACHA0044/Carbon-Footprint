@@ -28,7 +28,7 @@ const PageWrapper = ({ children, backgroundImage }) => {
 
   return (
     <div
-      className={`min-h-screen w-full flex flex-col justify-between items-center transition-opacity animate-fadeIn pointer-events-none ${
+      className={`min-h-screen w-full flex flex-col justify-between items-center transition-opacity animate-fadeIn duration-300 ${
         bgLoaded ? 'opacity-100' : 'opacity-0'
       }`}
       style={{
