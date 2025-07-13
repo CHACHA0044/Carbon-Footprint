@@ -66,7 +66,7 @@ const Dashboard = () => {
 
   return (
     <PageWrapper backgroundImage="/images/dashboard-bk.webp">
-      <div className="w-full flex-1 flex-col text-emerald-500 dark:text-gray-100 px-6 py-6 overflow-y-auto">
+      <div className="w-full mx-auto flex flex-col text-emerald-500 dark:text-gray-100 px-6 py-8 space-y-6">
         <header className="flex justify-between items-center mb-4">
           <h1 className="text-xl font-semibold">
             🫡 Welcome, {user?.name || 'User'}
@@ -84,7 +84,7 @@ const Dashboard = () => {
             data.map((entry, index) => (
               <div
                 key={index}
-                className="bg-white/20 dark:bg-gray-800/40 backdrop-blur-md rounded-xl p-4 shadow-md text-sm"
+                className="bg-white/20 dark:bg-gray-800/40 backdrop-blur-md rounded-xl p-4 shadow-md text-sm mb-6"
               >
                 <p className="text-2xl md:text-3xl font-semibold text-emerald-500 dark:text-white"><strong>Total Emission:</strong> {entry.totalEmissionKg} kg CO2</p>
                 <p className="text-2xl md:text-3xl font-semibold text-emerald-500 dark:text-white"><strong>Suggestions:</strong> {entry.suggestions}</p>
