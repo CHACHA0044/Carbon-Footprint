@@ -15,4 +15,4 @@ export const inputMail = "w-full px-4 py-3 border border-gray-400 dark:border-gr
 
 export const inputPass = "w-full px-4 py-3 border border-gray-400 dark:border-gray-700 rounded-md shadow-sm bg-white dark:bg-gray-700 text-black dark:text-white focus:outline-none focus:ring focus:ring-slate-300";
 
-export const boxglow = "w-full max-w-md bg-slate-50 dark:bg-gray-900 p-10 rounded-xl shadow-[0_0_20px_rgba(34,197,94,0.5)] dark:shadow-[0_0_20px_rgba(34,197,94,0.8)]";
+export const boxglow = "rounded-xl bg-black/60 dark:bg-black/60 p-8 shadow-[0_0_30px_5px_rgba(34,197,94,0.6)] backdrop-blur-md";

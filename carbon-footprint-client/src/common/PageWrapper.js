@@ -26,7 +26,7 @@ const PageWrapper = ({ children, backgroundImage }) => {
 
   return (
     <div
-      className="min-h-screen w-full relative flex justify-start items-center bg-cover bg-center bg-no-repeat bg-fixed transition-opacity duration-500 ${bgLoaded ? 'opacity-100' : 'opacity-0'}"
+      className="min-h-screen w-full relative flex flex-col justify-start items-center bg-cover bg-center bg-no-repeat bg-fixed transition-opacity duration-500 ${bgLoaded ? 'opacity-100' : 'opacity-0'}"
       style={{
         backgroundImage: `url(${backgroundImage})`,
         backgroundAttachment: 'fixed',
@@ -45,7 +45,7 @@ const PageWrapper = ({ children, backgroundImage }) => {
         </button>
       </div>
 
-      <div className="relative z-10 h-full w-full flex flex-col items-center justify-center overflow-y-auto">
+      <div className="relative z-10 h-full w-full flex-1 items-center justify-center overflow-y-auto">
         {children}
       </div>
     </div>
