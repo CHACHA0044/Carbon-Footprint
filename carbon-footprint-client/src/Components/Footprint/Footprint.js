@@ -52,9 +52,9 @@ const Footprint = () => {
       waste: [{ ...formData.waste[0], [e.target.name]: e.target.value }]
     });
   };
- // ADD THIS
+ // 
 
-const navigate = useNavigate(); // INIT
+const navigate = useNavigate(); 
 
 const handleSubmit = async (e) => {
   e.preventDefault();
@@ -73,7 +73,7 @@ const handleSubmit = async (e) => {
   }
 };
 
-
+// ui
   return (
     <PageWrapper backgroundImage="/images/dashboard-bk.webp">
       <div className="flex flex-col items-center justify-center w-full px-6 py-6 overflow-y-auto">
@@ -83,7 +83,7 @@ const handleSubmit = async (e) => {
         >
           <h2 className="text-3xl font-bold text-center text-emerald-500 dark:text-gray-100">Carbon Footprint Entry</h2>
             <h3 className="text-1xl font-bold text-center text-emerald-500 dark:text-gray-100">Enter your estimated carbon data for this month 🌍</h3>
-          {/* Food Section */}
+          {/* food */}
           <div>
             <label className="block mb-1 text-emerald-500 dark:text-gray-100">Diet Type 𓌉◯𓇋</label>
             <select
@@ -107,7 +107,7 @@ const handleSubmit = async (e) => {
             />
           </div>
 
-          {/* Transport Section */}
+          {/* transport */}
           <div>
             <label className="block mb-1 text-emerald-500 dark:text-gray-100">Transport 🛸</label>
             {formData.transport.map((t, i) => (
@@ -145,7 +145,7 @@ const handleSubmit = async (e) => {
             </button>
           </div>
 
-          {/* Electricity Section */}
+          {/* electricity */}
           <div>
             <label className="block mb-1 text-emerald-500 dark:text-gray-100">Electricity ⚡</label>
             {formData.electricity.map((el, i) => (
@@ -182,7 +182,7 @@ const handleSubmit = async (e) => {
             </button>
           </div>
 
-          {/* Waste Section */}
+          {/* waste */}
           <div>
             <label className="block mb-1 text-emerald-500 dark:text-gray-100">Waste 🗑️(kg)</label>
             <input
