@@ -55,8 +55,8 @@ const PageWrapper = ({ children, backgroundImage }) => {
       </div>
 
       {/* Footer fixed to bottom center */}
-      <footer className="w-full text-center py-4 text-sm text-emerald-700 dark:text-white">
-        © 2025 Carbon Footprint Tracker — All rights reserved.
+      <footer className="w-full text-center text-base italic py-4 text-emerald-700 dark:text-white">
+      Carbon down. Future up. v0.0.1
       </footer>
     </div>
   );

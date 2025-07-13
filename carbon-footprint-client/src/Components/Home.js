@@ -51,10 +51,10 @@ const Home = ({ isLoggedIn, user }) => {
           )}
         </main>
 
-        {/* Footer */}
+        {/* Footer 
         <footer className="text-center py-4 text-gray-500 dark:text-gray-400 text-base italic">
         Carbon down. Future up. v0.0.1
-        </footer>
+        </footer>*/}
       </div>
     </PageWrapper>
   );
