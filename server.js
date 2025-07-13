@@ -4,43 +4,43 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const path = require('path');
 
-// ✅ Create Express app
+//Express app
 const app = express();
 const authRoutes = require('./routes/auth');
 const footprintRoutes = require('./routes/footprint');
 
-// ✅ Define allowed CORS origins
+// allowed CORS origins
 const allowedOrigins = ['https://carbon-footprint-1yac.onrender.com'];
 console.log('📌 process.env.DEBUG_URL after delete:', process.env.DEBUG_URL);
 
-// ✅ Setup CORS
+//setup CORS
 app.use(cors({
-  origin: allowedOrigins,
+  origin: function (origin, callback) {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      console.log('❌ Blocked by CORS:', origin);
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization']
+  allowedHeaders: ['Content-Type', 'Authorization'],
 }));
 
-// ✅ Handle preflight requests
-app.options('*', cors({
-  origin: allowedOrigins,
-  credentials: true,
-}));
-
-// ✅ Body parser middleware
 app.use(express.json());
 
-// ✅ Register API routes
+//api routes
 app.use('/api/footprint', footprintRoutes);
 app.use('/api/auth', authRoutes);
 
-// ✅ Test root route
+//Test root route
 app.get('/api', (req, res) => {
   res.send('🌍 Carbon Footprint API is running!');
 });
 
 
-// ✅ MongoDB connection
+//mongo connection
 mongoose.connect(process.env.MONGO_URI, {
   dbName: 'carbon-tracker',
 })
@@ -51,7 +51,6 @@ mongoose.connect(process.env.MONGO_URI, {
   console.error('❌ MongoDB connection error:', err.message);
 });
 
-// ✅ Start the server (after everything is setup)
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
   console.log(`🚀 Server is running on port ${PORT}`);
