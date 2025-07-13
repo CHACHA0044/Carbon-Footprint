@@ -45,7 +45,7 @@ const PageWrapper = ({ children, backgroundImage }) => {
         </button>
       </div>
 
-      <div className="relative z-10 h-full w-full flex flex-col items-center justify-center overflow-y-auto">
+      <div className="relative z-10 min-h-screen w-full flex flex-col items-center justify-center overflow-y-auto">
         {children}
       </div>
     </div>
