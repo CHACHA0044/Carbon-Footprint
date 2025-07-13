@@ -51,8 +51,8 @@ const Home = ({ isLoggedIn, user }) => {
         </main>
 
         {/* Footer */}
-        <footer className="text-center text-sm py-4 text-gray-500 dark:text-gray-400">
-        Carbon down. Future up.
+        <footer className="text-center text-sm py-4 text-gray-500 dark:text-gray-400 italic">
+        Carbon down. Future up. v 0.0.1
         </footer>
       </div>
     </PageWrapper>
