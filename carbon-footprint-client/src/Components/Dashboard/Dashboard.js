@@ -66,7 +66,7 @@ const Dashboard = () => {
 
   return (
     <PageWrapper backgroundImage="/images/dashboard-bk.webp">
-      <div className="w-full mx-auto flex flex-col text-emerald-500 dark:text-gray-100 px-6 py-8 space-y-6">
+      <div className="w-full max-w-6xl flex flex-col text-emerald-500 dark:text-gray-100 px-6 py-8 space-y-6">
         <header className="flex justify-between items-center mb-4">
           <h1 className="text-xl font-semibold">
             🫡 Welcome, {user?.name || 'User'}
