@@ -33,9 +33,13 @@ const PageWrapper = ({ children, backgroundImage }) => {
       }`}
       style={{
         backgroundImage: `url(${backgroundImage})`,
+        backgroundAttachment: 'fixed',
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        backgroundRepeat: 'no-repeat',
       }}
     >
-      {/* Dark Mode Toggle */}
+      {/* Dark mode toggle */}
       <div className="absolute top-3 right-4 z-50">
         <button
           onClick={toggleTheme}
@@ -45,15 +49,8 @@ const PageWrapper = ({ children, backgroundImage }) => {
         </button>
       </div>
 
-      {/* Optional Glass Background Layer */}
-      <div className="absolute inset-0 bg-white/20 dark:bg-black/30 backdrop-blur-lg z-0 rounded-none" />
-
-      {/* Page Content */}
-      <div
-        className={`relative z-10 flex flex-col w-full min-h-screen justify-between items-center px-4 py-8 transition-opacity duration-1000 ${
-          bgLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
-        }`}
-      >
+      {/* Page content wrapper */}
+      <div className="relative z-10 flex flex-col w-full min-h-screen justify-between items-center">
         {children}
       </div>
     </div>
