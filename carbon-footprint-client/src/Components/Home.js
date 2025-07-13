@@ -8,7 +8,7 @@ const Home = ({ isLoggedIn, user }) => {
     <PageWrapper backgroundImage="/images/register-bk.webp">
       <div className="w-full flex flex-col text-emerald-500 dark:text-fuchsia-50 transition-colors duration-500 px-6 py-6 overflow-y-auto">
         {/* Header */}
-        <header className="w-full fixed top-0 left-0 z-40 justify-between items-center px-6 py-4 bg-black/60 dark:bg-black/80 backdrop-blur-md">
+        <header className="w-full fixed top-0 left-0 z-40 justify-start items-center px-6 py-4 bg-black/60 dark:bg-black/80 backdrop-blur-md">
           <div className="text-2xl md:text-3xl font-bold tracking-tight text-green-800 dark:text-green-300">
             Carbon Footprint Tracker
           </div>
