@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import PageWrapper from 'common/PageWrapper';
-import version from 'carbon-footprint-client/version.json'; 
+
 
 const Home = ({ isLoggedIn, user }) => {
   return (
@@ -53,7 +53,7 @@ const Home = ({ isLoggedIn, user }) => {
 
         {/* Footer */}
         <footer className="text-center text-sm py-4 text-gray-500 dark:text-gray-400 italic">
-        Carbon down. Future up. v{version.version}
+        Carbon down. Future up. v0.0.1
         </footer>
       </div>
     </PageWrapper>
