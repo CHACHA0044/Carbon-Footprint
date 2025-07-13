@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import PageWrapper from 'common/PageWrapper';
-import version from 'src/version/version.json'; 
+import version from 'carbon-footprint-client/version.json'; 
 
 const Home = ({ isLoggedIn, user }) => {
   return (
