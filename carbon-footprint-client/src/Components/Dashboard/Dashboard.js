@@ -97,7 +97,7 @@ const Dashboard = () => {
           )}
 
           {/* Expandable Sections */}
-          <div className="mb-4 max-h-[400px] overflow-y-auto pr-2 will-change-transform">
+          <div className="mb-4 max-h-[400px] space-y-6 pr-2 will-change-transform">
           {[
             {
               id: 'understanding',
