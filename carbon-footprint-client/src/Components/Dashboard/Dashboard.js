@@ -77,7 +77,7 @@ const Dashboard = () => {
           Your Climate Dashboard
         </div>
 
-        <main className="flex-1 overflow-y-auto space-y-6">
+        <main className="flex flex-col space-y-6">
           {loading ? (
             <p>Loading your carbon data...</p>
           ) : data.length > 0 ? (
