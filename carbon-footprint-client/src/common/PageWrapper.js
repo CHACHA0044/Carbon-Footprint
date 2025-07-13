@@ -35,7 +35,7 @@ const PageWrapper = ({ children, backgroundImage }) => {
         backgroundRepeat: 'no-repeat',
       }}
     >
-      // Dark Mode Button
+      {/*dark mode button*/}
       <div className="absolute top-3 right-4 z-50">
         <button
           onClick={toggleTheme}
