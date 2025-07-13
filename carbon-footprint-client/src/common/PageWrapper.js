@@ -4,6 +4,7 @@ const PageWrapper = ({ children, backgroundImage }) => {
   const [darkMode, setDarkMode] = useState(false);
   const [bgLoaded, setBgLoaded] = useState(false);
 
+  // Handle theme
   useEffect(() => {
     const stored = localStorage.getItem('theme');
     const isDark = stored === 'dark';
@@ -11,6 +12,7 @@ const PageWrapper = ({ children, backgroundImage }) => {
     document.documentElement.classList.toggle('dark', isDark);
   }, []);
 
+  // Preload background
   useEffect(() => {
     if (backgroundImage) {
       const img = new Image();
@@ -19,6 +21,7 @@ const PageWrapper = ({ children, backgroundImage }) => {
     }
   }, [backgroundImage]);
 
+  // Toggle theme
   const toggleTheme = () => {
     const newMode = !darkMode;
     setDarkMode(newMode);
@@ -28,18 +31,14 @@ const PageWrapper = ({ children, backgroundImage }) => {
 
   return (
     <div
-      className={`min-h-screen w-full relative flex flex-col items-center bg-cover bg-center bg-no-repeat bg-fixed transition-opacity duration-500 ${
+      className={`min-h-screen w-full relative bg-cover bg-center bg-no-repeat bg-fixed transition-opacity duration-500 ${
         bgLoaded ? 'opacity-100' : 'opacity-0'
       }`}
       style={{
         backgroundImage: `url(${backgroundImage})`,
-        backgroundAttachment: 'fixed',
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-        backgroundRepeat: 'no-repeat',
       }}
     >
-      {/* Dark mode toggle */}
+      {/* Dark Mode Toggle */}
       <div className="absolute top-3 right-4 z-50">
         <button
           onClick={toggleTheme}
@@ -49,9 +48,12 @@ const PageWrapper = ({ children, backgroundImage }) => {
         </button>
       </div>
 
-      {/* Page content wrapper */}
-      <div className="relative z-10 flex flex-col w-full min-h-screen justify-between items-center">
-        {children}
+      {/* Optional Glass Background */}
+      <div className="absolute inset-0 bg-white/20 dark:bg-black/30 backdrop-blur-lg z-0" />
+
+      {/* Page Content Wrapper */}
+      <div className="relative z-10 flex min-h-screen w-full justify-center items-center px-4">
+        <div className="w-full max-w-6xl">{children}</div>
       </div>
     </div>
   );
