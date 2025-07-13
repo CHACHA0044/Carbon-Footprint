@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import PageWrapper from 'common/PageWrapper';
-import version from 'version/version.json'; 
+import version from 'src/version/version.json'; 
 
 const Home = ({ isLoggedIn, user }) => {
   return (
