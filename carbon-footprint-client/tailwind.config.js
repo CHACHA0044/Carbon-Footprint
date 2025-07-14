@@ -7,6 +7,16 @@ module.exports = {
   darkMode: 'class', // Enables class-based dark mode (you’re using this)
   theme: {
     extend: {
+     animation: {
+      aurora: "aurora 10s ease-in-out infinte alternate"
+     },
+     keyframes:{
+       aurora: {
+          "0%": { transform: "translateY(0%) scale(1)" },
+          "50%": { transform: "translateY(-10%) scale(1.1)" },
+          "100%": { transform: "translateY(0%) scale(1)" },
+        },
+     },
       colors: {
         emerald: {
           100: '#d1fae5',

@@ -29,14 +29,16 @@ const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
 
   return (
     <div
-      className={`min-h-screen w-full flex flex-col justify-between items-center transition-opacity animate-fadeIn duration-300`}
+      className={`min-h-screen w-full flex flex-col justify-between items-center transition-opacity animate-fadeIn duration-500 ${
+    bgLoaded ? 'opacity-100' : 'opacity-0'
+  }`}
       style={{
         backgroundImage: `url(${backgroundImage})`,
         backgroundAttachment: isMobile ? 'scroll' : 'fixed',
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         backgroundRepeat: 'no-repeat',
-        backgroundColor: '#111827',
+        backgroundColor: '#0d1a26',
       }}
     >
       {/* Dark mode toggle button */}

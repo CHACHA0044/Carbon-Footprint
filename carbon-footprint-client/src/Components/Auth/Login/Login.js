@@ -94,7 +94,7 @@ const Login = () => {
           <button
   type="submit"
   disabled={loading}
-  className={`${buttonBase} ${buttonGreen} flex items-center justify-center gap-2`}
+  className={`${buttonBase} ${buttonGreen} flex items-center justify-center gap-2 active:scale-75`}
 >
   {loading ? (
     <>
