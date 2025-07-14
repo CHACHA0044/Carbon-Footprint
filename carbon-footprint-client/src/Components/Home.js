@@ -6,10 +6,12 @@ import { useLoading } from 'context/LoadingContext';
 const Home = ({ isLoggedIn, user }) => {
   const { setLoading } = useLoading();
    useEffect(() => {
-    // Simulate loading delay, enough time for background to appear
-    const timeout = setTimeout(() => setLoading(false), 500); // Try 500ms first
-    return () => clearTimeout(timeout);
-  }, [setLoading]);
+  const img = new Image();
+  img.src = '/images/home-bk.webp';
+  img.onload = () => {
+    setTimeout(() => setLoading(false), 200); // Small buffer after image loads
+  };
+}, [setLoading]);
 
   return (
     <motion.main
