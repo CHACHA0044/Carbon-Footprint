@@ -10,10 +10,17 @@ import Dashboard from './Dashboard/Dashboard';
 import History from './Footprint/History';
 import Footprint from './Footprint/Footprint';
 import EditFootprintForm from './Footprint/EditFootprintForm';
+import PageLoader from 'common/PageLoader';
 
 const AnimatedRoutes = () => {
   const location = useLocation();
-
+  const [loading, setLoading] = useState(true);
+    useEffect(() => {
+    // Simulate background/image loading delay
+    setLoading(true);
+    const timeout = setTimeout(() => setLoading(false), 400); // match transition time
+    return () => clearTimeout(timeout);
+  }, [location.pathname]);
   return (
     <AnimatePresence mode="wait" initial={false}>
       <Routes location={location} key={location.pathname}>
