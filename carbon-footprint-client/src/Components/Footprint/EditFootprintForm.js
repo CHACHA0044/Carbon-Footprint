@@ -214,7 +214,7 @@ const EditFootprintForm = () => {
             {/* SUBMIT */}
             <button
               type="submit"
-              className="w-full bg-emerald-500 hover:bg-emerald-600 text-white py-2 rounded transition"
+              className="w-full bg-emerald-500 hover:bg-emerald-600 text-white py-2 rounded active:scale-75 transition "
             >
               💾 Save Changes
             </button>
