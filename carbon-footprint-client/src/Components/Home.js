@@ -5,10 +5,12 @@ import { motion } from 'framer-motion';
 import { useLoading } from 'context/LoadingContext';
 const Home = ({ isLoggedIn, user }) => {
   const { setLoading } = useLoading(); 
-   useEffect(() => {
+  useEffect(() => {
     const img = new Image();
     img.src = '/images/home-bk.webp';
-    img.onload = () => setLoading(false); // turn off loader when background is ready
+    img.onload = () => {
+      setTimeout(() => setLoading(false), 100); // stops loader once image is loaded
+    };
   }, [setLoading]);
 
   return (
