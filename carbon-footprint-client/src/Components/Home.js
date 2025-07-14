@@ -6,8 +6,8 @@ import { useLoading } from 'context/LoadingContext';
 const Home = ({ isLoggedIn, user }) => {
   const { setLoading } = useLoading();
    useEffect(() => {
-    const timeout = setTimeout(() => setLoading(false), 3000);
-    setLoading(false);
+    // Simulate loading delay, enough time for background to appear
+    const timeout = setTimeout(() => setLoading(false), 500); // Try 500ms first
     return () => clearTimeout(timeout);
   }, [setLoading]);
 
