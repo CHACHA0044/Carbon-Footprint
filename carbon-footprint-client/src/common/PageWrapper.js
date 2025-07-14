@@ -29,7 +29,7 @@ const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
 
   return (
     <div
-      className={`min-h-screen w-full flex flex-col justify-between items-center transition-opacity animate-fadeIn bg-neutral-900 duration-500 ${
+      className={`min-h-screen w-full flex flex-col justify-between items-center transition-opacity animate-fadeIn duration-500 ${
     bgLoaded ? 'opacity-100' : 'opacity-0'
   }`}
       style={{

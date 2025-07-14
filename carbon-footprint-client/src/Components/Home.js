@@ -4,11 +4,17 @@ import PageWrapper from 'common/PageWrapper';
 import { motion } from 'framer-motion';
 import { useLoading } from 'context/LoadingContext';
 const Home = ({ isLoggedIn, user }) => {
-  const { setLoading } = useLoading();
-    useEffect(() => {
-    // Page is ready
-    setLoading(false);
-  }, [setLoading]);
+  useEffect(() => {
+  const img = new Image();
+  img.src = '/images/home-bk.webp';
+  img.onload = () => {
+    // Wait just a bit after image is loaded
+    requestAnimationFrame(() => {
+      setTimeout(() => setLoading(false), 100);
+    });
+  };
+}, [setLoading]);
+
 
 
   return (
