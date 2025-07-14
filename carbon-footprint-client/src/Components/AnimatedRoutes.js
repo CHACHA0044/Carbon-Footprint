@@ -11,16 +11,12 @@ import History from './Footprint/History';
 import Footprint from './Footprint/Footprint';
 import EditFootprintForm from './Footprint/EditFootprintForm';
 import PageLoader from 'common/PageLoader';
+import { useLoading } from './context/LoadingContext';
 
 const AnimatedRoutes = () => {
   const location = useLocation();
-  const [loading, setLoading] = useState(true);
-    useEffect(() => {
-    // Simulate background/image loading delay
-    setLoading(true);
-    const timeout = setTimeout(() => setLoading(false), 400); // match transition time
-    return () => clearTimeout(timeout);
-  }, [location.pathname]);
+  const { loading } = useLoading();
+    
   return (
     <>
       {/* Loader animation on route change */}
