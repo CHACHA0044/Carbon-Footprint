@@ -6,12 +6,8 @@ import { useLoading } from 'context/LoadingContext';
 const Home = ({ isLoggedIn, user }) => {
   const { setLoading } = useLoading(); 
   useEffect(() => {
-    const img = new Image();
-    img.src = '/images/home-bk.webp';
-    img.onload = () => {
-      setTimeout(() => setLoading(false), 100); // stops loader once image is loaded
-    };
-  }, [setLoading]);
+  // No need to setLoading here
+}, []);
 
   return (
     <motion.main

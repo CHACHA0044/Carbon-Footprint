@@ -1,5 +1,5 @@
 // src/Components/AnimatedRoutes.js
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { Routes, Route, useLocation } from 'react-router-dom';
 import { AnimatePresence } from 'framer-motion';
 
@@ -15,8 +15,17 @@ import { useLoading } from 'context/LoadingContext';
 
 const AnimatedRoutes = () => {
   const location = useLocation();
-  const { loading } = useLoading();
-    
+  const { loading, setLoading } = useLoading();
+
+  // ✅ Trigger loading on every route change
+  useEffect(() => {
+    setLoading(true);
+    const timeout = setTimeout(() => {
+      setLoading(false);
+    }, 400); // adjust delay as needed
+    return () => clearTimeout(timeout);
+  }, [location, setLoading]);
+
   return (
     <>
       {/* Loader animation on route change */}
