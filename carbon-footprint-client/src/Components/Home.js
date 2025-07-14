@@ -14,7 +14,7 @@ const Home = ({ isLoggedIn, user }) => {
           >
     <PageWrapper backgroundImage="">
     <div className="absolute inset-0 z-[-1] overflow-hidden">
-    <div className="w-full h-full animate-aurora bg-gradient-to-br from-blue-900 via-purple-900 to-black dark:from-black dark:via-indigo-900 dark:to-purple-800 opacity-70 blur-2xl"></div>
+    <div className="w-full h-full animate-aurora bg-gradient-to-br from-blue-900 via-purple-900 to-black dark:from-black dark:via-indigo-900 dark:to-purple-800 opacity-80 blur-sm"></div>
   </div>
       <div className="w-full flex flex-col text-emerald-500 dark:text-fuchsia-50 transition-colors duration-500 px-6 py-6 overflow-y-auto">
         {/* Header */}

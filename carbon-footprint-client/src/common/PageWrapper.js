@@ -33,7 +33,7 @@ const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
     bgLoaded ? 'opacity-100' : 'opacity-0'
   }`}
       style={{
-        backgroundImage: `url(${backgroundImage})`,
+        backgroundImage: backgroundImage ? `url(${backgroundImage})` : undefined,
         backgroundAttachment: isMobile ? 'scroll' : 'fixed',
         backgroundSize: 'cover',
         backgroundPosition: 'center',
