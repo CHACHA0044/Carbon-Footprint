@@ -9,9 +9,13 @@ const Home = ({ isLoggedIn, user }) => {
   const img = new Image();
   img.src = '/images/home-bk.webp';
   img.onload = () => {
-    setTimeout(() => setLoading(false), 200); // Small buffer after image loads
+    // Wait just a bit after image is loaded
+    requestAnimationFrame(() => {
+      setTimeout(() => setLoading(false), 100);
+    });
   };
 }, [setLoading]);
+
 
   return (
     <motion.main
