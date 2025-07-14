@@ -205,7 +205,7 @@ const Dashboard = () => {
         <footer className="flex flex-col sm:flex-row justify-between items-center mt-8 gap-4">
           <Link
             to="/footprint"
-            className="px-4 py-2 text-emerald-500 dark:text-white bg-transparent border border-white rounded hover:bg-emerald-700 hover:text-black active:bg-emerald-700 active:text-black transition"
+            className="px-4 py-2 text-emerald-500 dark:text-white bg-transparent border border-white rounded hover:bg-emerald-700 hover:text-black active:scale-95 focus:outline-none focus:ring-lime-200 transition"
           >
             Submit New Entry
           </Link>
