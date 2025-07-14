@@ -11,7 +11,7 @@ import History from './Footprint/History';
 import Footprint from './Footprint/Footprint';
 import EditFootprintForm from './Footprint/EditFootprintForm';
 import PageLoader from 'common/PageLoader';
-import { useLoading } from './context/LoadingContext';
+import { useLoading } from 'context/LoadingContext';
 
 const AnimatedRoutes = () => {
   const location = useLocation();
