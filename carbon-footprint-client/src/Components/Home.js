@@ -12,10 +12,7 @@ const Home = ({ isLoggedIn, user }) => {
             transition={{ duration: 0.4, ease: 'easeInOut' }}
             className="w-full h-full"
           >
-    <PageWrapper backgroundImage="">
-    <div className="absolute inset-0 z-[-1] overflow-hidden">
-    <div className="w-full h-full animate-aurora bg-gradient-to-br from-blue-900 via-purple-900 to-black dark:from-black dark:via-indigo-900 dark:to-purple-800 opacity-80 blur-sm"></div>
-  </div>
+    <PageWrapper backgroundImage="/images/home-bk.webp">
       <div className="w-full flex flex-col text-emerald-500 dark:text-fuchsia-50 transition-colors duration-500 px-6 py-6 overflow-y-auto">
         {/* Header */}
         <header className="w-full fixed top-0 left-0 z-40 justify-between items-center px-6 py-4 bg-black/60 dark:bg-black/80 backdrop-blur-md">
