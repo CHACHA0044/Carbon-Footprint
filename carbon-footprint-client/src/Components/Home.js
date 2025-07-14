@@ -4,6 +4,7 @@ import PageWrapper from 'common/PageWrapper';
 import { motion } from 'framer-motion';
 import { useLoading } from 'context/LoadingContext';
 const Home = ({ isLoggedIn, user }) => {
+  const { setLoading } = useLoading(); 
   useEffect(() => {
   const img = new Image();
   img.src = '/images/home-bk.webp';
