@@ -33,12 +33,12 @@ const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
     bgLoaded ? 'opacity-100' : 'opacity-0'
   }`}
       style={{
-        backgroundImage: backgroundImage ? `url(${backgroundImage})` : undefined,
+        backgroundImage: `url(${backgroundImage})`,
         backgroundAttachment: isMobile ? 'scroll' : 'fixed',
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         backgroundRepeat: 'no-repeat',
-        backgroundColor: '#0d1a26',
+        backgroundColor: '#000',
       }}
     >
       {/* Dark mode toggle button */}
