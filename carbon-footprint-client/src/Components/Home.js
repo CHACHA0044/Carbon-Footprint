@@ -5,7 +5,7 @@ import { motion } from 'framer-motion';
 
 const Home = ({ isLoggedIn, user }) => {
   return (
-    <motion.div
+    <motion.main
             initial={{ x:100, opacity: 0}}
             animate={{ x: 0, opacity: 1 }}
             exit={{ x: -100, opacity: 0 }}
@@ -23,8 +23,8 @@ const Home = ({ isLoggedIn, user }) => {
           <div className="flex items-center space-x-4">
             {!isLoggedIn ? (
               <>
-                <Link to="/login" className="text-sm font-medium hover:underline">Login</Link>
-                <Link to="/register" className="text-sm font-medium hover:underline">Register</Link>
+                <Link to="/login" className="text-sm font-medium hover:underline active:scale-75">Login</Link>
+                <Link to="/register" className="text-sm font-medium hover:underline active:scale-75">Register</Link>
               </>
             ) : (
               <>
@@ -64,7 +64,7 @@ const Home = ({ isLoggedIn, user }) => {
         </footer>*/}
       </div>
     </PageWrapper>
-    </motion.div>
+    </motion.main>
   );
 };
 

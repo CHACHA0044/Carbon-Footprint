@@ -56,7 +56,7 @@ const Login = () => {
 };
 
   return (
-  <motion.div
+  <motion.main
         initial={{ x:100, opacity: 0}}
         animate={{ x: 0, opacity: 1 }}
         exit={{ x: -100, opacity: 0 }}
@@ -115,7 +115,7 @@ const Login = () => {
         </form>
       </div>
     </PageWrapper>
-    </motion.div>
+    </motion.main>
   );
 };
 

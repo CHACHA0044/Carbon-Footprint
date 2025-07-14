@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 const PageWrapper = ({ children, backgroundImage }) => {
   const [darkMode, setDarkMode] = useState(false);
   const [bgLoaded, setBgLoaded] = useState(false);
+const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
 
   useEffect(() => {
     const stored = localStorage.getItem('theme');
@@ -31,11 +32,11 @@ const PageWrapper = ({ children, backgroundImage }) => {
       className={`min-h-screen w-full flex flex-col justify-between items-center transition-opacity animate-fadeIn duration-300`}
       style={{
         backgroundImage: `url(${backgroundImage})`,
-        backgroundAttachment: 'fixed',
+        backgroundAttachment: isMobile ? 'scroll' : 'fixed',
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         backgroundRepeat: 'no-repeat',
-        backgroundColor: '#000',
+        backgroundColor: '#111827',
       }}
     >
       {/* Dark mode toggle button */}

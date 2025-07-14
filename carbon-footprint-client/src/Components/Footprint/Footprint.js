@@ -76,12 +76,13 @@ const handleSubmit = async (e) => {
 
 // ui
   return (
-    <motion.div
-  initial={{ opacity: 0 }}
-  animate={{ opacity: 1 }}
-  exit={{ opacity: 0 }}
-  transition={{ duration: 0.3 }}
->
+    <motion.main
+                    initial={{ x:100, opacity: 0}}
+                    animate={{ x: 0, opacity: 1 }}
+                    exit={{ x: -100, opacity: 0 }}
+                    transition={{ duration: 0.4, ease: 'easeInOut' }}
+                    className="w-full h-full"
+                  >
     <PageWrapper backgroundImage="/images/dashboard-bk.webp">
       <div className="flex flex-col items-center justify-center w-full px-6 py-6 overflow-y-auto">
         <form
@@ -220,14 +221,14 @@ const handleSubmit = async (e) => {
 
           <button
             type="submit"
-            className="w-full py-2 mt-4 font-semibold text-black bg-emerald-100 border border-white rounded hover:bg-emerald-500 hover:text-black transition duration-300"
+            className="w-full py-2 mt-4 font-semibold text-black bg-emerald-500 border border-white rounded hover:bg-emerald-500 hover:text-black transition duration-300 active:scale-75"
           >
             Submit
           </button>
         </form>
       </div>
     </PageWrapper>
-    </motion.div>
+    </motion.main>
   );
 };
 

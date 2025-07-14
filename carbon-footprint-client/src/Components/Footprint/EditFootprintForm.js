@@ -65,7 +65,7 @@ const EditFootprintForm = () => {
   if (loading) return <p className="text-center text-white">Loading entry...</p>;
 
   return (
-    <motion.div
+    <motion.main
                 initial={{ x:100, opacity: 0}}
                 animate={{ x: 0, opacity: 1 }}
                 exit={{ x: -100, opacity: 0 }}
@@ -222,7 +222,7 @@ const EditFootprintForm = () => {
         </div>
       </div>
     </PageWrapper>
-    </motion.div>
+    </motion.main>
   );
 };
 
