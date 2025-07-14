@@ -2,6 +2,7 @@ import API from 'api/api';
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import PageWrapper from 'common/PageWrapper';
+import { motion } from 'framer-motion';
 
 import {
   inputBase,

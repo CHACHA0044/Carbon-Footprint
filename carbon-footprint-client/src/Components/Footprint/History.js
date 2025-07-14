@@ -3,6 +3,7 @@ import API from 'api/api';
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import PageWrapper from 'common/PageWrapper';
+import { motion } from 'framer-motion';
 
 const History = () => {
   const [history, setHistory] = useState([]);

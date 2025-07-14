@@ -2,6 +2,7 @@ import API from 'api/api';
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import PageWrapper from 'common/PageWrapper';
+import { motion } from 'framer-motion';
 
 const EditFootprintForm = () => {
   const { id } = useParams();

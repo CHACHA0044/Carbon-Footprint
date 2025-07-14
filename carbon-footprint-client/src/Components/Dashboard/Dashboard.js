@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom'; 
 import PageWrapper from 'common/PageWrapper';
+import { motion } from 'framer-motion';
 
 const Dashboard = () => {
   const [data, setData] = useState([]);
