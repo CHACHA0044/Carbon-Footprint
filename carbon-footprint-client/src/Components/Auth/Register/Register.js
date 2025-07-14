@@ -56,11 +56,12 @@ const Register = () => {
 
   return (
     <motion.div
-  initial={{ opacity: 0 }}
-  animate={{ opacity: 1 }}
-  exit={{ opacity: 0 }}
-  transition={{ duration: 0.3 }}
->
+                initial={{ x:100, opacity: 0}}
+                animate={{ x: 0, opacity: 1 }}
+                exit={{ x: -100, opacity: 0 }}
+                transition={{ duration: 0.4, ease: 'easeInOut' }}
+                className="w-full h-full"
+              >
     <PageWrapper backgroundImage="/images/register-bk.jpg">
       <div className={` ${boxglow}`}>
         <h1 className={heading}>Track. Reduce. Inspire</h1>

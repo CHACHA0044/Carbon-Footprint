@@ -28,15 +28,14 @@ const PageWrapper = ({ children, backgroundImage }) => {
 
   return (
     <div
-      className={`min-h-screen w-full flex flex-col justify-between items-center transition-opacity animate-fadeIn duration-300 ${
-        bgLoaded ? 'opacity-100' : 'opacity-0'
-      }`}
+      className={`min-h-screen w-full flex flex-col justify-between items-center transition-opacity animate-fadeIn duration-300`}
       style={{
         backgroundImage: `url(${backgroundImage})`,
         backgroundAttachment: 'fixed',
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         backgroundRepeat: 'no-repeat',
+        backgroundColor: '#000',
       }}
     >
       {/* Dark mode toggle button */}

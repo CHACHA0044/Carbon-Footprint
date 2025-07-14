@@ -10,7 +10,7 @@ const Home = ({ isLoggedIn, user }) => {
             animate={{ x: 0, opacity: 1 }}
             exit={{ x: -100, opacity: 0 }}
             transition={{ duration: 0.4, ease: 'easeInOut' }}
-            className="w-full"
+            className="w-full h-full"
           >
     <PageWrapper backgroundImage="/images/register-bk.webp">
       <div className="w-full flex flex-col text-emerald-500 dark:text-fuchsia-50 transition-colors duration-500 px-6 py-6 overflow-y-auto">

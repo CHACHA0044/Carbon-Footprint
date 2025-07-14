@@ -71,7 +71,7 @@ const Dashboard = () => {
             animate={{ x: 0, opacity: 1 }}
             exit={{ x: -100, opacity: 0 }}
             transition={{ duration: 0.4, ease: 'easeInOut' }}
-            className="w-full"
+            className="w-full h-full"
           >
     <PageWrapper backgroundImage="/images/dashboard-bk.webp">
       <div className="w-full max-w-6xl flex flex-col text-emerald-500 dark:text-gray-100 px-6 py-8 space-y-6">

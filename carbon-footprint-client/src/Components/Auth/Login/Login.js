@@ -61,7 +61,7 @@ const Login = () => {
         animate={{ x: 0, opacity: 1 }}
         exit={{ x: -100, opacity: 0 }}
         transition={{ duration: 0.4, ease: 'easeInOut' }}
-        className="w-full"
+        className="w-full h-full"
       >
     <PageWrapper backgroundImage="/images/register-bk.jpg">
       <div className={`${boxglow}`}>
