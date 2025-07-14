@@ -75,6 +75,12 @@ const handleSubmit = async (e) => {
 
 // ui
   return (
+    <motion.div
+  initial={{ opacity: 0 }}
+  animate={{ opacity: 1 }}
+  exit={{ opacity: 0 }}
+  transition={{ duration: 0.3 }}
+>
     <PageWrapper backgroundImage="/images/dashboard-bk.webp">
       <div className="flex flex-col items-center justify-center w-full px-6 py-6 overflow-y-auto">
         <form
@@ -220,6 +226,7 @@ const handleSubmit = async (e) => {
         </form>
       </div>
     </PageWrapper>
+    </motion.div>
   );
 };
 

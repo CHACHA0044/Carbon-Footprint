@@ -71,6 +71,12 @@ const History = () => {
   };
 
   return (
+    <motion.div
+  initial={{ opacity: 0 }}
+  animate={{ opacity: 1 }}
+  exit={{ opacity: 0 }}
+  transition={{ duration: 0.3 }}
+>
     <PageWrapper backgroundImage="/images/history-bk.webp">
       <div className="w-full flex-1 flex-col px-6 py-6 overflow-y-auto text-emerald-500 dark:text-white">
         <h2 className="text-3xl font-bold mb-6 text-center">Emission History</h2>
@@ -116,6 +122,7 @@ const History = () => {
         )}
       </div>
     </PageWrapper>
+    </motion.div>
   );
 };
 

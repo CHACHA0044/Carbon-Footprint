@@ -53,6 +53,12 @@ const Register = () => {
   };
 
   return (
+    <motion.div
+  initial={{ opacity: 0 }}
+  animate={{ opacity: 1 }}
+  exit={{ opacity: 0 }}
+  transition={{ duration: 0.3 }}
+>
     <PageWrapper backgroundImage="/images/register-bk.jpg">
       <div className={` ${boxglow}`}>
         <h1 className={heading}>Track. Reduce. Inspire</h1>
@@ -113,6 +119,7 @@ const Register = () => {
         </form>
       </div>
     </PageWrapper>
+    </motion.div>
   );
 };
 

@@ -55,6 +55,12 @@ const Login = () => {
 };
 
   return (
+    <motion.div
+  initial={{ opacity: 0 }}
+  animate={{ opacity: 1 }}
+  exit={{ opacity: 0 }}
+  transition={{ duration: 0.3 }}
+>
     <PageWrapper backgroundImage="/images/register-bk.jpg">
       <div className={`${boxglow}`}>
         <h1 className={heading}>Login</h1>
@@ -107,6 +113,7 @@ const Login = () => {
         </form>
       </div>
     </PageWrapper>
+    </motion.div>
   );
 };
 
