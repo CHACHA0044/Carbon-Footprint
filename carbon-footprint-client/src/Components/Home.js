@@ -6,12 +6,12 @@ import { motion } from 'framer-motion';
 const Home = ({ isLoggedIn, user }) => {
   return (
     <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0, y: -20 }}
-      transition={{ duration: 0.4, ease: 'easeInOut' }}
-      className="w-full"
-    >
+            initial={{ x:100, opacity: 0}}
+            animate={{ x: 0, opacity: 1 }}
+            exit={{ x: -100, opacity: 0 }}
+            transition={{ duration: 0.4, ease: 'easeInOut' }}
+            className="w-full"
+          >
     <PageWrapper backgroundImage="/images/register-bk.webp">
       <div className="w-full flex flex-col text-emerald-500 dark:text-fuchsia-50 transition-colors duration-500 px-6 py-6 overflow-y-auto">
         {/* Header */}
