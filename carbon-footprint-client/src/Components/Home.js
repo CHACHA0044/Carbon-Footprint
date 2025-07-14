@@ -5,18 +5,11 @@ import { motion } from 'framer-motion';
 import { useLoading } from 'context/LoadingContext';
 const Home = ({ isLoggedIn, user }) => {
   const { setLoading } = useLoading(); 
-  useEffect(() => {
-  const img = new Image();
-  img.src = '/images/home-bk.webp';
-  img.onload = () => {
-    // Wait just a bit after image is loaded
-    requestAnimationFrame(() => {
-      setTimeout(() => setLoading(false), 100);
-    });
-  };
-}, [setLoading]);
-
-
+   useEffect(() => {
+    const img = new Image();
+    img.src = '/images/home-bk.webp';
+    img.onload = () => setLoading(false); // turn off loader when background is ready
+  }, [setLoading]);
 
   return (
     <motion.main
