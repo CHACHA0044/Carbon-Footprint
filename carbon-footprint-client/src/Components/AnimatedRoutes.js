@@ -22,18 +22,28 @@ const AnimatedRoutes = () => {
     return () => clearTimeout(timeout);
   }, [location.pathname]);
   return (
-    <AnimatePresence mode="wait" initial={false}>
-      <Routes location={location} key={location.pathname}>
-        <Route path="/home" element={<Home />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
-        <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="/footprint" element={<Footprint />} />
-        <Route path="/history" element={<History />} />
-        <Route path="/edit/:id" element={<EditFootprintForm />} />
-        <Route path="/" element={<Home />} />
-      </Routes>
-    </AnimatePresence>
+    <>
+      {/* Loader animation on route change */}
+      <AnimatePresence>
+        {loading && <PageLoader key="loader" />}
+      </AnimatePresence>
+
+      {/* Actual route transitions */}
+      <AnimatePresence mode="wait" initial={false}>
+        {!loading && (
+          <Routes location={location} key={location.pathname}>
+            <Route path="/home" element={<Home />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register />} />
+            <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/footprint" element={<Footprint />} />
+            <Route path="/history" element={<History />} />
+            <Route path="/edit/:id" element={<EditFootprintForm />} />
+            <Route path="/" element={<Home />} />
+          </Routes>
+        )}
+      </AnimatePresence>
+    </>
   );
 };
 
