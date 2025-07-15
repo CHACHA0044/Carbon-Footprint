@@ -99,13 +99,13 @@ const Dashboard = () => {
                 <section
   key={`suggestion-${index}`}
   ref={(el) => (sectionRefs.current[index + 100] = el)} // Avoid ref overlap with other sections
-  className="mt-4 p-4 bg-white/20 dark:bg-gray-800/40 rounded-xl backdrop-blur-md shadow-md cursor-pointer transition-all duration-500"
+  className="mt-4 p-4 cursor-pointer transition-all duration-500"
   onClick={() =>
     setOpenSection((prev) => (prev === `suggestion-${index}` ? null : `suggestion-${index}`))
   }
 >
   <h2 className="text-xl md:text-2xl font-bold text-emerald-500 dark:text-white transition-colors duration-500">
-    Suggestions
+    Suggestions...
   </h2>
   <div
     className={`transition-all duration-500 ease-in-out overflow-hidden ${
@@ -227,19 +227,13 @@ const Dashboard = () => {
         </main>
 
         <footer className="flex flex-col sm:flex-row justify-between items-center mt-8 gap-4">
-          <button className="px-4 py-2 text-emerald-500 dark:text-white bg-transparent border border-white rounded hover:bg-emerald-700 hover:text-black active:scale-75 focus:ring focus:ring-green-800 transition-colors duration-500">
-          <Link
-            to="/footprint"
-          >
+          <button className="px-4 py-2 text-emerald-500 dark:text-white bg-transparent border border-white rounded hover:bg-emerald-700 hover:text-black active:scale-75 focus:ring focus:ring-green-800 transition-colors duration-500"
+           onClick={() => navigate(`/footprint`)}>
             Submit New Entry
-          </Link>
           </button>
-          <button className="px-4 py-2 text-emerald-500 dark:text-white bg-transparent border border-white rounded hover:bg-emerald-700 hover:text-black active:scale-75 focus:ring focus:ring-green-800 transition-colors duration-500">
-          <Link
-            to="/history"
-          >
+          <button className="px-4 py-2 text-emerald-500 dark:text-white bg-transparent border border-white rounded hover:bg-emerald-700 hover:text-black active:scale-75 focus:ring focus:ring-green-800 transition-colors duration-500"
+           onClick={() => navigate(`/history`)}>
             Edit Entries
-          </Link>
           </button>
           <button
             onClick={handleLogout}
