@@ -13,11 +13,11 @@ const Home = ({ isLoggedIn, user }) => {
             initial={{ x:100, opacity: 0}}
             animate={{ x: 0, opacity: 1 }}
             exit={{ x: -100, opacity: 0 }}
-            transition={{ duration: 0.4, ease: 'easeInOut' }}
+            transition={{ duration: 0.2, ease: 'easeInOut' }}
             className="w-full h-full"
           >
     <PageWrapper backgroundImage="/images/home-bk.webp">
-      <div className="w-full flex flex-col text-emerald-500 dark:text-fuchsia-50 transition-colors duration-500 px-6 py-6 overflow-y-auto">
+      <div className="w-full flex flex-col text-emerald-500 dark:text-gray-100 transition-colors duration-500 px-6 py-6 overflow-y-auto">
         {/* Header */}
         <header className="w-full fixed top-0 left-0 z-40 justify-between items-center px-6 py-4 bg-black/60 dark:bg-black/80 backdrop-blur-md">
           <div className="text-2xl md:text-3xl font-bold tracking-tight text-green-800 dark:text-green-300">
@@ -41,7 +41,7 @@ const Home = ({ isLoggedIn, user }) => {
 
         {/* Main Section */}
         <main className="flex-1 flex flex-col justify-center items-center px-6 py-10 text-center">
-          <h1 className="text-5xl md:text-5xl font-extrabold mb-4">
+          <h1 className="text-3xl md:text-5xl font-extrabold mb-4">
             Your Carbon Story
           </h1>
           <p className="text-lg md:text-xl max-w-2xl mb-6">

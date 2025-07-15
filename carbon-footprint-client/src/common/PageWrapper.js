@@ -47,13 +47,15 @@ const PageWrapper = ({ children, backgroundImage }) => {
       }}
     >
       {/* Dark mode toggle button */}
-      <div className="absolute top-3 right-4 z-50">
+      <div className="relative w-full px-0">
+      <div className="absolute top-3 right-4">
         <button
           onClick={toggleTheme}
-          className="px-4 py-4 bg-transparent text-emerald-700 dark:text-white transition duration-300"
+          className="px-4 py-4 bg-transparent text-emerald-700 dark:text-white transition duration-500"
         >
           {darkMode ? '⁺₊⋆ ☾ ⋆⁺₊' : '⁺₊⋆ 𖤓 ⋆⁺₊'}
         </button>
+      </div>
       </div>
 
       {/* Content area */}
