@@ -6,7 +6,6 @@ import { useLoading } from 'context/LoadingContext';
 const Home = ({ isLoggedIn, user }) => {
   const { setLoading } = useLoading(); 
   useEffect(() => {
-  // No need to setLoading here
 }, []);
 
   return (

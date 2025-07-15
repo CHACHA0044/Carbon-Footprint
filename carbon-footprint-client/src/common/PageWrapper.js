@@ -14,11 +14,15 @@ const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
 
   useEffect(() => {
     if (backgroundImage) {
+      setLoading(true); // Start loader immediately
       const img = new Image();
       img.src = backgroundImage;
-      img.onload = () => setBgLoaded(true);
+      img.onload = () => {
+        setBgLoaded(true);
+        setLoading(false); // Loader ends exactly when background is ready
+      };
     }
-  }, [backgroundImage]);
+  }, [backgroundImage, setLoading]);
 
   const toggleTheme = () => {
     const newMode = !darkMode;
