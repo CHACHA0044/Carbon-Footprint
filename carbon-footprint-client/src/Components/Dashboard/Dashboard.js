@@ -75,7 +75,7 @@ const Dashboard = () => {
           >
     <PageWrapper backgroundImage="/images/dashboard-bk.webp">
       <div className="w-full max-w-6xl flex flex-col text-emerald-500 dark:text-gray-100 px-6 py-8 space-y-6">
-       <div className="mt-4 ml-6 text-base md:text-2xl font-semibold text-emerald-600 dark:text-gray-100">
+       <div className="mt-4 -ml-4 text-base md:text-2xl font-semibold text-emerald-600 dark:text-gray-100">
       🫡 Welcome, {user?.name || 'User'}
     </div>
 
