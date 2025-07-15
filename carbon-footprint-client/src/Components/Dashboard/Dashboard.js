@@ -75,7 +75,7 @@ const Dashboard = () => {
           >
     <PageWrapper backgroundImage="/images/dashboard-bk.webp">
     <div className="relative w-full px-0">
-      <div className="absolute top-5 left-0 pl-4 text-base md:text-2xl font-semibold text-emerald-600 dark:text-gray-100 transition-colors duration-500">
+      <div className="absolute top-6 left-0 pl-4 text-base md:text-2xl font-semibold text-emerald-600 dark:text-gray-100 transition-colors duration-500">
       🫡 Welcome, {user?.name || 'User'}
       </div>
     </div>
@@ -96,7 +96,30 @@ const Dashboard = () => {
                 className="bg-white/20 dark:bg-gray-800/40 backdrop-blur-md rounded-xl p-4 shadow-md text-sm mb-6 transition-colors duration-500"
               >
                 <p className="text-2xl md:text-3xl font-semibold text-emerald-500 dark:text-white transition-colors duration-500"><strong>Total Emission:</strong> {entry.totalEmissionKg} kg CO2</p>
-                <p className="text-xl md:text-2xl text-emerald-500 dark:text-white transition-colors duration-500"><strong>Suggestions:</strong> {entry.suggestions}</p>
+                <section
+  className="mt-6 bg-white/20 dark:bg-gray-800/40 rounded-xl backdrop-blur-md shadow-md p-4 cursor-pointer transition-all duration-500"
+  onClick={() =>
+    setOpenSection((prev) => (prev === `suggestion-${index}` ? null : `suggestion-${index}`))
+  }
+>
+  <h2 className="text-2xl md:text-3xl font-bold text-emerald-500 dark:text-white mb-2 transition-colors duration-500">
+    Suggestions
+  </h2>
+  <div
+    className={`transition-all duration-500 ease-in-out overflow-hidden ${
+      openSection === `suggestion-${index}`
+        ? 'max-h-[500px] opacity-100 mt-2'
+        : 'max-h-[40px] opacity-80'
+    }`}
+  >
+    <p className="text-sm text-emerald-500 dark:text-gray-100 transition-colors duration-500">
+      {openSection === `suggestion-${index}`
+        ? entry.suggestions
+        : `${entry.suggestions.slice(0, 100)}${entry.suggestions.length > 100 ? '...' : ''}`}
+    </p>
+  </div>
+</section>
+
               </div>
             ))
           ) : (
@@ -204,18 +227,16 @@ const Dashboard = () => {
         </main>
 
         <footer className="flex flex-col sm:flex-row justify-between items-center mt-8 gap-4">
-          <button>
+          <button className="px-4 py-2 text-emerald-500 dark:text-white bg-transparent border border-white rounded hover:bg-emerald-700 hover:text-black active:scale-75 focus:ring focus:ring-green-800 transition-colors duration-500">
           <Link
             to="/footprint"
-            className="px-4 py-2 text-emerald-500 dark:text-white bg-transparent border border-white rounded hover:bg-emerald-700 hover:text-black active:scale-75 focus:ring focus:ring-green-800 transition-colors duration-500"
           >
             Submit New Entry
           </Link>
           </button>
-          <button>
+          <button className="px-4 py-2 text-emerald-500 dark:text-white bg-transparent border border-white rounded hover:bg-emerald-700 hover:text-black active:scale-75 focus:ring focus:ring-green-800 transition-colors duration-500">
           <Link
             to="/history"
-            className="px-4 py-2 text-emerald-500 dark:text-white bg-transparent border border-white rounded hover:bg-emerald-700 hover:text-black active:scale-75 focus:ring focus:ring-green-800 transition-colors duration-500"
           >
             Edit Entries
           </Link>
