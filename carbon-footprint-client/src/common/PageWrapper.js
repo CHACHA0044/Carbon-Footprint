@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
-
+import { useLoading } from 'context/LoadingContext';
 const PageWrapper = ({ children, backgroundImage }) => {
   const [darkMode, setDarkMode] = useState(false);
   const [bgLoaded, setBgLoaded] = useState(false);
-const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+  const { setLoading } = useLoading();
+  const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
 
   useEffect(() => {
     const stored = localStorage.getItem('theme');
