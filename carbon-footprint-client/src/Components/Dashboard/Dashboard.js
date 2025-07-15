@@ -74,12 +74,13 @@ const Dashboard = () => {
             className="w-full h-full"
           >
     <PageWrapper backgroundImage="/images/dashboard-bk.webp">
-      <div className="w-full max-w-6xl flex flex-col text-emerald-500 dark:text-gray-100 px-6 py-8 space-y-6">
-        <div className="relative">
-       <div className="absolute top-4 left-1 text-base md:text-2xl font-semibold text-emerald-600 dark:text-gray-100">
+    <div className="relative">
+       <div className="absolute top-4 left-2 text-base md:text-2xl font-semibold text-emerald-600 dark:text-gray-100">
       🫡 Welcome, {user?.name || 'User'}
     </div>
     </div>
+      <div className="w-full max-w-6xl flex flex-col text-emerald-500 dark:text-gray-100 px-6 py-8 space-y-6">
+        
 
           <div className="mt-12 mb-6 text-center mx-auto">
       <h1 className="text-4xl md:text-6xl font-bold tracking-tight text-emerald-500 dark:text-white">
