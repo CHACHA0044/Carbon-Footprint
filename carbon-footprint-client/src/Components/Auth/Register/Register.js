@@ -62,7 +62,7 @@ const Register = () => {
                 transition={{ duration: 0.4, ease: 'easeInOut' }}
                 className="w-full h-full"
               >
-    <PageWrapper backgroundImage="/images/register-bk.jpg">
+    <PageWrapper backgroundImage="/images/register-bk.webp">
       <div className={` ${boxglow}`}>
         <h1 className={heading}>Track. Reduce. Inspire</h1>
         <p className={subheading}>Build your carbon footprint journal with us.</p>

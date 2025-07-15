@@ -63,7 +63,7 @@ const Login = () => {
         transition={{ duration: 0.4, ease: 'easeInOut' }}
         className="w-full h-full"
       >
-    <PageWrapper backgroundImage="/images/register-bk.jpg">
+    <PageWrapper backgroundImage="/images/register-bk.webp">
       <div className={`${boxglow}`}>
         <h1 className={heading}>Login</h1>
 
