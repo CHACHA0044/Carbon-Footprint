@@ -75,15 +75,15 @@ const Dashboard = () => {
           >
     <PageWrapper backgroundImage="/images/dashboard-bk.webp">
       <div className="w-full max-w-6xl flex flex-col text-emerald-500 dark:text-gray-100 px-6 py-8 space-y-6">
-        <header className="flex justify-between items-center mb-4">
-          <h1 className="text-xl font-semibold">
-            🫡 Welcome, {user?.name || 'User'}
-          </h1>
-        </header>
+       <div className="absolute top-4 left-6 text-base md:text-lg font-semibold text-emerald-600 dark:text-gray-100">
+      🫡 Welcome, {user?.name || 'User'}
+    </div>
 
-        <div className="text-center text-4xl md:text-6xl font-bold tracking-tight mb-6 text-emerald-500 dark:text-white will-change-scroll">
-          Your Climate Dashboard
-        </div>
+          <div className="mt-12 mb-6 text-center mx-auto">
+      <h1 className="text-4xl md:text-6xl font-bold tracking-tight text-emerald-500 dark:text-white">
+        Your Climate Dashboard
+      </h1>
+    </div>
 
         <main className="flex flex-col space-y-6">
           {loading ? (
@@ -95,7 +95,7 @@ const Dashboard = () => {
                 className="bg-white/20 dark:bg-gray-800/40 backdrop-blur-md rounded-xl p-4 shadow-md text-sm mb-6"
               >
                 <p className="text-2xl md:text-3xl font-semibold text-emerald-500 dark:text-white"><strong>Total Emission:</strong> {entry.totalEmissionKg} kg CO2</p>
-                <p className="text-2xl md:text-3xl font-semibold text-emerald-500 dark:text-white"><strong>Suggestions:</strong> {entry.suggestions}</p>
+                <p className="text-2xl md:text-3xl text-emerald-500 dark:text-white"><strong>Suggestions:</strong> {entry.suggestions}</p>
               </div>
             ))
           ) : (
