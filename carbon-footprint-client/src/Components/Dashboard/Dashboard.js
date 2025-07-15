@@ -75,13 +75,13 @@ const Dashboard = () => {
           >
     <PageWrapper backgroundImage="/images/dashboard-bk.webp">
     <div className="relative w-full px-0">
-      <div className="absolute top-4 left-0 pl-4 text-base md:text-2xl font-semibold text-emerald-600 dark:text-gray-100 transition-colors duration-500">
+      <div className="absolute top-5 left-0 pl-4 text-base md:text-2xl font-semibold text-emerald-600 dark:text-gray-100 transition-colors duration-500">
       🫡 Welcome, {user?.name || 'User'}
       </div>
     </div>
     <div className="w-full max-w-6xl flex flex-col text-emerald-500 dark:text-gray-100 px-6 py-8 space-y-6 transition-colors duration-500">
     <div className="mt-12 mb-6 text-center mx-auto">
-      <h1 className="text-4xl md:text-6xl font-bold tracking-tight text-emerald-500 dark:text-white">
+      <h1 className="text-4xl md:text-6xl font-bold tracking-tight text-emerald-500 dark:text-white transition-colors duration-500">
         Your Climate Dashboard
       </h1>
     </div>
@@ -93,15 +93,15 @@ const Dashboard = () => {
             data.map((entry, index) => (
               <div
                 key={index}
-                className="bg-white/20 dark:bg-gray-800/40 backdrop-blur-md rounded-xl p-4 shadow-md text-sm mb-6"
+                className="bg-white/20 dark:bg-gray-800/40 backdrop-blur-md rounded-xl p-4 shadow-md text-sm mb-6 transition-colors duration-500"
               >
-                <p className="text-2xl md:text-3xl font-semibold text-emerald-500 dark:text-white"><strong>Total Emission:</strong> {entry.totalEmissionKg} kg CO2</p>
-                <p className="text-2xl md:text-3xl text-emerald-500 dark:text-white"><strong>Suggestions:</strong> {entry.suggestions}</p>
+                <p className="text-2xl md:text-3xl font-semibold text-emerald-500 dark:text-white transition-colors duration-500"><strong>Total Emission:</strong> {entry.totalEmissionKg} kg CO2</p>
+                <p className="text-xl md:text-2xl text-emerald-500 dark:text-white transition-colors duration-500"><strong>Suggestions:</strong> {entry.suggestions}</p>
               </div>
             ))
           ) : (
             <div className="text-center">
-              <p className="text-2xl md:text-3xl font-semibold text-emerald-600 dark:text-white">You haven't submitted any carbon data yet.</p>
+              <p className="text-2xl md:text-3xl font-semibold text-emerald-600 dark:text-white transition-colors duration-500">You haven't submitted any carbon data yet.</p>
             </div>
           )}
 
@@ -113,15 +113,15 @@ const Dashboard = () => {
               title: 'Understanding the Air We Share',
               content: (
                 <>
-                  <p className="text-sm text-emerald-500 dark:text-gray-300">
+                  <p className="text-sm text-emerald-500 dark:text-gray-100 transition-colors duration-500">
                     Carbon Dioxide (CO2) is the primary greenhouse gas linked to human activity. Think of greenhouse gases as a natural blanket around Earth, trapping heat and keeping our planet warm enough to live. However, too much of this "blanket" – largely from burning fossil fuels like coal, oil, and natural gas – traps excess heat, leading to global warming.
                   </p>
-                  <ul className="list-disc list-inside text-sm text-emerald-500 dark:text-gray-300 mt-2">
+                  <ul className="list-disc list-inside text-sm text-emerald-500 dark:text-gray-100 mt-2 transition-colors duration-500">
                     <li>Methane (CH4): Potent, often from agriculture (livestock) and waste.</li>
                     <li>Nitrous Oxide (N2O): From fertilizers and industrial processes.</li>
                     <li>Fluorinated Gases(e.g., HFCs, PFCs): Used in refrigeration, with high warming potential.</li>
                   </ul>
-                  <p className="text-sm text-emerald-500 dark:text-gray-300 mt-2">
+                  <p className="text-sm text-emerald-500 dark:text-gray-100 mt-2 transition-colors duration-500">
                     These gases, even in small amounts, significantly amplify the greenhouse effect.
                   </p>
                 </>
@@ -131,7 +131,7 @@ const Dashboard = () => {
               id: 'global',
               title: 'How Much CO₂ Do We Emit Individually?',
               content: (
-                <p className="text-sm text-emerald-500 dark:text-gray-300">
+                <p className="text-sm text-emerald-500 dark:text-gray-100 transition-colors duration-500">
                   In 2024, the global average carbon footprint per person was approximately 4.7 metric tons of CO₂ per year, which translates to about 392 kg per month. This marks a slight increase from 2023, driven by factors like post-pandemic economic recovery in developing countries, higher energy consumption, and a slow global shift away from fossil fuels. Emissions vary widely by region—while countries like the United States average around 1,240 kg per month, nations such as India and Sub-Saharan Africa emit significantly less, at 192 kg and 75 kg respectively. Understanding these differences helps individuals and policymakers take informed climate action.
                   (2024 Data, In 2025 it is around 375 Kg CO2 per person per month, and we our only half way through 2025)
                 </p>
@@ -141,7 +141,7 @@ const Dashboard = () => {
               id: 'impact',
               title: 'Carbon and Greenhouse Gases',
               content: (
-                <p className="text-sm text-emerald-500 dark:text-gray-300">
+                <p className="text-sm text-emerald-500 dark:text-gray-100 transition-colors duration-500">
                   Carbon dioxide (CO2) is the most significant of the greenhouse gases (GHGs) released by human activities. Greenhouse gases are atmospheric gases that absorb and emit radiant energy within the thermal infrared range, causing the greenhouse effect. Other important GHGs include methane (CH4), nitrous oxide (N2O), and fluorinated gases. While the greenhouse effect is a natural process essential for life on Earth, an increased concentration of these gases due to human activity traps excessive heat, leading to a rise in global temperatures and disruptive climate patterns.
                 </p>
               ),
@@ -151,7 +151,7 @@ const Dashboard = () => {
               id: 'solutions',
               title: 'Why Calculate Your Carbon Footprint?',
               content: (
-                <p className="text-sm text-emerald-500 dark:text-gray-300">
+                <p className="text-sm text-emerald-500 dark:text-gray-100 transition-colors duration-500">
                   Calculating your carbon footprint is the first step towards taking meaningful action. It provides a personalized understanding of your contribution to climate change, highlighting areas where you can make the most significant reductions. Whether it's opting for renewable energy, reducing waste, choosing sustainable transportation, or making conscious dietary choices, knowing your footprint empowers you to make informed decisions that benefit both you and the planet. Join us in building a more sustainable future, one conscious choice at a time.
                 </p>
               ),
@@ -160,7 +160,7 @@ const Dashboard = () => {
               id: 'calculator',
               title: 'How Our Calculator Works',
               content: (
-                <p className="text-sm text-emerald-500 dark:text-gray-300">
+                <p className="text-sm text-emerald-500 dark:text-gray-100 transition-colors duration-500">
                  Our carbon emission calculator is designed to be user-friendly and comprehensive. We consider various aspects of your lifestyle, including energy consumption (electricity, heating), transportation (car, public transport, flights), waste generation, and even dietary choices. By inputting accurate data, you'll receive an estimated carbon footprint, broken down by category. This breakdown will help you identify the areas with the highest emissions, allowing you to prioritize your efforts for maximum impact.
                 </p>
               ),
@@ -169,7 +169,7 @@ const Dashboard = () => {
               id: 'action',
               title: 'Beyond the Numbers: Your Action Plan',
               content: (
-                <ul className="list-disc list-inside text-sm text-emerald-500 dark:text-gray-300">
+                <ul className="list-disc list-inside text-sm text-emerald-500 dark:text-gray-100 transition-colors duration-500">
                   <li>Energy: Switch to LED, consider solar.</li>
                   <li>Travel: Walk, cycle, use EVs.</li>
                   <li>Consumption: Reduce, reuse, recycle.</li>
@@ -187,7 +187,7 @@ const Dashboard = () => {
       setOpenSection((prev) => (prev === section.id ? null : section.id))
     }
   >
-    <h2 className="text-2xl md:text-3xl font-bold text-emerald-500 dark:text-white mb-2">
+    <h2 className="text-2xl md:text-3xl font-bold text-emerald-500 dark:text-white mb-2 transition-colors duration-500">
       {section.title}
     </h2>
     <div
@@ -204,23 +204,25 @@ const Dashboard = () => {
         </main>
 
         <footer className="flex flex-col sm:flex-row justify-between items-center mt-8 gap-4">
+          <button>
           <Link
             to="/footprint"
-            className="px-4 py-2 text-emerald-500 dark:text-white bg-transparent border border-white rounded hover:bg-emerald-700 hover:text-black active:scale-75 focus:ring focus:ring-green-800 transition"
+            className="px-4 py-2 text-emerald-500 dark:text-white bg-transparent border border-white rounded hover:bg-emerald-700 hover:text-black active:scale-75 focus:ring focus:ring-green-800 transition-colors duration-500"
           >
             Submit New Entry
           </Link>
-
+          </button>
+          <button>
           <Link
             to="/history"
-            className="px-4 py-2 text-emerald-500 dark:text-white bg-transparent border border-white rounded hover:bg-emerald-700 hover:text-black active:scale-75 focus:ring focus:ring-green-800 transition"
+            className="px-4 py-2 text-emerald-500 dark:text-white bg-transparent border border-white rounded hover:bg-emerald-700 hover:text-black active:scale-75 focus:ring focus:ring-green-800 transition-colors duration-500"
           >
             Edit Entries
           </Link>
-
+          </button>
           <button
             onClick={handleLogout}
-            className="px-4 py-2 text-emerald-500 dark:text-white bg-transparent border border-white rounded hover:bg-emerald-700 hover:text-black active:scale-75 focus:ring focus:ring-green-800 transition"
+            className="px-4 py-2 text-emerald-500 dark:text-white bg-transparent border border-white rounded hover:bg-emerald-700 hover:text-black active:scale-75 focus:ring focus:ring-green-800 transition-colors duration-500"
           >
             Logout
           </button>
