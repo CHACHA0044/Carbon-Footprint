@@ -97,28 +97,29 @@ const Dashboard = () => {
               >
                 <p className="text-2xl md:text-3xl font-semibold text-emerald-500 dark:text-white transition-colors duration-500"><strong>Total Emission:</strong> {entry.totalEmissionKg} kg CO2</p>
                 <section
-    className="mt-4 bg-white/20 dark:bg-gray-800/40 rounded-xl backdrop-blur-md shadow-md p-4 cursor-pointer transition-all duration-500"
-    onClick={() =>
-      setOpenSection((prev) => (prev === `suggestion-${index}` ? null : `suggestion-${index}`))
-    }
+  key={`suggestion-${index}`}
+  ref={(el) => (sectionRefs.current[index + 100] = el)} // Avoid ref overlap with other sections
+  className="mt-4 p-4 bg-white/20 dark:bg-gray-800/40 rounded-xl backdrop-blur-md shadow-md cursor-pointer transition-all duration-500"
+  onClick={() =>
+    setOpenSection((prev) => (prev === `suggestion-${index}` ? null : `suggestion-${index}`))
+  }
+>
+  <h2 className="text-xl md:text-2xl font-bold text-emerald-500 dark:text-white transition-colors duration-500">
+    Suggestions
+  </h2>
+  <div
+    className={`transition-all duration-500 ease-in-out overflow-hidden ${
+      openSection === `suggestion-${index}`
+        ? 'max-h-[500px] opacity-100 mt-2'
+        : 'max-h-0 opacity-0'
+    }`}
   >
-    <h2 className="text-xl md:text-2xl font-bold text-emerald-500 dark:text-white mb-2 transition-colors duration-500">
-      Suggestions
-    </h2>
-    <div
-      className={`transition-all duration-500 ease-in-out overflow-hidden ${
-        openSection === `suggestion-${index}`
-          ? 'max-h-[500px] opacity-100 mt-2'
-          : 'max-h-[40px] opacity-80'
-      }`}
-    >
-      <p className="text-sm text-emerald-500 dark:text-gray-100 transition-colors duration-500">
-        {openSection === `suggestion-${index}`
-          ? entry.suggestions
-          : `${entry.suggestions.slice(0, 100)}${entry.suggestions.length > 100 ? '...' : ''}`}
-      </p>
-    </div>
-  </section>
+    <p className="text-sm text-emerald-500 dark:text-gray-100 transition-colors duration-500">
+      {entry.suggestions}
+    </p>
+  </div>
+</section>
+
               </div>
             ))
           ) : (
