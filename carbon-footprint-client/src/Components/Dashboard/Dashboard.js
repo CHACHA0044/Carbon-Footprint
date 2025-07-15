@@ -74,8 +74,8 @@ const Dashboard = () => {
             className="w-full h-full"
           >
     <PageWrapper backgroundImage="/images/dashboard-bk.webp">
-    <div className="relative">
-       <div className="absolute top-4 left-2 text-base md:text-2xl font-semibold text-emerald-600 dark:text-gray-100">
+    <div className="relative w-full px-0">
+       <div className="absolute top-4 left-0 pl-4 text-base md:text-2xl font-semibold text-emerald-600 dark:text-gray-100">
       🫡 Welcome, {user?.name || 'User'}
     </div>
     </div>
