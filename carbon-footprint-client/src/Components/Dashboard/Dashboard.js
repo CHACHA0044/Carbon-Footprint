@@ -70,7 +70,7 @@ const Dashboard = () => {
             initial={{ x:100, opacity: 0}}
             animate={{ x: 0, opacity: 1 }}
             exit={{ x: -100, opacity: 0 }}
-            transition={{ duration: 0.4, ease: 'easeInOut' }}
+            transition={{ duration: 0.2, ease: 'easeInOut' }}
             className="w-full h-full"
           >
     <PageWrapper backgroundImage="/images/dashboard-bk.webp">
@@ -80,7 +80,7 @@ const Dashboard = () => {
       </div>
     </div>
     <div className="w-full max-w-6xl flex flex-col text-emerald-500 dark:text-gray-100 px-6 py-8 space-y-6 transition-colors duration-500">
-    <div className="mt-12 mb-6 text-center mx-auto">
+    <div className="mt-8 mb-6 text-center mx-auto">
       <h1 className="text-4xl md:text-6xl font-bold tracking-tight text-emerald-500 dark:text-white transition-colors duration-500">
         Your Climate Dashboard
       </h1>
@@ -99,7 +99,7 @@ const Dashboard = () => {
                 <section
   key={`suggestion-${index}`}
   ref={(el) => (sectionRefs.current[index + 100] = el)} // Avoid ref overlap with other sections
-  className="mt-1 p-4 cursor-pointer transition-all duration-500"
+  className="p-4 cursor-pointer transition-all duration-500"
   onClick={() =>
     setOpenSection((prev) => (prev === `suggestion-${index}` ? null : `suggestion-${index}`))
   }
