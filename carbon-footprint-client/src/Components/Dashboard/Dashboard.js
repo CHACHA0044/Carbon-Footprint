@@ -93,13 +93,13 @@ const Dashboard = () => {
             data.map((entry, index) => (
               <div
                 key={index}
-                className="bg-white/20 dark:bg-gray-800/40 backdrop-blur-md rounded-xl p-4 shadow-md text-sm mb-6 transition-colors duration-500"
+                className="bg-white/20 dark:bg-gray-800/40 rounded-xl backdrop-blur-md p-4 shadow-md text-sm mb-2 transition-all duration-500"
               >
                 <p className="text-2xl md:text-3xl font-semibold text-emerald-500 dark:text-white transition-colors duration-500"><strong>Total Emission:</strong> {entry.totalEmissionKg} kg CO2</p>
                 <section
   key={`suggestion-${index}`}
   ref={(el) => (sectionRefs.current[index + 100] = el)} // Avoid ref overlap with other sections
-  className="mt-4 p-4 cursor-pointer transition-all duration-500"
+  className="mt-1 p-4 cursor-pointer transition-all duration-500"
   onClick={() =>
     setOpenSection((prev) => (prev === `suggestion-${index}` ? null : `suggestion-${index}`))
   }
