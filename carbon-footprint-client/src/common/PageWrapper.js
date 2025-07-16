@@ -64,7 +64,7 @@ console.log('PageWrapper image:', backgroundImage);
     bgLoaded ? 'opacity-100' : 'opacity-100'
   }`}
       style={{
-        backgroundImage: backgroundImage ? `url(${backgroundImage})` : 'none',
+        backgroundImage: backgroundImage ? `url(${backgroundImage})` : `url(${backgroundImage})`,
         backgroundAttachment: isMobile ? 'scroll' : 'fixed',
         backgroundSize: 'cover',
         backgroundPosition: 'center',

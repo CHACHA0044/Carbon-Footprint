@@ -37,9 +37,9 @@ const AnimatedRoutes = () => {
         {loading && <PageLoader key="loader" />}
       </AnimatePresence>*/}
 
-      {/* Actual route transitions */}
+      {/* Actual route transitions 
       <AnimatePresence mode="wait" initial={false}>
-        {!loading && (
+        {!loading && (*/}
           <Routes location={location} key={location.pathname}>
             <Route path="/home" element={<PageWrapper backgroundImage={`${process.env.PUBLIC_URL}/images/home-bk.webp`}><Home /></PageWrapper>}/>
             <Route path="/login" element={<PageWrapper backgroundImage={`${process.env.PUBLIC_URL}/images/register-bk.webp`}><Login /></PageWrapper>} />
@@ -50,8 +50,8 @@ const AnimatedRoutes = () => {
             <Route path="/edit/:id" element={<PageWrapper backgroundImage={`${process.env.PUBLIC_URL}/images/edit-bk.webp`}><EditFootprintForm /></PageWrapper>} />
             <Route path="/" element={<PageWrapper backgroundImage={`${process.env.PUBLIC_URL}/images/home-bk.webp`}><Home /></PageWrapper>} />
           </Routes>
-        )}
-      </AnimatePresence>
+       {/* )}
+      </AnimatePresence>*/}
     </>
   );
 };
