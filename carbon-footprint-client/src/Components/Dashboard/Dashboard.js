@@ -227,49 +227,54 @@ const Dashboard = () => {
 }</div>
         </main>
         
-        <div className="relative w-full h-[80px] mt-2"> {/* Set height to control vertical alignment */}
+<div className="w-full mt-2 mb-2 px-2">
+  <div className="relative w-full h-[80px] hidden sm:block">
+    {/* Desktop Layout */}
+    <button
+      onClick={() => navigate('/footprint')}
+      className="absolute bottom-0 left-4 px-4 py-2 flex items-center justify-center text-emerald-500 dark:text-white bg-transparent border border-white rounded hover:bg-emerald-700 hover:text-white dark:hover:text-black active:scale-95 focus:ring focus:ring-green-800 transition duration-300"
+    >
+      Submit New Entry
+    </button>
+    <button
+      onClick={() => navigate('/history')}
+      className="absolute bottom-0 left-1/2 transform -translate-x-1/2 px-4 py-2 flex items-center justify-center text-emerald-500 dark:text-white bg-transparent border border-white rounded hover:bg-emerald-700 hover:text-white dark:hover:text-black active:scale-95 focus:ring focus:ring-green-800 transition duration-300"
+    >
+      Edit Entries
+    </button>
+    <button
+      onClick={handleLogout}
+      className="absolute bottom-0 right-4 px-4 py-2 flex items-center justify-center text-emerald-500 dark:text-white bg-transparent border border-white rounded hover:bg-emerald-700 hover:text-white dark:hover:text-black active:scale-95 focus:ring focus:ring-green-800 transition duration-300"
+    >
+      Logout
+    </button>
+  </div>
 
-  {/* Bottom Left */}
-  <button
-    onClick={() => navigate('/footprint')}
-    className="px-4 py-2 w-full sm:w-auto sm:absolute sm:bottom-0 sm:left-4
-               flex items-center justify-center text-emerald-500 dark:text-white
-               bg-transparent border border-white rounded hover:bg-emerald-700
-               hover:text-white dark:hover:text-black active:scale-75
-               focus:ring focus:ring-green-800 transition-colors duration-500"
-  >
-    Submit New Entry
-  </button>
-
-  {/* Bottom Center */}
-  <button
-    onClick={() => navigate('/history')}
-    className="mt-4 sm:mt-0 px-4 py-2 w-full sm:w-auto sm:absolute sm:bottom-0 sm:left-1/2 sm:-translate-x-1/2
-               flex items-center justify-center text-emerald-500 dark:text-white
-               bg-transparent border border-white rounded hover:bg-emerald-700
-               hover:text-white dark:hover:text-black active:scale-75
-               focus:ring focus:ring-green-800 transition-colors duration-500"
-  >
-    Edit Entries
-  </button>
-
-  {/* Bottom Right */}
-  <button
-    onClick={handleLogout}
-    className="mt-4 sm:mt-0 px-4 py-2 w-full sm:w-auto sm:absolute sm:bottom-0 sm:right-4
-               flex items-center justify-center text-emerald-500 dark:text-white
-               bg-transparent border border-white rounded hover:bg-emerald-700
-               hover:text-white dark:hover:text-black active:scale-75
-               focus:ring focus:ring-green-800 transition-colors duration-500"
-  >
-    Logout
-  </button>
-
+  <div className="flex flex-col gap-4 sm:hidden mt-2">
+    {/* Mobile Layout */}
+    <button
+      onClick={() => navigate('/footprint')}
+      className="w-full px-4 py-2 flex items-center justify-center text-emerald-500 dark:text-white bg-transparent border border-white rounded hover:bg-emerald-700 hover:text-white dark:hover:text-black active:scale-95 focus:ring focus:ring-green-800 transition duration-300"
+    >
+      Submit New Entry
+    </button>
+    <button
+      onClick={() => navigate('/history')}
+      className="w-full px-4 py-2 flex items-center justify-center text-emerald-500 dark:text-white bg-transparent border border-white rounded hover:bg-emerald-700 hover:text-white dark:hover:text-black active:scale-95 focus:ring focus:ring-green-800 transition duration-300"
+    >
+      Edit Entries
+    </button>
+    <button
+      onClick={handleLogout}
+      className="w-full px-4 py-2 flex items-center justify-center text-emerald-500 dark:text-white bg-transparent border border-white rounded hover:bg-emerald-700 hover:text-white dark:hover:text-black active:scale-95 focus:ring focus:ring-green-800 transition duration-300"
+    >
+      Logout
+    </button>
+  </div>
 </div>
 
-        
+
         </div>
-      
     </PageWrapper>
     </motion.main>
   );
