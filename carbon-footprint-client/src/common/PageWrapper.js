@@ -61,10 +61,10 @@ console.log('PageWrapper image:', backgroundImage);
   return (
     <div
       className={`min-h-screen w-full flex flex-col justify-between items-center transition-opacity duration-500 ${
-    bgLoaded ? 'opacity-100' : 'opacity-100'
+    bgLoaded ? 'opacity-100' : 'opacity-0'
   }`}
       style={{
-        backgroundImage: backgroundImage ? `url(${backgroundImage})` : `url(${backgroundImage})`,
+        backgroundImage: backgroundImage ? `url(${backgroundImage})` : 'none',
         backgroundAttachment: isMobile ? 'scroll' : 'fixed',
         backgroundSize: 'cover',
         backgroundPosition: 'center',

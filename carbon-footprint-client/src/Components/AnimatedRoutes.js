@@ -31,28 +31,22 @@ const AnimatedRoutes = () => {
 
 
   return (
-    <>
-      {/* Loader animation on route change 
-      <AnimatePresence>
-        {loading && <PageLoader key="loader" />}
-      </AnimatePresence>*/}
-
-      {/* Actual route transitions 
-      <AnimatePresence mode="wait" initial={false}>
-        {!loading && (*/}
-          <Routes location={location} key={location.pathname}>
-            <Route path="/home" element={<PageWrapper backgroundImage={`${process.env.PUBLIC_URL}/images/home-bk.webp`}><Home /></PageWrapper>}/>
-            <Route path="/login" element={<PageWrapper backgroundImage={`${process.env.PUBLIC_URL}/images/register-bk.webp`}><Login /></PageWrapper>} />
-            <Route path="/register" element={<PageWrapper backgroundImage={`${process.env.PUBLIC_URL}/images/register-bk.webp`}><Register /></PageWrapper>} />
-            <Route path="/dashboard" element={<PageWrapper backgroundImage={`${process.env.PUBLIC_URL}/images/dashboard-bk.webp`}><Dashboard /></PageWrapper>} />
-            <Route path="/footprint" element={<PageWrapper backgroundImage={`${process.env.PUBLIC_URL}/images/home-bk.webp`}><Footprint /></PageWrapper>} />
-            <Route path="/history" element={<PageWrapper backgroundImage={`${process.env.PUBLIC_URL}/images/history-bk.webp`}><History /></PageWrapper>} />
-            <Route path="/edit/:id" element={<PageWrapper backgroundImage={`${process.env.PUBLIC_URL}/images/edit-bk.webp`}><EditFootprintForm /></PageWrapper>} />
-            <Route path="/" element={<PageWrapper backgroundImage={`${process.env.PUBLIC_URL}/images/home-bk.webp`}><Home /></PageWrapper>} />
-          </Routes>
-       {/* )}
-      </AnimatePresence>*/}
-    </>
+    <AnimatePresence mode="wait" initial={false}>
+      {loading ? (
+        <PageLoader key="loader" />
+      ) : (
+        <Routes location={location} key={location.pathname}>
+          <Route path="/home" element={<PageWrapper backgroundImage="/images/home-bk.webp"><Home /></PageWrapper>} />
+          <Route path="/login" element={<PageWrapper backgroundImage="/images/register-bk.webp"><Login /></PageWrapper>} />
+          <Route path="/register" element={<PageWrapper backgroundImage="/images/register-bk.webp"><Register /></PageWrapper>} />
+          <Route path="/dashboard" element={<PageWrapper backgroundImage="/images/dashboard-bk.webp"><Dashboard /></PageWrapper>} />
+          <Route path="/footprint" element={<PageWrapper backgroundImage="/images/home-bk.webp"><Footprint /></PageWrapper>} />
+          <Route path="/history" element={<PageWrapper backgroundImage="/images/history-bk.webp"><History /></PageWrapper>} />
+          <Route path="/edit/:id" element={<PageWrapper backgroundImage="/images/edit-bk.webp"><EditFootprintForm /></PageWrapper>} />
+          <Route path="/" element={<PageWrapper backgroundImage="/images/home-bk.webp"><Home /></PageWrapper>} />
+        </Routes>
+      )}
+    </AnimatePresence>
   );
 };
 
