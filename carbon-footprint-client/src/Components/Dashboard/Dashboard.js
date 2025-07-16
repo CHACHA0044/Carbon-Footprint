@@ -227,52 +227,28 @@ const Dashboard = () => {
 }</div>
         </main>
         
-<div className="w-full mt-2 mb-2 px-2">
-  <div className="relative w-full h-[80px] hidden sm:block">
-    {/* Desktop Layout */}
-    <button
-      onClick={() => navigate('/footprint')}
-      className="absolute bottom-0 left-4 px-4 py-2 flex items-center justify-center text-emerald-500 dark:text-white bg-transparent border border-white rounded hover:bg-emerald-700 hover:text-white dark:hover:text-black active:scale-95 focus:ring focus:ring-green-800 transition duration-300"
-    >
-      Submit New Entry
-    </button>
-    <button
-      onClick={() => navigate('/history')}
-      className="absolute bottom-0 left-1/2 transform -translate-x-1/2 px-4 py-2 flex items-center justify-center text-emerald-500 dark:text-white bg-transparent border border-white rounded hover:bg-emerald-700 hover:text-white dark:hover:text-black active:scale-95 focus:ring focus:ring-green-800 transition duration-300"
-    >
-      Edit Entries
-    </button>
-    <button
-      onClick={handleLogout}
-      className="absolute bottom-0 right-4 px-4 py-2 flex items-center justify-center text-emerald-500 dark:text-white bg-transparent border border-white rounded hover:bg-emerald-700 hover:text-white dark:hover:text-black active:scale-95 focus:ring focus:ring-green-800 transition duration-300"
-    >
-      Logout
-    </button>
-  </div>
+<div className="relative w-full flex flex-wrap justify-between items-center pt-2 pb-4 gap-y-3">
+  <button
+    onClick={() => navigate('/footprint')}
+    className="w-40 sm:w-48 px-4 py-2 flex items-center justify-center text-emerald-500 dark:text-white bg-transparent border border-white rounded hover:bg-emerald-700 hover:text-white dark:hover:text-black active:scale-95 focus:ring focus:ring-green-800 transition duration-300"
+  >
+    Submit New Entry
+  </button>
 
-  <div className="flex flex-col gap-4 sm:hidden mt-2">
-    {/* Mobile Layout */}
-    <button
-      onClick={() => navigate('/footprint')}
-      className="w-full px-4 py-2 flex items-center justify-center text-emerald-500 dark:text-white bg-transparent border border-white rounded hover:bg-emerald-700 hover:text-white dark:hover:text-black active:scale-95 focus:ring focus:ring-green-800 transition duration-300"
-    >
-      Submit New Entry
-    </button>
-    <button
-      onClick={() => navigate('/history')}
-      className="w-full px-4 py-2 flex items-center justify-center text-emerald-500 dark:text-white bg-transparent border border-white rounded hover:bg-emerald-700 hover:text-white dark:hover:text-black active:scale-95 focus:ring focus:ring-green-800 transition duration-300"
-    >
-      Edit Entries
-    </button>
-    <button
-      onClick={handleLogout}
-      className="w-full px-4 py-2 flex items-center justify-center text-emerald-500 dark:text-white bg-transparent border border-white rounded hover:bg-emerald-700 hover:text-white dark:hover:text-black active:scale-95 focus:ring focus:ring-green-800 transition duration-300"
-    >
-      Logout
-    </button>
-  </div>
+  <button
+    onClick={() => navigate('/history')}
+    className="w-40 sm:w-48 px-4 py-2 flex items-center justify-center text-emerald-500 dark:text-white bg-transparent border border-white rounded hover:bg-emerald-700 hover:text-white dark:hover:text-black active:scale-95 focus:ring focus:ring-green-800 transition duration-300"
+  >
+    Edit Entries
+  </button>
+
+  <button
+    onClick={handleLogout}
+    className="w-40 sm:w-48 px-4 py-2 flex items-center justify-center text-emerald-500 dark:text-white bg-transparent border border-white rounded hover:bg-emerald-700 hover:text-white dark:hover:text-black active:scale-95 focus:ring focus:ring-green-800 transition duration-300"
+  >
+    Logout
+  </button>
 </div>
-
 
         </div>
     </PageWrapper>

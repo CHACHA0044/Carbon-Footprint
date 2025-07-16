@@ -15,16 +15,18 @@ import { useLoading } from 'context/LoadingContext';
 
 const AnimatedRoutes = () => {
   const location = useLocation();
-  const { loading, setLoading } = useLoading();
+  const { loading, setLoading, setCanStop } = useLoading();
 
   // ✅ Trigger loading on every route change
   useEffect(() => {
-    setLoading(true);
-    const timeout = setTimeout(() => {
-      setLoading(false);
-    }, 400); // adjust delay as needed
-    return () => clearTimeout(timeout);
-  }, [location, setLoading]);
+  setLoading(true);
+  const minTime = setTimeout(() => {
+    setCanStop(true);
+  }, 200); // min time
+
+  return () => clearTimeout(minTime);
+}, [location]);
+
 
   return (
     <>

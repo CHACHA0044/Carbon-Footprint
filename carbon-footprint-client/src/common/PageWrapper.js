@@ -3,7 +3,7 @@ import { useLoading } from 'context/LoadingContext';
 const PageWrapper = ({ children, backgroundImage }) => {
   const [darkMode, setDarkMode] = useState(false);
   const [bgLoaded, setBgLoaded] = useState(false);
-  const { setLoading } = useLoading();
+  const { setLoading, canStop } = useLoading();
   const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
 
   useEffect(() => {
@@ -14,16 +14,30 @@ const PageWrapper = ({ children, backgroundImage }) => {
   }, []);
 
   useEffect(() => {
-    if (backgroundImage) {
-      setLoading(true); // Start loader immediately
-      const img = new Image();
-      img.src = backgroundImage;
-      img.onload = () => {
-        setBgLoaded(true);
-        setLoading(false); // Loader ends exactly when background is ready
-      };
+    if (!backgroundImage) {
+      setBgLoaded(true);
+      return;
     }
-  }, [backgroundImage, setLoading]);
+
+    const img = new Image();
+    img.src = backgroundImage;
+
+    img.onload = () => {
+      setBgLoaded(true);
+    };
+
+    // in case of error, still proceed
+    img.onerror = () => {
+      setBgLoaded(true);
+    };
+  }, [backgroundImage]);
+
+  useEffect(() => {
+    if (bgLoaded && canStop) {
+      // Background is ready, stop loading
+      setLoading(false);
+    }
+  }, [bgLoaded, canStop, setLoading]);
 
   const toggleTheme = () => {
     const newMode = !darkMode;
