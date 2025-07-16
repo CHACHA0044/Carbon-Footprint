@@ -226,15 +226,15 @@ const Dashboard = () => {
 
 }</div>
         </main>
-        <div className="flex-grow flex justify-between items-end">
-        <footer className="w-full flex flex-col sm:flex-row justify-between items-center mt-8 px-4 gap-4">
+        
+        <footer className="w-full flex flex-col sm:flex-row justify-between items-end mt-2 px-4 gap-4">
           <button className="px-4 py-2 inline-flex text-emerald-500 dark:text-white bg-transparent border border-white rounded hover:bg-emerald-700 hover:text-black active:scale-75 focus:ring focus:ring-green-800 transition-colors duration-500"
            onClick={() => navigate(`/footprint`)}>
             Submit New Entry
           </button>
           <button className="px-4 py-2 inline-flex text-emerald-500 dark:text-white bg-transparent border border-white rounded hover:bg-emerald-700 hover:text-black active:scale-75 focus:ring focus:ring-green-800 transition-colors duration-500"
            onClick={() => navigate(`/history`)}>
-            Edit Entries
+           <p>Edit Entries</p>
           </button>
           <button
             onClick={handleLogout}
@@ -244,7 +244,7 @@ const Dashboard = () => {
           </button>
         </footer>
         </div>
-      </div>
+      
     </PageWrapper>
     </motion.main>
   );
