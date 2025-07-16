@@ -228,17 +228,17 @@ const Dashboard = () => {
         </main>
         
         <div className="w-full flex flex-col sm:flex-row justify-between items-end mt-2 px-4 gap-4">
-          <button className="px-4 py-2 inline-flex text-emerald-500 dark:text-white bg-transparent border border-white rounded hover:bg-emerald-700 hover:text-black active:scale-75 focus:ring focus:ring-green-800 transition-colors duration-500"
+          <button className="px-4 py-2 flex items-center justify-center text-emerald-500 dark:text-white bg-transparent border border-white rounded hover:bg-emerald-700 hover:text-white dark:hover:text-black active:scale-75 focus:ring focus:ring-green-800 transition-colors duration-500"
            onClick={() => navigate(`/footprint`)}>
             Submit New Entry
           </button>
-          <button className="px-4 py-2 inline-flex text-emerald-500 dark:text-white bg-transparent border border-white rounded hover:bg-emerald-700 hover:text-black active:scale-75 focus:ring focus:ring-green-800 transition-colors duration-500"
+          <button className="px-4 py-2 flex items-center justify-center text-emerald-500 dark:text-white bg-transparent border border-white rounded hover:bg-emerald-700 hover:text-white dark:hover:text-black active:scale-75 focus:ring focus:ring-green-800 transition-colors duration-500"
            onClick={() => navigate(`/history`)}>
-           <p>Edit Entries</p>
+          Edit Entries
           </button>
           <button
             onClick={handleLogout}
-            className="px-4 py-2 inline-flex text-emerald-500 dark:text-white bg-transparent border border-white rounded hover:bg-emerald-700 hover:text-black active:scale-75 focus:ring focus:ring-green-800 transition-colors duration-500"
+            className="px-4 py-2 flex items-center justify-center text-emerald-500 dark:text-white bg-transparent border border-white rounded hover:bg-emerald-700 hover:text-white dark:hover:text-black active:scale-75 focus:ring focus:ring-green-800 transition-colors duration-500"
           >
             Logout
           </button>
