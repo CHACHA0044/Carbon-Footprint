@@ -20,6 +20,7 @@ const AnimatedRoutes = () => {
   // ✅ Trigger loading on every route change
   useEffect(() => {
   setLoading(true);
+  setCanStop(false);
   const minTime = setTimeout(() => {
     setCanStop(true);
   }, 200); // min time
