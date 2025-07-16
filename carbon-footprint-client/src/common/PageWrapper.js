@@ -33,19 +33,13 @@ const PageWrapper = ({ children, backgroundImage }) => {
   }, [backgroundImage]);
 
   useEffect(() => {
-    if (bgLoaded && canStop) {
-      // Background is ready, stop loading
-      setLoading(false);
-    }
-  }, [bgLoaded, canStop, setLoading]);
-
-useEffect(() => {
   console.log('bgLoaded:', bgLoaded, 'canStop:', canStop);
   if (bgLoaded && canStop) {
     console.log('→ Stopping loader');
     setLoading(false);
   }
 }, [bgLoaded, canStop, setLoading]);
+
 
 useEffect(() => {
   const fallback = setTimeout(() => {
