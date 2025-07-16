@@ -93,19 +93,20 @@ const Dashboard = () => {
             data.map((entry, index) => (
               <div
                 key={index}
-                className="bg-white/20 dark:bg-gray-800/40 rounded-xl backdrop-blur-md p-4 shadow-md text-sm transition-all duration-500"
+                className="bg-white/20 dark:bg-gray-800/40 rounded-xl backdrop-blur-md p-4 shadow-md text-sm transition-all duration-500 cursor-pointer"
+                onClick={() =>
+                  setOpenSection((prev) => (prev === `suggestion-${index}` ? null : `suggestion-${index}`))
+                }
               >
                 <p className="text-2xl md:text-3xl font-semibold text-emerald-500 dark:text-white transition-colors duration-500"><strong>Total Emission:</strong> {entry.totalEmissionKg} kg CO2</p>
                 <section
   key={`suggestion-${index}`}
   ref={(el) => (sectionRefs.current[index + 100] = el)} // Avoid ref overlap with other sections
   className="px-1 pb-1 cursor-pointer transition-all duration-500"
-  onClick={() =>
-    setOpenSection((prev) => (prev === `suggestion-${index}` ? null : `suggestion-${index}`))
-  }
+  
 >
   <h2 className="text-xl md:text-2xl font-bold text-emerald-500 dark:text-white transition-colors duration-500">
-  {openSection === `suggestion-${index}` ? 'Suggestions' : 'Suggestions...'}
+  {openSection === `suggestion-${index}` ? 'Suggestions:' : 'Suggestions...'}
   </h2>
   <div
     className={`transition-all duration-500 ease-in-out overflow-hidden ${
@@ -227,17 +228,17 @@ const Dashboard = () => {
         </main>
 
         <footer className="flex flex-col sm:flex-row justify-between items-center mt-8 gap-4">
-          <button className="px-4 py-2 text-emerald-500 dark:text-white bg-transparent border border-white rounded hover:bg-emerald-700 hover:text-black active:scale-75 focus:ring focus:ring-green-800 transition-colors duration-500"
+          <button className=" w-full px-4 py-2 inline-flex text-emerald-500 dark:text-white bg-transparent border border-white rounded hover:bg-emerald-700 hover:text-black active:scale-75 focus:ring focus:ring-green-800 transition-colors duration-500"
            onClick={() => navigate(`/footprint`)}>
             Submit New Entry
           </button>
-          <button className="px-4 py-2 text-emerald-500 dark:text-white bg-transparent border border-white rounded hover:bg-emerald-700 hover:text-black active:scale-75 focus:ring focus:ring-green-800 transition-colors duration-500"
+          <button className=" w-full px-4 py-2 inline-flex text-emerald-500 dark:text-white bg-transparent border border-white rounded hover:bg-emerald-700 hover:text-black active:scale-75 focus:ring focus:ring-green-800 transition-colors duration-500"
            onClick={() => navigate(`/history`)}>
             Edit Entries
           </button>
           <button
             onClick={handleLogout}
-            className="px-4 py-2 text-emerald-500 dark:text-white bg-transparent border border-white rounded hover:bg-emerald-700 hover:text-black active:scale-75 focus:ring focus:ring-green-800 transition-colors duration-500"
+            className=" w-full px-4 py-2 inline-flex text-emerald-500 dark:text-white bg-transparent border border-white rounded hover:bg-emerald-700 hover:text-black active:scale-75 focus:ring focus:ring-green-800 transition-colors duration-500"
           >
             Logout
           </button>
