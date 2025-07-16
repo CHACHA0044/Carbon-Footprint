@@ -56,11 +56,12 @@ useEffect(() => {
     localStorage.setItem('theme', newMode ? 'dark' : 'light');
     document.documentElement.classList.toggle('dark', newMode);
   };
+console.log('PageWrapper image:', backgroundImage);
 
   return (
     <div
       className={`min-h-screen w-full flex flex-col justify-between items-center transition-opacity duration-500 ${
-    bgLoaded ? 'opacity-100' : 'opacity-0'
+    bgLoaded ? 'opacity-100' : 'opacity-100'
   }`}
       style={{
         backgroundImage: `url(${backgroundImage})`,
