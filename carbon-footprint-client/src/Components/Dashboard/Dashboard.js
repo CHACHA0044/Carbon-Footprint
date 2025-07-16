@@ -93,24 +93,24 @@ const Dashboard = () => {
             data.map((entry, index) => (
               <div
                 key={index}
-                className="bg-white/20 dark:bg-gray-800/40 rounded-xl backdrop-blur-md p-4 shadow-md text-sm mb-2 transition-all duration-500"
+                className="bg-white/20 dark:bg-gray-800/40 rounded-xl backdrop-blur-md p-4 shadow-md text-sm transition-all duration-500"
               >
                 <p className="text-2xl md:text-3xl font-semibold text-emerald-500 dark:text-white transition-colors duration-500"><strong>Total Emission:</strong> {entry.totalEmissionKg} kg CO2</p>
                 <section
   key={`suggestion-${index}`}
   ref={(el) => (sectionRefs.current[index + 100] = el)} // Avoid ref overlap with other sections
-  className="p-4 cursor-pointer transition-all duration-500"
+  className="px-1 pb-1 cursor-pointer transition-all duration-500"
   onClick={() =>
     setOpenSection((prev) => (prev === `suggestion-${index}` ? null : `suggestion-${index}`))
   }
 >
   <h2 className="text-xl md:text-2xl font-bold text-emerald-500 dark:text-white transition-colors duration-500">
-    Suggestions...
+  {openSection === `suggestion-${index}` ? 'Suggestions' : 'Suggestions...'}
   </h2>
   <div
     className={`transition-all duration-500 ease-in-out overflow-hidden ${
       openSection === `suggestion-${index}`
-        ? 'max-h-[500px] opacity-100 mt-2'
+        ? 'max-h-[500px] opacity-100 mt-1'
         : 'max-h-0 opacity-0'
     }`}
   >
