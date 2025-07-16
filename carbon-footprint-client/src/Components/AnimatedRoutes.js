@@ -32,10 +32,10 @@ const AnimatedRoutes = () => {
 
   return (
     <>
-      {/* Loader animation on route change */}
+      {/* Loader animation on route change 
       <AnimatePresence>
         {loading && <PageLoader key="loader" />}
-      </AnimatePresence>
+      </AnimatePresence>*/}
 
       {/* Actual route transitions */}
       <AnimatePresence mode="wait" initial={false}>
