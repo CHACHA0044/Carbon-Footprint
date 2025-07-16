@@ -39,6 +39,23 @@ const PageWrapper = ({ children, backgroundImage }) => {
     }
   }, [bgLoaded, canStop, setLoading]);
 
+useEffect(() => {
+  console.log('bgLoaded:', bgLoaded, 'canStop:', canStop);
+  if (bgLoaded && canStop) {
+    console.log('→ Stopping loader');
+    setLoading(false);
+  }
+}, [bgLoaded, canStop, setLoading]);
+
+useEffect(() => {
+  const fallback = setTimeout(() => {
+    console.warn('Loader fallback triggered');
+    setLoading(false);
+  }, 3000);
+  return () => clearTimeout(fallback);
+}, [setLoading]);
+
+
   const toggleTheme = () => {
     const newMode = !darkMode;
     setDarkMode(newMode);
