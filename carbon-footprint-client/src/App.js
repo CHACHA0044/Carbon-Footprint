@@ -1,4 +1,4 @@
-import { HashRouter as Router } from 'react-router-dom';
+import { BrowserRouterRouter as Router } from 'react-router-dom';
 import AnimatedRoutes from './Components/AnimatedRoutes';
 import { LoadingProvider } from 'context/LoadingContext';
 import React from 'react';

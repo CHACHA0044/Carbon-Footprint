@@ -40,7 +40,7 @@ const AnimatedRoutes = () => {
       {/* Actual route transitions */}
       <AnimatePresence mode="wait" initial={false}>
         {!loading && (
-          <Routes location={location} key={location.hash}>
+          <Routes location={location} key={location.pathname}>
             <Route path="/home" element={<PageWrapper backgroundImage="/images/home-bk.webp"><Home /></PageWrapper>}/>
             <Route path="/login" element={<PageWrapper backgroundImage="/images/register-bk.webp"><Login /></PageWrapper>} />
             <Route path="/register" element={<PageWrapper backgroundImage="/images/register-bk.webp"><Register /></PageWrapper>} />
