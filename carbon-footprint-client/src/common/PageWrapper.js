@@ -35,7 +35,7 @@ const PageWrapper = ({ children, backgroundImage }) => {
   useEffect(() => {
   console.log('bgLoaded:', bgLoaded, 'canStop:', canStop);
   if (bgLoaded && canStop) {
-    console.log('→ Stopping loader');
+    console.log('→hitting loader');
     setLoading(false);
   }
 }, [bgLoaded, canStop, setLoading]);
@@ -59,7 +59,7 @@ useEffect(() => {
 
   return (
     <div
-      className={`min-h-screen w-full flex flex-col justify-between items-center transition-opacity animate-fadeIn duration-500 ${
+      className={`min-h-screen w-full flex flex-col justify-between items-center transition-opacity duration-500 ${
     bgLoaded ? 'opacity-100' : 'opacity-0'
   }`}
       style={{
