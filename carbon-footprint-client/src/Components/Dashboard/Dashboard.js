@@ -227,21 +227,27 @@ const Dashboard = () => {
 }</div>
         </main>
         
-        <div className="w-full flex flex-col sm:flex-row justify-between items-end mt-2 px-4 gap-4">
-          <button className="px-4 py-2 flex items-center justify-center text-emerald-500 dark:text-white bg-transparent border border-white rounded hover:bg-emerald-700 hover:text-white dark:hover:text-black active:scale-75 focus:ring focus:ring-green-800 transition-colors duration-500"
+        <div className="w-full flex flex-col sm:flex-row justify-between items-end mt-2 px-1 gap-4">
+          <div className="relative">
+          <button className="px-4 py-2 w-full sm:w-auto sm:absolute sm:left-4 sm:bottom-0 flex items-center justify-center text-emerald-500 dark:text-white bg-transparent border border-white rounded hover:bg-emerald-700 hover:text-white dark:hover:text-black active:scale-75 focus:ring focus:ring-green-800 transition-colors duration-500"
            onClick={() => navigate(`/footprint`)}>
             Submit New Entry
           </button>
-          <button className="px-4 py-2 flex items-center justify-center text-emerald-500 dark:text-white bg-transparent border border-white rounded hover:bg-emerald-700 hover:text-white dark:hover:text-black active:scale-75 focus:ring focus:ring-green-800 transition-colors duration-500"
+          </div>
+          <div className="relative">
+          <button className="px-4 py-2 w-full sm:w-auto sm:absolute sm:bottom-0 sm:left-1/2 sm:-translate-x-1/2 flex items-center justify-center text-emerald-500 dark:text-white bg-transparent border border-white rounded hover:bg-emerald-700 hover:text-white dark:hover:text-black active:scale-75 focus:ring focus:ring-green-800 transition-colors duration-500"
            onClick={() => navigate(`/history`)}>
           Edit Entries
           </button>
+          </div>
+          <div className="relative">
           <button
             onClick={handleLogout}
-            className="px-4 py-2 flex items-center justify-center text-emerald-500 dark:text-white bg-transparent border border-white rounded hover:bg-emerald-700 hover:text-white dark:hover:text-black active:scale-75 focus:ring focus:ring-green-800 transition-colors duration-500"
+            className="px-4 py-2 w-full sm:w-auto sm:absolute sm:bottom-0 sm:right-4 flex items-center justify-center text-emerald-500 dark:text-white bg-transparent border border-white rounded hover:bg-emerald-700 hover:text-white dark:hover:text-black active:scale-75 focus:ring focus:ring-green-800 transition-colors duration-500"
           >
             Logout
           </button>
+          </div>
         </div>
         </div>
       
