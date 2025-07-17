@@ -64,21 +64,27 @@ useEffect(() => {
 };
 
 
-  const handleClearAll = async () => {
+ const handleClearAll = async () => {
   setClearingAll(true);
   try {
     await API.delete('/footprint');
-    setSuccess('All history cleared 🧹');
-    setCleared(true); // NEW
-    await fetchHistory();
-    setTimeout(() => setCleared(false), 1500); // Reset after delay
+    setCleared(true); 
+    await fetchHistory(); 
+
+    setSuccess('🧹 All entries successfully deleted');
+ 
+
+    setTimeout(() => {
+      setCleared(false); 
+    }, 1500);
   } catch (err) {
     console.error(err);
     setError('Failed to clear history ❌');
   } finally {
-    setClearingAll(false);
+    setClearingAll(false); 
   }
 };
+
 
 
 
