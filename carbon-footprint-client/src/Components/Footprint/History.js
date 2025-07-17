@@ -9,6 +9,7 @@ const History = () => {
   const token = localStorage.getItem('token');
   const navigate = useNavigate();
   const location = useLocation();
+  const [success, setSuccess] = useState('');
 
   useEffect(() => {
     fetchHistory();
@@ -30,34 +31,32 @@ const History = () => {
   };
 
   const handleDelete = async (id) => {
-    if (!window.confirm("Are you sure you want to delete this entry?")) return;
-    try {
-      const res = await API.delete(`/footprint/${id}`, {
-        headers: {
-          Authorization: `Bearer ${token}`
-        }
-      });
-      alert('Entry deleted');
-      setHistory((prev) => prev.filter(entry => entry._id !== id));
-    } catch (err) {
-      alert('Failed to delete entry');
-    }
-  };
+  try {
+    await API.delete(`/footprint/${id}`);
+    setSuccess('Entry deleted successfully ✅');
+    setError('');
+    fetchHistory(); // Refresh list
+  } catch (err) {
+    console.error(err);
+    setError('Failed to delete entry ❌');
+    setSuccess('');
+  }
+};
+
 
   const handleClearAll = async () => {
-    if (!window.confirm("Are you sure you want to clear all history?")) return;
-    try {
-      const res = await API.delete(`/footprint/clear/all`, {
-        headers: {
-          Authorization: `Bearer ${token}`
-        }
-      });
-      alert('All entries deleted');
-      setHistory([]);
-    } catch (err) {
-      alert('Failed to delete history');
-    }
-  };
+  try {
+    await API.delete('/footprint');
+    setSuccess('All history cleared 🧹');
+    setError('');
+    fetchHistory();
+  } catch (err) {
+    console.error(err);
+    setError('Failed to clear history ❌');
+    setSuccess('');
+  }
+};
+
 
   const getFormattedDate = (entry) => {
     if (entry.createdAt && !isNaN(Date.parse(entry.createdAt))) {
@@ -80,8 +79,14 @@ const History = () => {
     <PageWrapper backgroundImage="/images/history-bk.webp">
       <div className="w-full flex-1 flex-col px-6 py-6 overflow-y-auto text-emerald-500 dark:text-white">
         <h2 className="text-3xl font-bold mb-6 text-center">Emission History</h2>
+        {success && (
+  <p className="text-green-500 text-sm text-center animate-pulse mb-2">{success}</p>
+)}
+{error && (
+  <p className="text-red-600 text-sm text-center animate-bounce mb-2">{error}</p>
+)}
 
-        {error && <p className="text-red-500 text-center mb-4">{error}</p>}
+       
 
         {history.length === 0 ? (
           <p className="text-center">No entries found.</p>

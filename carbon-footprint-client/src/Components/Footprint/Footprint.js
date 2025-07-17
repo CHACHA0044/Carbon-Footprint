@@ -84,7 +84,7 @@ const handleSubmit = async (e) => {
       headers: { Authorization: `Bearer ${token}` }
     });
 
-    setSuccess('✅ Entry submitted successfully!');
+    setSuccess('🥂');
     setTimeout(() => {
       navigate('/dashboard', { state: { updated: Date.now() } });
     }, 600);
