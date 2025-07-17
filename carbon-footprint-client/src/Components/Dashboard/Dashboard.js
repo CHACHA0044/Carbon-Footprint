@@ -226,24 +226,24 @@ const Dashboard = () => {
 }</div>
         </main>
         </div>
-<div className="relative w-full flex flex-col sm:flex-row justify-between items-center p-2 gap-3">
+<div className="relative w-full flex flex-col sm:flex-row justify-between items-center pl-6 pr-6 gap-3">
   <button
     onClick={() => navigate('/footprint')}
-    className="w-40 sm:w-48 px-4 py-2 pl-10 flex items-center justify-center text-emerald-500 dark:text-white bg-transparent border border-white rounded hover:bg-emerald-700 hover:text-white dark:hover:text-black active:scale-95 focus:ring focus:ring-green-800 transition duration-300"
+    className="w-40 sm:w-48 px-4 py-3 flex items-center justify-center text-emerald-500 dark:text-white bg-transparent border border-white rounded hover:bg-emerald-700 hover:text-white dark:hover:text-black active:scale-95 focus:ring focus:ring-green-800 transition duration-300"
   >
-    Submit New Entry
+   New Entry
   </button>
 
   <button
     onClick={() => navigate('/history')}
-    className="w-40 sm:w-48 px-4 py-2 flex items-center justify-center text-emerald-500 dark:text-white bg-transparent border border-white rounded hover:bg-emerald-700 hover:text-white dark:hover:text-black active:scale-95 focus:ring focus:ring-green-800 transition duration-300"
+    className="w-40 sm:w-48 px-4 py-3 flex items-center justify-center text-emerald-500 dark:text-white bg-transparent border border-white rounded hover:bg-emerald-700 hover:text-white dark:hover:text-black active:scale-95 focus:ring focus:ring-green-800 transition duration-300"
   >
     Edit Entries
   </button>
 
   <button
     onClick={handleLogout}
-    className="w-40 sm:w-48 px-4 py-2 pr-10 flex items-center justify-center text-emerald-500 dark:text-white bg-transparent border border-white rounded hover:bg-emerald-700 hover:text-white dark:hover:text-black active:scale-95 focus:ring focus:ring-green-800 transition duration-300"
+    className="w-40 sm:w-48 px-4 py-3 flex items-center justify-center text-emerald-500 dark:text-white bg-transparent border border-white rounded hover:bg-emerald-700 hover:text-white dark:hover:text-black active:scale-95 focus:ring focus:ring-green-800 transition duration-300"
   >
     Logout
   </button>
