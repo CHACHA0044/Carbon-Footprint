@@ -2,7 +2,7 @@ import API from 'api/api';
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { motion } from 'framer-motion';
-
+import PageWrapper from 'common/PageWrapper';
 const History = () => {
   const [history, setHistory] = useState([]);
   const [error, setError] = useState('');
@@ -77,7 +77,7 @@ const History = () => {
                 transition={{ duration: 0.2, ease: 'easeInOut' }}
                 className="w-full h-full"
               >
-    
+    <PageWrapper backgroundImage="/images/history-bk.webp">
       <div className="w-full flex-1 flex-col px-6 py-6 overflow-y-auto text-emerald-500 dark:text-white">
         <h2 className="text-3xl font-bold mb-6 text-center">Emission History</h2>
 
@@ -121,7 +121,7 @@ const History = () => {
           </button>
         )}
       </div>
-   
+   </PageWrapper>
     </motion.div>
   );
 };

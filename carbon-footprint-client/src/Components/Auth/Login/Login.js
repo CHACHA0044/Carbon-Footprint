@@ -2,7 +2,7 @@ import API from 'api/api';
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-
+import PageWrapper from 'common/PageWrapper';
 import {
   inputBase,
   inputDark,
@@ -62,7 +62,7 @@ const Login = () => {
         transition={{ duration: 0.2, ease: 'easeInOut' }}
         className="w-full h-full"
       >
-    
+    <PageWrapper backgroundImage="/images/register-bk.webp">
       <div className={`${boxglow}`}>
         <h1 className={heading}>Login</h1>
 
@@ -113,7 +113,7 @@ const Login = () => {
 
         </form>
       </div>
-    
+    </PageWrapper>
     </motion.div>
   );
 };

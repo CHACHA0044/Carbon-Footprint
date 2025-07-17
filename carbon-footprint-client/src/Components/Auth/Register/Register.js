@@ -2,7 +2,7 @@ import API from 'api/api';
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom'; 
 import { motion } from 'framer-motion';
-
+import PageWrapper from 'common/PageWrapper';
 import {
   inputBase,
   inputDark,
@@ -61,7 +61,7 @@ const Register = () => {
                 transition={{ duration: 0.2, ease: 'easeInOut' }}
                 className="w-full h-full"
               >
-    
+    <PageWrapper backgroundImage="/images/register-bk.webp">
       <div className={` ${boxglow}`}>
         <h1 className={heading}>Track. Reduce. Inspire</h1>
         <p className={subheading}>Build your carbon footprint journal with us.</p>
@@ -120,7 +120,7 @@ const Register = () => {
           </button>
         </form>
       </div>
-    
+    </PageWrapper>
     </motion.div>
   );
 };

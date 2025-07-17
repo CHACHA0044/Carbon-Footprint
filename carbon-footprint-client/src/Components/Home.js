@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { useLoading } from 'context/LoadingContext';
+import PageWrapper from 'common/PageWrapper';
 const Home = ({ isLoggedIn, user }) => {
   const { setLoading } = useLoading(); 
   useEffect(() => {
@@ -15,7 +16,7 @@ const Home = ({ isLoggedIn, user }) => {
             transition={{ duration: 0.2, ease: 'easeInOut' }}
             className="w-full h-full"
           >
-    
+    <PageWrapper backgroundImage="/images/home-bk.webp">
       <div className="w-full flex flex-col text-emerald-500 dark:text-gray-100 transition-colors duration-500 px-6 py-6 overflow-y-auto">
         {/* Header */}
         <header className="w-full fixed top-0 left-0 z-40 justify-between items-center px-6 py-4 bg-black/60 dark:bg-black/80 backdrop-blur-md">
@@ -66,7 +67,7 @@ const Home = ({ isLoggedIn, user }) => {
         Carbon down. Future up. v0.0.1
         </footer>*/}
       </div>
-    
+    </PageWrapper>
     </motion.div>
   );
 };

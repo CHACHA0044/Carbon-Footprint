@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom'; 
 import { motion } from 'framer-motion';
-
+import PageWrapper from 'common/PageWrapper';
 const Dashboard = () => {
   const [data, setData] = useState([]);
   const [user, setUser] = useState(null);
@@ -72,7 +72,7 @@ const Dashboard = () => {
             transition={{ duration: 0.2, ease: 'easeInOut' }}
             className="w-full h-full"
           >
-    
+    <PageWrapper backgroundImage="/images/dashboard-bk.webp">
     <div className="relative w-full px-0">
       <div className="absolute top-6 left-0 pl-4 text-base md:text-2xl font-semibold text-emerald-600 dark:text-gray-100 transition-colors duration-500">
       🫡 Welcome, {user?.name || 'User'}
@@ -250,7 +250,7 @@ const Dashboard = () => {
 </div>
 
         </div>
-    
+    </PageWrapper>
     </motion.div>
   );
 };
