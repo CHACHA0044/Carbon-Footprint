@@ -2,14 +2,14 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import AnimatedRoutes from './Components/AnimatedRoutes';
 import { LoadingProvider } from 'context/LoadingContext';
 import React from 'react';
-import PageWrapper from 'common/PageWrapper';
+//import PageWrapper from 'common/PageWrapper';
 function App() {
   return (
     <Router>
       <LoadingProvider>
-        <PageWrapper>
+       {/* <PageWrapper>*/}
           <AnimatedRoutes />
-        </PageWrapper>
+       {/*  </PageWrapper>*/}
       </LoadingProvider>
     </Router>
   );
