@@ -1,7 +1,6 @@
 import API from 'api/api';
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import PageWrapper from 'common/PageWrapper';
 import { motion } from 'framer-motion';
 
 import {
@@ -56,14 +55,14 @@ const Login = () => {
 };
 
   return (
-  <motion.main
+  <motion.div
         initial={{ x:100, opacity: 0}}
         animate={{ x: 0, opacity: 1 }}
         exit={{ x: -100, opacity: 0 }}
         transition={{ duration: 0.2, ease: 'easeInOut' }}
         className="w-full h-full"
       >
-    <PageWrapper backgroundImage="/images/register-bk.webp">
+    
       <div className={`${boxglow}`}>
         <h1 className={heading}>Login</h1>
 
@@ -114,8 +113,8 @@ const Login = () => {
 
         </form>
       </div>
-    </PageWrapper>
-    </motion.main>
+    
+    </motion.div>
   );
 };
 
