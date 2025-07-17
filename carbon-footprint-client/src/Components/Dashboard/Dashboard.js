@@ -1,6 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom'; 
-import PageWrapper from 'common/PageWrapper';
 import { motion } from 'framer-motion';
 
 const Dashboard = () => {
@@ -66,14 +65,14 @@ const Dashboard = () => {
   };
 
   return (
-    <motion.main
+    <motion.div
             initial={{ x:100, opacity: 0}}
             animate={{ x: 0, opacity: 1 }}
             exit={{ x: -100, opacity: 0 }}
             transition={{ duration: 0.2, ease: 'easeInOut' }}
             className="w-full h-full"
           >
-    <PageWrapper backgroundImage="/images/dashboard-bk.webp">
+    
     <div className="relative w-full px-0">
       <div className="absolute top-6 left-0 pl-4 text-base md:text-2xl font-semibold text-emerald-600 dark:text-gray-100 transition-colors duration-500">
       🫡 Welcome, {user?.name || 'User'}
@@ -251,8 +250,8 @@ const Dashboard = () => {
 </div>
 
         </div>
-    </PageWrapper>
-    </motion.main>
+    
+    </motion.div>
   );
 };
 

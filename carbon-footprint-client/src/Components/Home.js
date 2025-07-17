@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import PageWrapper from 'common/PageWrapper';
 import { motion } from 'framer-motion';
 import { useLoading } from 'context/LoadingContext';
 const Home = ({ isLoggedIn, user }) => {
@@ -9,14 +8,14 @@ const Home = ({ isLoggedIn, user }) => {
 }, []);
 
   return (
-    <motion.main
+    <motion.div
             initial={{ x:100, opacity: 0}}
             animate={{ x: 0, opacity: 1 }}
             exit={{ x: -100, opacity: 0 }}
             transition={{ duration: 0.2, ease: 'easeInOut' }}
             className="w-full h-full"
           >
-    <PageWrapper backgroundImage="/images/home-bk.webp">
+    
       <div className="w-full flex flex-col text-emerald-500 dark:text-gray-100 transition-colors duration-500 px-6 py-6 overflow-y-auto">
         {/* Header */}
         <header className="w-full fixed top-0 left-0 z-40 justify-between items-center px-6 py-4 bg-black/60 dark:bg-black/80 backdrop-blur-md">
@@ -27,8 +26,8 @@ const Home = ({ isLoggedIn, user }) => {
           <div className="flex items-center space-x-4">
             {!isLoggedIn ? (
               <>
-                <Link to="/login" className="text-sm font-medium hover:underline active:scale-75">Login</Link>
-                <Link to="/register" className="text-sm font-medium hover:underline active:scale-75">Register</Link>
+                <Link to="/login" className="text-sm font-medium hover:underline active:scale-75 rounded-lg">Login</Link>
+                <Link to="/register" className="text-sm font-medium hover:underline active:scale-75 rounded-lg">Register</Link>
               </>
             ) : (
               <>
@@ -67,8 +66,8 @@ const Home = ({ isLoggedIn, user }) => {
         Carbon down. Future up. v0.0.1
         </footer>*/}
       </div>
-    </PageWrapper>
-    </motion.main>
+    
+    </motion.div>
   );
 };
 

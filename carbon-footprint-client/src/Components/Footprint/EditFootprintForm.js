@@ -1,7 +1,6 @@
 import API from 'api/api';
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import PageWrapper from 'common/PageWrapper';
 import { motion } from 'framer-motion';
 
 const EditFootprintForm = () => {
@@ -65,14 +64,14 @@ const EditFootprintForm = () => {
  // if (loading) return <p className="text-center text-white">Loading entry...</p>;
 
   return (
-    <motion.main
+    <motion.div
                 initial={{ x:100, opacity: 0}}
                 animate={{ x: 0, opacity: 1 }}
                 exit={{ x: -100, opacity: 0 }}
                 transition={{ duration: 0.2, ease: 'easeInOut' }}
                 className="w-full h-full"
               >
-    <PageWrapper backgroundImage="/images/edit-bk.webp">
+    
       <div className="flex flex-col justify-center items-center px-4 py-10">
         <div className="w-full max-w-2xl bg-white/20 dark:bg-gray-800/40 backdrop-blur-md rounded-lg shadow-lg p-6 text-green-500 dark:text-white">
           <h2 className="text-2xl font-semibold mb-6 text-center">✏️ Edit Your Carbon Entry</h2>
@@ -221,8 +220,8 @@ const EditFootprintForm = () => {
           </form>
         </div>
       </div>
-    </PageWrapper>
-    </motion.main>
+    
+    </motion.div>
   );
 };
 

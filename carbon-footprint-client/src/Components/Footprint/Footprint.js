@@ -1,7 +1,6 @@
 import API from 'api/api';
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import PageWrapper from 'common/PageWrapper';
 import { motion } from 'framer-motion';
 
 const token = localStorage.getItem('token');
@@ -76,14 +75,14 @@ const handleSubmit = async (e) => {
 
 // ui
   return (
-    <motion.main
+    <motion.div
                     initial={{ x:100, opacity: 0}}
                     animate={{ x: 0, opacity: 1 }}
                     exit={{ x: -100, opacity: 0 }}
                     transition={{ duration: 0.4, ease: 'easeInOut' }}
                     className="w-full h-full"
                   >
-    <PageWrapper backgroundImage="/images/dashboard-bk.webp">
+    
       <div className="flex flex-col items-center justify-center w-full px-6 py-6 overflow-y-auto">
         <form
           onSubmit={handleSubmit}
@@ -227,8 +226,8 @@ const handleSubmit = async (e) => {
           </button>
         </form>
       </div>
-    </PageWrapper>
-    </motion.main>
+    
+    </motion.div>
   );
 };
 
