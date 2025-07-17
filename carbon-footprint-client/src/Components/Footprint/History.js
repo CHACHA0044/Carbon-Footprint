@@ -49,10 +49,12 @@ useEffect(() => {
   setLoadingId(id);
   try {
     await API.delete(`/footprint/${id}`);
-    setSuccess(`Entry deleted successfully ✅ (${id.slice(-4)})`);
+    setSuccess(`🌱 (${id.slice(-4)})`);
     setDeletedId(id); // NEW: Track deleted item
     await fetchHistory();
-    setTimeout(() => setDeletedId(null), 1500); // Reset after delay
+    setTimeout(() => {
+      setDeletedId(null); // Reset after delay
+    }, 500);
   } catch (err) {
     console.error(err);
     setError('Failed to delete entry ❌');
