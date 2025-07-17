@@ -78,8 +78,8 @@ const Dashboard = () => {
       🫡 Welcome, {user?.name || 'User'}
       </div>
     </div>
-    <div className="w-full max-w-6xl flex flex-col text-emerald-500 dark:text-gray-100 px-6 py-8 space-y-6 transition-colors duration-500">
-    <div className="mt-8 mb-6 text-center mx-auto">
+    <div className="w-full max-w-6xl flex flex-col text-emerald-500 dark:text-gray-100 px-6 py-4 space-y-4 transition-colors duration-500">
+    <div className="mt-8 mb-4 text-center mx-auto">
       <h1 className="text-4xl md:text-6xl font-bold tracking-tight text-emerald-500 dark:text-white transition-colors duration-500">
         Your Climate Dashboard
       </h1>
@@ -225,7 +225,7 @@ const Dashboard = () => {
 
 }</div>
         </main>
-        </div>
+        
 <div className="relative w-full flex flex-col sm:flex-row justify-between items-center pl-6 pr-6 gap-3">
   <button
     onClick={() => navigate('/footprint')}
@@ -248,7 +248,7 @@ const Dashboard = () => {
     Logout
   </button>
 </div>
-
+</div>
         
     </PageWrapper>
     </motion.div>
