@@ -12,7 +12,7 @@ import Footprint from './Footprint/Footprint';
 import EditFootprintForm from './Footprint/EditFootprintForm';
 import PageLoader from 'common/PageLoader';
 import { useLoading } from 'context/LoadingContext';
-import PageWrapper from 'common/PageWrapper';
+
 
 const AnimatedRoutes = () => {
   const location = useLocation();
@@ -38,14 +38,14 @@ const AnimatedRoutes = () => {
 
   <AnimatePresence mode="wait" initial={false}>
     <Routes location={location} key={location.pathname}>
-      <Route path="/home" element={<PageWrapper backgroundImage="/images/home-bk.webp"><Home /></PageWrapper>} />
-      <Route path="/login" element={<PageWrapper backgroundImage="/images/register-bk.webp"><Login /></PageWrapper>} />
-      <Route path="/register" element={<PageWrapper backgroundImage="/images/register-bk.webp"><Register /></PageWrapper>} />
-      <Route path="/dashboard" element={<PageWrapper backgroundImage="/images/dashboard-bk.webp"><Dashboard /></PageWrapper>} />
-      <Route path="/footprint" element={<PageWrapper backgroundImage="/images/home-bk.webp"><Footprint /></PageWrapper>} />
-      <Route path="/history" element={<PageWrapper backgroundImage="/images/history-bk.webp"><History /></PageWrapper>} />
-      <Route path="/edit/:id" element={<PageWrapper backgroundImage="/images/edit-bk.webp"><EditFootprintForm /></PageWrapper>} />
-      <Route path="/" element={<PageWrapper backgroundImage="/images/home-bk.webp"><Home /></PageWrapper>} />
+    <Route path="/home" element={<Home />} />
+    <Route path="/login" element={<Login />} />
+    <Route path="/register" element={<Register />} />
+    <Route path="/dashboard" element={<Dashboard />} />
+    <Route path="/footprint" element={<Footprint />} />
+    <Route path="/history" element={<History />} />
+    <Route path="/edit/:id" element={<EditFootprintForm />} />
+    <Route path="/" element={<Home />} />
     </Routes>
   </AnimatePresence>
 </>
