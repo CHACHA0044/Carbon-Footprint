@@ -3,13 +3,14 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import PageWrapper from 'common/PageWrapper';
-const token = localStorage.getItem('token');
+
 
 const Footprint = () => {
+  const token = localStorage.getItem('token');
   const [formData, setFormData] = useState({
     food: { type: '', amountKg: '' },
-    transport: [],
-    electricity: [],
+    transport: [{mode: '', distanceKm: ''}],
+    electricity: [{source: '', consumptionKwh: ''}],
     waste: [{ plasticKg: '', paperKg: '', foodWasteKg: '' }]
   });
 
@@ -32,6 +33,19 @@ const Footprint = () => {
       transport: [...formData.transport, { mode: '', distanceKm: '' }]
     });
   };
+
+  const handleRemoveTransport = (index) => {
+  const updated = [...formData.transport];
+  updated.splice(index, 1);
+  setFormData({ ...formData, transport: updated });
+  };
+
+  const handleRemoveElectricity = (index) => {
+  const updated = [...formData.electricity];
+  updated.splice(index, 1);
+  setFormData({ ...formData, electricity: updated });
+};
+
 
   const handleElectricityChange = (index, e) => {
     const updated = [...formData.electricity];
@@ -73,7 +87,7 @@ const handleSubmit = async (e) => {
     setSuccess('✅ Entry submitted successfully!');
     setTimeout(() => {
       navigate('/dashboard', { state: { updated: Date.now() } });
-    }, 800);
+    }, 600);
   } catch (err) {
     const errorMsg = err.response?.data?.error || 'Something went wrong';
     console.error('❌ Submission Error:', err);
@@ -132,7 +146,7 @@ const handleSubmit = async (e) => {
           <div>
             <label className="block mb-1 text-emerald-500 dark:text-gray-100">Transport 🛸</label>
             {formData.transport.map((t, i) => (
-              <div key={i} className="space-y-2 mb-2">
+              <div key={i} className="space-y-2 mb-2 relative">
                 <select
                   name="mode"
                   value={t.mode}
@@ -155,6 +169,15 @@ const handleSubmit = async (e) => {
                   onChange={(e) => handleTransportChange(i, e)}
                   className="w-full bg-transparent border-b border-emerald-500 focus:outline-none py-1"
                 />
+                 {formData.transport.length > 1 && (
+      <button
+        type="button"
+        onClick={() => handleRemoveTransport(i)}
+        className="absolute top-0 right-0 text-red-400 text-xs hover:text-red-600"
+      >
+        Remove ❌
+      </button>
+    )}
               </div>
             ))}
             <button
@@ -162,7 +185,7 @@ const handleSubmit = async (e) => {
               onClick={addTransport}
               className="text-emerald-500 dark:text-gray-100 hover:text-emerald-200 transition"
             >
-              + Add Transport Source
+              Add Transport Source +
             </button>
           </div>
 
@@ -170,7 +193,7 @@ const handleSubmit = async (e) => {
           <div>
             <label className="block mb-1 text-emerald-500 dark:text-gray-100">Electricity ⚡</label>
             {formData.electricity.map((el, i) => (
-              <div key={i} className="space-y-2 mb-2">
+              <div key={i} className="space-y-2 mb-2 relative">
                 <select
                   name="source"
                   value={el.source}
@@ -192,6 +215,15 @@ const handleSubmit = async (e) => {
                   onChange={(e) => handleElectricityChange(i, e)}
                   className="w-full bg-transparent border-b border-emerald-500 focus:outline-none py-1"
                 />
+                {formData.electricity.length > 1 && (
+      <button
+        type="button"
+        onClick={() => handleRemoveElectricity(i)}
+        className="absolute top-0 right-0 text-red-400 text-xs hover:text-red-600"
+      >
+        Remove ❌
+      </button>
+    )}
               </div>
             ))}
             <button
@@ -235,7 +267,7 @@ const handleSubmit = async (e) => {
           <button
   type="submit"
   disabled={loading}
-  className="w-full py-2 mt-4 font-semibold dark:text-white bg-emerald-500 border border-white rounded hover:bg-emerald-500 dark:hover:text-black hover:text-white transition duration-300 active:scale-75 flex items-center justify-center gap-2"
+  className="w-full py-2 mt-4 font-semibold text-emerald-500 dark:text-white bg-transparent border border-white rounded hover:bg-emerald-700 dark:hover:text-black hover:text-white transition duration-300 active:scale-75 flex items-center justify-center gap-2"
 >
   {loading ? (
     <>
@@ -245,9 +277,12 @@ const handleSubmit = async (e) => {
       </svg>
       Submitting...
     </>
-  ) : (
-    'Submit'
-  )}
+  ) : success
+  ? (
+    'Submission Successful'
+    
+  ) : 'Submit'
+  }
 </button>
         </form>
       </div>
