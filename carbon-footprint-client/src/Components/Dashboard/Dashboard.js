@@ -225,23 +225,14 @@ const Dashboard = () => {
 
 }</div>
         </main>
-        
-<div className="relative w-full flex flex-col sm:flex-row justify-between items-center pt-2 pb-4 gap-3">
- {/* <button
+        </div>
+<div className="relative w-full flex flex-col sm:flex-row justify-between items-center pt-2 pb-2 gap-3">
+  <button
     onClick={() => navigate('/footprint')}
     className="w-40 sm:w-48 px-4 py-2 flex items-center justify-center text-emerald-500 dark:text-white bg-transparent border border-white rounded hover:bg-emerald-700 hover:text-white dark:hover:text-black active:scale-95 focus:ring focus:ring-green-800 transition duration-300"
-  >*/} 
-     <motion.button
-        initial={{ opacity: 0, y: 30 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.4, delay: 0 }}
-        whileHover={{ scale: 1.05 }}
-        whileTap={{ scale: 0.95 }}
-        className="w-full sm:w-1/3 sm:absolute sm:left-4 sm:bottom-4 px-4 py-2 bg-emerald-500 text-white rounded shadow"
-      >
+  >
     Submit New Entry
-    </motion.button>
- {/* </button>*/}
+  </button>
 
   <button
     onClick={() => navigate('/history')}
@@ -258,7 +249,7 @@ const Dashboard = () => {
   </button>
 </div>
 
-        </div>
+        
     </PageWrapper>
     </motion.div>
   );
