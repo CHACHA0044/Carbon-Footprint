@@ -53,25 +53,36 @@ const Footprint = () => {
     });
   };
  // 
+const [error, setError] = useState('');
+const [success, setSuccess] = useState('');
+const [loading, setLoading] = useState(false);
 
 const navigate = useNavigate(); 
 
 const handleSubmit = async (e) => {
   e.preventDefault();
-  const token = localStorage.getItem('token');
+  setError('');
+  setSuccess('');
+  setLoading(true);
+
   try {
     const res = await API.post('/footprint', formData, {
       headers: { Authorization: `Bearer ${token}` }
     });
 
-    alert('Entry submitted successfully');
-    navigate('/dashboard', { state: { updated: Date.now() } });
+    setSuccess('✅ Entry submitted successfully!');
+    setTimeout(() => {
+      navigate('/dashboard', { state: { updated: Date.now() } });
+    }, 800);
   } catch (err) {
     const errorMsg = err.response?.data?.error || 'Something went wrong';
     console.error('❌ Submission Error:', err);
-    alert(`❌ ${errorMsg}`);
+    setError(`❌ ${errorMsg}`);
+  } finally {
+    setLoading(false);
   }
 };
+
 
 // ui
   return (
@@ -90,6 +101,9 @@ const handleSubmit = async (e) => {
         >
           <h2 className="text-3xl font-bold text-center text-emerald-500 dark:text-gray-100">Carbon Footprint Entry</h2>
             <h3 className="text-1xl font-bold text-center text-emerald-500 dark:text-gray-100">Enter your estimated carbon data for this month 🌍</h3>
+            {success && <p className="text-green-500 text-sm text-center animate-pulse">{success}</p>}
+            {error && <p className="text-red-500 text-sm text-center animate-bounce">{error}</p>}
+
           {/* food */}
           <div>
             <label className="block mb-1 text-emerald-500 dark:text-gray-100">Diet Type 𓌉◯𓇋</label>
@@ -219,11 +233,22 @@ const handleSubmit = async (e) => {
           </div>
 
           <button
-            type="submit"
-            className="w-full py-2 mt-4 font-semibold text-black bg-emerald-500 border border-white rounded hover:bg-emerald-500 hover:text-black transition duration-300 active:scale-75"
-          >
-            Submit
-          </button>
+  type="submit"
+  disabled={loading}
+  className="w-full py-2 mt-4 font-semibold dark:text-white bg-emerald-500 border border-white rounded hover:bg-emerald-500 dark:hover:text-black hover:text-white transition duration-300 active:scale-75 flex items-center justify-center gap-2"
+>
+  {loading ? (
+    <>
+      <svg className="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z" />
+      </svg>
+      Submitting...
+    </>
+  ) : (
+    'Submit'
+  )}
+</button>
         </form>
       </div>
     </PageWrapper>
