@@ -10,10 +10,25 @@ const History = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const [success, setSuccess] = useState('');
+  const [loadingId, setLoadingId] = useState(null); 
+  const [clearingAll, setClearingAll] = useState(false); // for clear all
+  const [deletedId, setDeletedId] = useState(null);
+  const [cleared, setCleared] = useState(false);
 
   useEffect(() => {
     fetchHistory();
   }, [location.state?.updated]);
+
+useEffect(() => {
+  if (error || success) {
+    const timer = setTimeout(() => {
+      setError('');
+      setSuccess('');
+    }, 1500);
+    return () => clearTimeout(timer);
+  }
+}, [error, success]);
+
 
   const fetchHistory = async () => {
     try {
@@ -31,31 +46,39 @@ const History = () => {
   };
 
   const handleDelete = async (id) => {
+  setLoadingId(id);
   try {
     await API.delete(`/footprint/${id}`);
-    setSuccess('Entry deleted successfully ✅');
-    setError('');
-    fetchHistory(); // Refresh list
+    setSuccess(`Entry deleted successfully ✅ (${id.slice(-4)})`);
+    setDeletedId(id); // NEW: Track deleted item
+    await fetchHistory();
+    setTimeout(() => setDeletedId(null), 1500); // Reset after delay
   } catch (err) {
     console.error(err);
     setError('Failed to delete entry ❌');
-    setSuccess('');
+  } finally {
+    setLoadingId(null);
   }
 };
 
 
   const handleClearAll = async () => {
+  setClearingAll(true);
   try {
     await API.delete('/footprint');
     setSuccess('All history cleared 🧹');
-    setError('');
-    fetchHistory();
+    setCleared(true); // NEW
+    await fetchHistory();
+    setTimeout(() => setCleared(false), 1500); // Reset after delay
   } catch (err) {
     console.error(err);
     setError('Failed to clear history ❌');
-    setSuccess('');
+  } finally {
+    setClearingAll(false);
   }
 };
+
+
 
 
   const getFormattedDate = (entry) => {
@@ -85,9 +108,6 @@ const History = () => {
 {error && (
   <p className="text-red-600 text-sm text-center animate-bounce mb-2">{error}</p>
 )}
-
-       
-
         {history.length === 0 ? (
           <p className="text-center">No entries found.</p>
         ) : (
@@ -107,11 +127,24 @@ const History = () => {
                   Edit
                 </button>
                 <button
-                  className="bg-red-500 hover:bg-red-800 text-emerald-500 dark:text-white px-4 py-1 rounded active:scale-75"
-                  onClick={() => handleDelete(entry._id)}
-                >
-                  Delete
-                </button>
+  className="bg-red-500 hover:bg-red-800 text-emerald-500 dark:text-white px-4 py-1 rounded flex items-center gap-2 active:scale-75"
+  onClick={() => handleDelete(entry._id)}
+  disabled={loadingId === entry._id}
+>
+  {loadingId === entry._id ? (
+    <>
+      <svg className="animate-spin h-4 w-4 text-white" viewBox="0 0 24 24" fill="none">
+        <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" className="opacity-25" />
+        <path fill="currentColor" className="opacity-75" d="M4 12a8 8 0 018-8v8H4z" />
+      </svg>
+      Deleting...
+    </>
+  ) : deletedId === entry._id
+  ? (
+    <span>'✅ Deleted'</span>
+  ) : ( <span>🗑️ Delete</span>)}
+</button>
+
               </div>
             </div>
           ))
@@ -119,11 +152,27 @@ const History = () => {
 
         {history.length > 0 && (
           <button
-            onClick={handleClearAll}
-            className="mt-6 bg-red-500 hover:bg-red-800 text-emerald-500 dark:text-white px-6 py-2 rounded block mx-auto active:scale-75"
-          >
-            🗑️ Clear All History
-          </button>
+  onClick={handleClearAll}
+  disabled={clearingAll}
+  className="mt-6 bg-red-500 hover:bg-red-800 text-emerald-500 dark:text-white px-6 py-2 rounded block mx-auto flex items-center justify-center gap-2 active:scale-75"
+>
+  {clearingAll ? (
+    <>
+      <svg className="animate-spin h-4 w-4 text-white" viewBox="0 0 24 24" fill="none">
+        <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" className="opacity-25" />
+        <path fill="currentColor" className="opacity-75" d="M4 12a8 8 0 018-8v8H4z" />
+      </svg>
+      Clearing...
+    </>
+  ) : cleared
+  ? (
+    <span>✅ Cleared</span>
+  ) :
+   (
+    <span>🗑️ Clear All History</span>
+  )}
+</button>
+
         )}
       </div>
    </PageWrapper>
