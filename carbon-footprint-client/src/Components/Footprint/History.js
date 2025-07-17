@@ -1,8 +1,9 @@
 import API from 'api/api';
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { motion } from 'framer-motion';
 import PageWrapper from 'common/PageWrapper';
+import { AnimatePresence, motion } from 'framer-motion';
+
 const History = () => {
   const [history, setHistory] = useState([]);
   const [error, setError] = useState('');
@@ -30,26 +31,32 @@ useEffect(() => {
 }, [error, success]);
 
 
-  const fetchHistory = async () => {
-    try {
-      const response = await API.get('/footprint/history', {
-        headers: {
-          Authorization: `Bearer ${token}`
-        }
-      });
+ const fetchHistory = async () => {
+  if (!token) {
+    navigate('/login');
+    return;
+  }
 
-      const data = response.data;
-      setHistory(data);
-    } catch (err) {
-      setError('An error occurred while fetching history');
-    }
-  };
+  try {
+    const response = await API.get('/footprint/history', {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    setHistory(response.data);
+  } catch (err) {
+    console.error(err);
+    setError('An error occurred while fetching history');
+  }
+};
+
 
   const handleDelete = async (id) => {
   setLoadingId(id);
   try {
     await API.delete(`/footprint/${id}`);
-    setSuccess(`🌱 (${id.slice(-4)})`);
+    setSuccess(`Entry (${id.slice(-4)}) deleted successfully 🌱 `);
     setDeletedId(id); // NEW: Track deleted item
     await fetchHistory();
     setTimeout(() => {
@@ -71,7 +78,7 @@ useEffect(() => {
     setCleared(true); 
     await fetchHistory(); 
 
-    setSuccess('🧹 All entries successfully deleted');
+    setSuccess('All entries successfully deleted 🧹');
  
 
     setTimeout(() => {
@@ -85,10 +92,6 @@ useEffect(() => {
   }
 };
 
-
-
-
-
   const getFormattedDate = (entry) => {
     if (entry.createdAt && !isNaN(Date.parse(entry.createdAt))) {
       return new Date(entry.createdAt).toLocaleString();
@@ -99,93 +102,148 @@ useEffect(() => {
     return 'Unknown';
   };
 
-  return (
-    <motion.div
-                initial={{ x:100, opacity: 0}}
-                animate={{ x: 0, opacity: 1 }}
-                exit={{ x: -100, opacity: 0 }}
-                transition={{ duration: 0.2, ease: 'easeInOut' }}
-                className="w-full h-full"
-              >
+return (
+  <motion.div
+    initial={{ x: 100, opacity: 0 }}
+    animate={{ x: 0, opacity: 1 }}
+    exit={{ opacity: 0 }}
+    transition={{ duration: 0.2, ease: 'easeInOut' }}
+    className="w-full h-full"
+  >
     <PageWrapper backgroundImage="/images/history-bk.webp">
       <div className="w-full flex-1 flex-col px-6 py-6 overflow-y-auto text-emerald-500 dark:text-white">
         <h2 className="text-3xl font-bold mb-6 text-center">Emission History</h2>
-        {success && (
-  <p className="text-green-500 text-sm text-center animate-pulse mb-2">{success}</p>
-)}
-{error && (
-  <p className="text-red-600 text-sm text-center animate-bounce mb-2">{error}</p>
-)}
-        {history.length === 0 ? (
-          <p className="text-center">No entries found.</p>
-        ) : (
-          history.map((entry) => (
-            <div
-              key={entry._id}
-              className="bg-white/20 dark:bg-gray-800/40 backdrop-blur-md shadow-md rounded-lg p-4 mb-4"
-            >
-              <p className="font-semibold">📅 Date: {getFormattedDate(entry)}</p>
-              <p>🌍 Total Emissions: {entry.totalEmissionKg || entry.totalEmissions} kg CO₂</p>
-              <p className="italic">💡 Suggestions: {entry.suggestions}</p>
-              <div className="mt-3 flex gap-3">
-                <button
-                  className="bg-blue-500 hover:bg-blue-800 text-emerald-500 dark:text-white px-4 py-1 rounded active:scale-75"
-                  onClick={() => navigate(`/edit/${entry._id}`)}
-                >
-                  Edit
-                </button>
-                <button
-  className="bg-red-500 hover:bg-red-800 text-emerald-500 dark:text-white px-4 py-1 rounded flex items-center gap-2 active:scale-75"
-  onClick={() => handleDelete(entry._id)}
-  disabled={loadingId === entry._id}
->
-  {loadingId === entry._id ? (
-    <>
-      <svg className="animate-spin h-4 w-4 text-white" viewBox="0 0 24 24" fill="none">
-        <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" className="opacity-25" />
-        <path fill="currentColor" className="opacity-75" d="M4 12a8 8 0 018-8v8H4z" />
-      </svg>
-      Deleting...
-    </>
-  ) : deletedId === entry._id
-  ? (
-    <span>'✅ Deleted'</span>
-  ) : ( <span>🗑️ Delete</span>)}
-</button>
 
-              </div>
-            </div>
-          ))
-        )}
+        <AnimatePresence>
+          {success && (
+            <motion.p
+              key="success"
+              className="text-green-500 text-sm text-center mb-2"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+            >
+              {success}
+            </motion.p>
+          )}
+          {error && (
+            <motion.p
+              key="error"
+              className="text-red-600 text-sm text-center mb-2"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+            >
+              {error}
+            </motion.p>
+          )}
+        </AnimatePresence>
+
+        <AnimatePresence mode="wait">
+          {history.length === 0 ? (
+            <motion.p
+              key="no-entries"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="text-center"
+            >
+              No entries found.
+            </motion.p>
+          ) : (
+            history.map((entry) => (
+              <motion.div
+                key={entry._id}
+                layout
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, scale: 0.95 }}
+                transition={{ duration: 0.3 }}
+                className="bg-white/20 dark:bg-gray-800/40 backdrop-blur-md shadow-md rounded-lg p-4 mb-4"
+              >
+                <p className="font-semibold">📅 Date: {getFormattedDate(entry)}</p>
+                <p>🌍 Total Emissions: {entry.totalEmissionKg || entry.totalEmissions} kg CO₂</p>
+                <p className="italic">💡 Suggestions: {entry.suggestions}</p>
+                <div className="mt-3 flex gap-3">
+                  <button
+                    className="bg-blue-500 hover:bg-blue-800 text-emerald-500 dark:text-white px-4 py-1 rounded active:scale-75"
+                    onClick={() => navigate(`/edit/${entry._id}`)}
+                  >
+                    Edit
+                  </button>
+                  <button
+                    className="bg-red-500 hover:bg-red-800 text-emerald-500 dark:text-white px-4 py-1 rounded flex items-center gap-2 active:scale-75"
+                    onClick={() => handleDelete(entry._id)}
+                    disabled={loadingId === entry._id}
+                  >
+                    {loadingId === entry._id ? (
+                      <>
+                        <svg className="animate-spin h-4 w-4 text-white" viewBox="0 0 24 24" fill="none">
+                          <circle
+                            cx="12"
+                            cy="12"
+                            r="10"
+                            stroke="currentColor"
+                            strokeWidth="4"
+                            className="opacity-25"
+                          />
+                          <path
+                            fill="currentColor"
+                            className="opacity-75"
+                            d="M4 12a8 8 0 018-8v8H4z"
+                          />
+                        </svg>
+                        Deleting...
+                      </>
+                    ) : deletedId === entry._id ? (
+                      <span>✅ Deleted</span>
+                    ) : (
+                      <span>🗑️ Delete</span>
+                    )}
+                  </button>
+                </div>
+              </motion.div>
+            ))
+          )}
+        </AnimatePresence>
 
         {history.length > 0 && (
           <button
-  onClick={handleClearAll}
-  disabled={clearingAll}
-  className="mt-6 bg-red-500 hover:bg-red-800 text-emerald-500 dark:text-white px-6 py-2 rounded block mx-auto flex items-center justify-center gap-2 active:scale-75"
->
-  {clearingAll ? (
-    <>
-      <svg className="animate-spin h-4 w-4 text-white" viewBox="0 0 24 24" fill="none">
-        <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" className="opacity-25" />
-        <path fill="currentColor" className="opacity-75" d="M4 12a8 8 0 018-8v8H4z" />
-      </svg>
-      Clearing...
-    </>
-  ) : cleared
-  ? (
-    <span>✅ Cleared</span>
-  ) :
-   (
-    <span>🗑️ Clear All History</span>
-  )}
-</button>
-
+            onClick={handleClearAll}
+            disabled={clearingAll}
+            className="mt-6 bg-red-500 hover:bg-red-800 text-emerald-500 dark:text-white px-6 py-2 rounded block mx-auto flex items-center justify-center gap-2 active:scale-75"
+          >
+            {clearingAll ? (
+              <>
+                <svg className="animate-spin h-4 w-4 text-white" viewBox="0 0 24 24" fill="none">
+                  <circle
+                    cx="12"
+                    cy="12"
+                    r="10"
+                    stroke="currentColor"
+                    strokeWidth="4"
+                    className="opacity-25"
+                  />
+                  <path
+                    fill="currentColor"
+                    className="opacity-75"
+                    d="M4 12a8 8 0 018-8v8H4z"
+                  />
+                </svg>
+                Clearing...
+              </>
+            ) : cleared ? (
+              <span>✅ Cleared</span>
+            ) : (
+              <span>🗑️ Clear All History</span>
+            )}
+          </button>
         )}
       </div>
-   </PageWrapper>
-    </motion.div>
-  );
+    </PageWrapper>
+  </motion.div>
+);
+
 };
 
 export default History;
