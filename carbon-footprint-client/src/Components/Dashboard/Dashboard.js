@@ -1,8 +1,10 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { Link, useLocation, useNavigate } from 'react-router-dom'; 
+import { useLocation, useNavigate } from 'react-router-dom'; 
 import { motion } from 'framer-motion';
 import PageWrapper from 'common/PageWrapper';
-const Dashboard = () => {
+import { AnimatePresence } from 'framer-motion';
+
+  const Dashboard = () => {
   const [data, setData] = useState([]);
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -11,7 +13,6 @@ const Dashboard = () => {
   const sectionRefs = useRef([]);
   const location = useLocation();
   const navigate = useNavigate(); 
-
   const fetchHistory = async () => {
     try {
       const token = localStorage.getItem('token');
@@ -49,9 +50,9 @@ const Dashboard = () => {
 
   useEffect(() => {
     const handleClickOutside = (event) => {
-      if (sectionRefs.current.every((ref) => ref && !ref.contains(event.target))) {
-        setOpenSection(null);
-      }
+      if (sectionRefs.current.every(ref => !ref || !ref.contains(event.target))) {
+    setOpenSection(null);
+}
     };
 
     document.addEventListener('mousedown', handleClickOutside);
@@ -89,9 +90,25 @@ const Dashboard = () => {
           {loading ? (
             <p>Loading your carbon data...</p>
           ) : data.length > 0 ? (
-            data.map((entry, index) => (
-              <div
-                key={index}
+            <AnimatePresence>
+            <motion.div
+              variants={{
+                visible: { transition: { staggerChildren: 0.1 } },
+                hidden: {},
+              }}
+              initial="hidden"
+              animate="visible"
+            >
+            {data.map((entry, index) => (
+              <motion.div
+                key={entry._id || index}
+                layout
+                initial={{ opacity: 0, y: 20, scale: 0.95 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.8 }}
+                transition={{ layout: { duration: 0.4, type: "spring", damping: 15 }, duration: 0.3 }}
+                whileHover={{ scale: 1.05, boxShadow: "0px 8px 20px rgba(0,0,0,0.2)" }}
+                whileTap={{ scale: 0.95 }}
                 className="bg-white/20 dark:bg-gray-800/40 rounded-xl backdrop-blur-md p-4 shadow-md text-sm transition-all duration-500 cursor-pointer"
                 onClick={() =>
                   setOpenSection((prev) => (prev === `suggestion-${index}` ? null : `suggestion-${index}`))
@@ -102,7 +119,6 @@ const Dashboard = () => {
   key={`suggestion-${index}`}
   ref={(el) => (sectionRefs.current[index + 100] = el)} // Avoid ref overlap with other sections
   className="px-1 pb-1 cursor-pointer transition-all duration-500"
-  
 >
   <h2 className="text-xl md:text-2xl font-bold text-emerald-500 dark:text-white transition-colors duration-500">
   {openSection === `suggestion-${index}` ? 'Suggestions:' : 'Suggestions...'}
@@ -120,8 +136,10 @@ const Dashboard = () => {
   </div>
 </section>
 
-              </div>
-            ))
+              </motion.div>
+            ))}
+              </motion.div>
+</AnimatePresence>
           ) : (
             <div className="text-center">
               <p className="text-2xl md:text-3xl font-semibold text-emerald-600 dark:text-white transition-colors duration-500">You haven't submitted any carbon data yet.</p>
@@ -202,8 +220,15 @@ const Dashboard = () => {
               ),
             },
          ].map((section, index) => (
-  <section
+  <motion.section
+  layout
     key={section.id}
+    initial={{ opacity: 0, y: 20, scale: 0.95 }}
+    animate={{ opacity: 1, y: 0, scale: 1 }}
+    exit={{ opacity: 0, scale: 0.8 }}
+    transition={{ layout: { duration: 0.4, type: "spring", damping: 15 }, duration: 0.3 }}
+    whileHover={{ scale: 1.05, boxShadow: "0px 8px 20px rgba(0,0,0,0.2)" }}
+    whileTap={{ scale: 0.95 }}
     ref={(el) => (sectionRefs.current[index] = el)}
     className="p-4 bg-white/20 dark:bg-gray-800/40 rounded-xl backdrop-blur-md shadow-md cursor-pointer transition-all duration-500"
     onClick={() =>
@@ -214,13 +239,13 @@ const Dashboard = () => {
       {section.title}
     </h2>
     <div
-      className={`transition-all duration-500 ease-in-out overflow-hidden ${
-        openSection === section.id ? 'max-h-[500px] opacity-y-auto opacity-100 mt-2' : 'max-h-0 opacity-0'
+      className={`transition-all duration-500 ease-in-out overflow-hidden ${  
+        openSection === section.id ? 'max-h-[500px] opacity-100 mt-2' : 'max-h-0 opacity-0'
       }`}
     >
       {section.content}
     </div>
-  </section>
+  </motion.section>
 ))
 
 }</div>
@@ -229,21 +254,21 @@ const Dashboard = () => {
 <div className="relative w-full flex flex-col sm:flex-row justify-between items-center pl-6 pr-6 gap-3">
   <button
     onClick={() => navigate('/footprint')}
-    className="w-40 sm:w-48 px-4 py-3 flex items-center justify-center text-emerald-500 dark:text-white bg-transparent border border-white rounded hover:bg-emerald-700 hover:text-white dark:hover:text-black active:scale-95 focus:ring focus:ring-green-800 transition duration-300"
+    className="w-32 sm:w-40 md:w-48 px-4 py-3 flex items-center justify-center text-emerald-500 dark:text-white bg-transparent border border-white rounded hover:bg-emerald-700 hover:text-white dark:hover:text-black active:scale-75 focus:ring focus:ring-green-800 transition duration-300"
   >
    New Entry
   </button>
 
   <button
     onClick={() => navigate('/history')}
-    className="w-40 sm:w-48 px-4 py-3 flex items-center justify-center text-emerald-500 dark:text-white bg-transparent border border-white rounded hover:bg-emerald-700 hover:text-white dark:hover:text-black active:scale-95 focus:ring focus:ring-green-800 transition duration-300"
+    className="w-32 sm:w-40 md:w-48 px-4 py-3 flex items-center justify-center text-emerald-500 dark:text-white bg-transparent border border-white rounded hover:bg-emerald-700 hover:text-white dark:hover:text-black active:scale-75 focus:ring focus:ring-green-800 transition duration-300"
   >
     Edit Entries
   </button>
 
   <button
     onClick={handleLogout}
-    className="w-40 sm:w-48 px-4 py-3 flex items-center justify-center text-emerald-500 dark:text-white bg-transparent border border-white rounded hover:bg-emerald-700 hover:text-white dark:hover:text-black active:scale-95 focus:ring focus:ring-green-800 transition duration-300"
+    className="w-32 sm:w-40 md:w-48 px-4 py-3 flex items-center justify-center text-emerald-500 dark:text-white bg-transparent border border-white rounded hover:bg-emerald-700 hover:text-white dark:hover:text-black active:scale-75 focus:ring focus:ring-green-800 transition duration-300"
   >
     Logout
   </button>

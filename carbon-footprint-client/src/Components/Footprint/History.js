@@ -171,8 +171,8 @@ return (
                   animate={{ opacity: 1, y: 0, scale: 1 }}
                   exit={{ opacity: 0, scale: 0.8 }}
                   transition={{ layout: { duration: 0.4, type: "spring", damping: 15 }, duration: 0.3 }}
-                  whileHover={{ scale: 1.02, boxShadow: "0px 8px 20px rgba(0,0,0,0.2)" }}
-                  whileTap={{ scale: 0.98 }}
+                  whileHover={{ scale: 1.05, boxShadow: "0px 8px 20px rgba(0,0,0,0.2)" }}
+                  whileTap={{ scale: 0.95 }}
                 className="bg-white/20 dark:bg-gray-800/40 backdrop-blur-md shadow-md rounded-lg p-4 mb-4 transition-colors duration-500"
               >
                 <p className="font-semibold ">📅 Date: {getFormattedDate(entry)}</p>
