@@ -74,13 +74,15 @@ useEffect(() => {
  const handleClearAll = async () => {
   setClearingAll(true);
   try {
-    await API.delete('/footprint');
+    await API.delete('/footprint', {
+  headers: {
+    Authorization: `Bearer ${token}`,
+  },
+});
+
     setCleared(true); 
     await fetchHistory(); 
-
     setSuccess('All entries successfully deleted 🧹');
- 
-
     setTimeout(() => {
       setCleared(false); 
     }, 1500);
@@ -142,23 +144,33 @@ return (
         <AnimatePresence mode="wait">
           {history.length === 0 ? (
             <motion.p
-              key="no-entries"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              className="text-center"
-            >
+  key="no-entries"
+  initial={{ opacity: 0 }}
+  animate={{ opacity: 1 }}
+  exit={{ opacity: 0 }}
+  className="text-center"
+>
               No entries found.
             </motion.p>
           ) : (
-            history.map((entry) => (
+             <motion.div
+      variants={{
+        visible: { transition: { staggerChildren: 0.1 } },
+        hidden: {},
+      }}
+      initial="hidden"
+      animate="visible"
+    >
+           { history.map((entry) => (
               <motion.div
                 key={entry._id}
                 layout
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, scale: 0.95 }}
-                transition={{ duration: 0.3 }}
+                 initial={{ opacity: 0, y: 20, scale: 0.95 }}
+                  animate={{ opacity: 1, y: 0, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.8 }}
+                  transition={{ layout: { duration: 0.4, type: "spring", damping: 15 }, duration: 0.3 }}
+                  whileHover={{ scale: 1.02, boxShadow: "0px 8px 20px rgba(0,0,0,0.2)" }}
+                  whileTap={{ scale: 0.98 }}
                 className="bg-white/20 dark:bg-gray-800/40 backdrop-blur-md shadow-md rounded-lg p-4 mb-4"
               >
                 <p className="font-semibold">📅 Date: {getFormattedDate(entry)}</p>
@@ -203,7 +215,8 @@ return (
                   </button>
                 </div>
               </motion.div>
-            ))
+            ))}
+            </motion.div>
           )}
         </AnimatePresence>
 
@@ -211,7 +224,7 @@ return (
           <button
             onClick={handleClearAll}
             disabled={clearingAll}
-            className="mt-6 bg-red-500 hover:bg-red-800 text-emerald-500 dark:text-white px-6 py-2 rounded block mx-auto flex items-center justify-center gap-2 active:scale-75"
+            className="mt-6 bg-red-500 hover:bg-red-800 text-emerald-500 dark:text-white px-6 py-2 rounded mx-auto flex items-center justify-center gap-2 active:scale-75"
           >
             {clearingAll ? (
               <>
