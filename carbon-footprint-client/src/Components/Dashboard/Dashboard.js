@@ -79,7 +79,7 @@ import { AnimatePresence } from 'framer-motion';
       🫡 Welcome, {user?.name || 'User'}
       </div>
     </div>
-    <div className="w-full max-w-6xl flex flex-col text-emerald-500 dark:text-gray-100 px-6 py-4 space-y-4 transition-colors duration-500 overflow-x-hidden">
+    <div className="w-full max-w-7xl flex flex-col text-emerald-500 dark:text-gray-100 px-6 py-4 space-y-4 transition-colors duration-500 overflow-x-hidden">
     <div className="mt-8 mb-4 text-center mx-auto">
       <h1 className="text-4xl md:text-6xl font-bold tracking-tight text-emerald-500 dark:text-white transition-colors duration-500">
         Your Climate Dashboard

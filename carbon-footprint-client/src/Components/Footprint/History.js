@@ -112,10 +112,10 @@ return (
     animate={{ x: 0, opacity: 1 }}
     exit={{ opacity: 0 }}
     transition={{ duration: 0.2, ease: 'easeInOut' }}
-    className="w-full h-full"
+    className="w-full  h-full"
   >
     <PageWrapper backgroundImage="/images/history-bk.webp">
-      <div className="w-full flex-1 flex-col px-6 py-6 overflow-y-auto overflow-x-hidden text-emerald-500 dark:text-white transition-colors duration-500">
+      <div className="w-full max-w-7xl flex flex-col px-6 py-6 overflow-y-auto overflow-x-hidden text-emerald-500 dark:text-white transition-colors duration-500">
         <h2 className="text-3xl font-bold mb-6 text-center">Emission History</h2>
 
         <AnimatePresence>
