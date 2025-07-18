@@ -115,7 +115,7 @@ return (
     className="w-full  h-full"
   >
     <PageWrapper backgroundImage="/images/history-bk.webp">
-      <div className="w-full max-w-7xl flex flex-col px-6 py-6 overflow-y-auto overflow-x-hidden text-emerald-500 dark:text-white transition-colors duration-500">
+      <div className="w-full max-w-7xl flex flex-col px-6 py-6 overflow-y-auto overflow-x-hidden overflow-visible text-emerald-500 dark:text-white transition-colors duration-500">
         <h2 className="text-3xl font-bold mb-6 text-center">Emission History</h2>
 
         <AnimatePresence>
@@ -173,7 +173,7 @@ return (
                   transition={{ type: "spring", stiffness: 400, damping: 17 }}
                   whileHover={{ scale: 1.05, boxShadow: "0px 8px 20px rgba(0,0,0,0.2)" }}
                   whileTap={{ scale: 0.85, transition: { duration: 0.05 } }}
-                className="bg-white/20 dark:bg-gray-800/40 backdrop-blur-md shadow-md rounded-lg p-4 mb-4 transition-colors duration-300"
+                className="bg-white/20 dark:bg-gray-800/40 backdrop-blur-md shadow-md rounded-lg p-4 mb-4 origin-center transition-colors duration-300"
               >
                 <p className="font-semibold ">📅 Date: {getFormattedDate(entry)}</p>
                 <p>🌍 Total Emissions: {entry.totalEmissionKg || entry.totalEmissions} kg CO₂</p>
