@@ -92,6 +92,7 @@ import { AnimatePresence } from 'framer-motion';
           ) : data.length > 0 ? (
             <AnimatePresence>
             <motion.div
+            className="flex flex-col gap-6"
               variants={{
                 visible: { transition: { staggerChildren: 0.1 } },
                 hidden: {},
@@ -106,7 +107,7 @@ import { AnimatePresence } from 'framer-motion';
                 initial={{ opacity: 0, y: 20, scale: 0.95 }}
                 animate={{ opacity: 1, y: 0, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.8 }}
-                transition={{ layout: { duration: 0.4, type: "spring", damping: 15 }, duration: 0.3 }}
+                transition={{ type: "spring", stiffness: 400, damping: 17 }}
                 whileHover={{ scale: 1.05, boxShadow: "0px 8px 20px rgba(0,0,0,0.2)" }}
                 whileTap={{ scale: 0.95 }}
                 className="bg-white/20 dark:bg-gray-800/40 rounded-xl backdrop-blur-md p-4 shadow-md text-sm transition-all duration-500 cursor-pointer"
@@ -147,7 +148,7 @@ import { AnimatePresence } from 'framer-motion';
           )}
 
           {/* Expandable Sections */}
-          <div className="mb-6 pb-8 space-y-6 pr-2 will-change-transform">
+          <div className="mb-6 pb-4 flex flex-col gap-6 pr-2 will-change-transform">
           {[
             {
               id: 'understanding',
@@ -226,9 +227,9 @@ import { AnimatePresence } from 'framer-motion';
     initial={{ opacity: 0, y: 20, scale: 0.95 }}
     animate={{ opacity: 1, y: 0, scale: 1 }}
     exit={{ opacity: 0, scale: 0.8 }}
-    transition={{ layout: { duration: 0.4, type: "spring", damping: 15 }, duration: 0.3 }}
+    transition={{ type: "spring", stiffness: 400, damping: 17 }}
     whileHover={{ scale: 1.05, boxShadow: "0px 8px 20px rgba(0,0,0,0.2)" }}
-    whileTap={{ scale: 0.95 }}
+    whileTap={{ scale: 0.9}}
     ref={(el) => (sectionRefs.current[index] = el)}
     className="p-4 bg-white/20 dark:bg-gray-800/40 rounded-xl backdrop-blur-md shadow-md cursor-pointer transition-all duration-500"
     onClick={() =>
