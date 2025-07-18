@@ -79,7 +79,7 @@ import { AnimatePresence } from 'framer-motion';
       🫡 Welcome, {user?.name || 'User'}
       </div>
     </div>
-    <div className="w-full max-w-6xl flex flex-col text-emerald-500 dark:text-gray-100 px-6 py-4 space-y-4 transition-colors duration-500">
+    <div className="w-full max-w-6xl flex flex-col text-emerald-500 dark:text-gray-100 px-6 py-4 space-y-4 transition-colors duration-500 overflow-x-hidden">
     <div className="mt-8 mb-4 text-center mx-auto">
       <h1 className="text-4xl md:text-6xl font-bold tracking-tight text-emerald-500 dark:text-white transition-colors duration-500">
         Your Climate Dashboard
@@ -109,8 +109,8 @@ import { AnimatePresence } from 'framer-motion';
                 exit={{ opacity: 0, scale: 0.8 }}
                 transition={{ type: "spring", stiffness: 400, damping: 17 }}
                 whileHover={{ scale: 1.05, boxShadow: "0px 8px 20px rgba(0,0,0,0.2)" }}
-                whileTap={{ scale: 0.95 }}
-                className="bg-white/20 dark:bg-gray-800/40 rounded-xl backdrop-blur-md p-4 shadow-md text-sm transition-all duration-500 cursor-pointer"
+                whileTap={{ scale: 0.85, transition: { duration: 0.05 } }}
+                className="bg-white/20 dark:bg-gray-800/40 rounded-xl backdrop-blur-md p-4 shadow-md text-sm transition-colors duration-300 cursor-pointer"
                 onClick={() =>
                   setOpenSection((prev) => (prev === `suggestion-${index}` ? null : `suggestion-${index}`))
                 }
@@ -229,9 +229,9 @@ import { AnimatePresence } from 'framer-motion';
     exit={{ opacity: 0, scale: 0.8 }}
     transition={{ type: "spring", stiffness: 400, damping: 17 }}
     whileHover={{ scale: 1.05, boxShadow: "0px 8px 20px rgba(0,0,0,0.2)" }}
-    whileTap={{ scale: 0.9}}
+    whileTap={{ scale: 0.85, transition: { duration: 0.05 } }}
     ref={(el) => (sectionRefs.current[index] = el)}
-    className="p-4 bg-white/20 dark:bg-gray-800/40 rounded-xl backdrop-blur-md shadow-md cursor-pointer transition-all duration-500"
+    className="p-4 bg-white/20 dark:bg-gray-800/40 rounded-xl backdrop-blur-md shadow-md cursor-pointer transition-colors duration-300"
     onClick={() =>
       setOpenSection((prev) => (prev === section.id ? null : section.id))
     }
