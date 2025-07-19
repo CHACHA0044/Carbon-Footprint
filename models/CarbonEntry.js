@@ -1,17 +1,10 @@
 const mongoose = require('mongoose');
 
 const carbonEntrySchema = new mongoose.Schema({
-  name: {
-    type: String,
-    required: false
-  },
-  email: {
-    type: String,
-    required: false
-  },
-
-  // 🛠️ Fixing food field structure
-  food: {
+  email: { type: String, required: true, unique: true },
+  entries: [
+    {
+      food: {
     type: {
       type: String,
       enum: ["Animal based", "Plant based", "Both"],
@@ -23,9 +16,7 @@ const carbonEntrySchema = new mongoose.Schema({
       type: Number,
     }
   },
-
-  // ✅ Array of multiple transport entries
-  transport: [{
+      transport: [{
     mode: {
       type: String,
       enum: ["Car", "Bike", "Bus", "Metro", "Walking", "Train", "Flights"]
@@ -33,9 +24,7 @@ const carbonEntrySchema = new mongoose.Schema({
     distanceKm: Number,
     emissionKg: Number
   }],
-
-  // ✅ Array of electricity sources
-  electricity: [{
+      electricity: [{
     consumptionKwh: Number,
     source: {
       type: String,
@@ -43,28 +32,18 @@ const carbonEntrySchema = new mongoose.Schema({
     },
     emissionKg: Number
   }],
-
-  // ✅ Array of different waste types
-  waste: [{
+      waste: [{
     plasticKg: Number,
     paperKg: Number,
     foodWasteKg: Number,
     emissionKg: Number
   }],
-
-  totalEmissionKg: {
-    type: Number,
-    required: true
-  },
-
-  suggestions: {
-    type: String
-  },
-
-  date: {
-    type: Date,
-    default: Date.now
-  }
+      totalEmissionKg: Number,
+      suggestions: String,
+      createdAt: { type: Date, default: Date.now },
+      updatedAt: { type: Date, default: Date.now }
+    }
+  ]
 });
 
 module.exports = mongoose.model('CarbonEntry', carbonEntrySchema);

@@ -44,7 +44,9 @@ useEffect(() => {
       },
     });
 
-    setHistory(response.data);
+    const sorted = (Array.isArray(response.data) ? response.data : [])
+  .sort((a, b) => new Date(b.updatedAt || b.createdAt) - new Date(a.updatedAt || a.createdAt));
+setHistory(sorted);
   } catch (err) {
     console.error(err);
     setError('An error occurred while fetching history');
@@ -96,15 +98,6 @@ useEffect(() => {
   }
 };
 
-  const getFormattedDate = (entry) => {
-    if (entry.createdAt && !isNaN(Date.parse(entry.createdAt))) {
-      return new Date(entry.createdAt).toLocaleString();
-    } else if (entry._id) {
-      const timestamp = parseInt(entry._id.substring(0, 8), 16) * 1000;
-      return new Date(timestamp).toLocaleString();
-    }
-    return 'Unknown';
-  };
 
 return (
   <motion.div
@@ -171,11 +164,15 @@ return (
                   animate={{ opacity: 1, y: 0, scale: 1 }}
                   exit={{ opacity: 0, scale: 0.8 }}
                   transition={{ type: "spring", stiffness: 400, damping: 17 }}
-                  whileHover={{ scale: 1.05, boxShadow: "0px 8px 20px rgba(0,0,0,0.2)" }}
-                  whileTap={{ scale: 0.85, transition: { duration: 0.05 } }}
+                  whileHover={{ scale: 1.03, boxShadow: "0px 8px 20px rgba(0,0,0,0.2)" }}
+                  whileTap={{ scale: 0.97, transition: { duration: 0.05 } }}
                 className="bg-white/20 dark:bg-gray-800/40 backdrop-blur-md shadow-md rounded-lg p-4 mb-4 origin-center transition-colors duration-300"
               >
-                <p className="font-semibold ">📅 Date: {getFormattedDate(entry)}</p>
+                <p className="text-xs italic text-gray-600 dark:text-gray-400 mt-1">
+                  {entry.updatedAt && entry.updatedAt !== entry.createdAt
+                    ? `Updated on ${new Date(entry.updatedAt).toLocaleDateString()}`
+                    : `Created on ${new Date(entry.createdAt).toLocaleDateString()}`}
+                </p>
                 <p>🌍 Total Emissions: {entry.totalEmissionKg || entry.totalEmissions} kg CO₂</p>
                 <p className="italic">💡 Suggestions: {entry.suggestions}</p>
                 <div className="mt-3 flex gap-3">

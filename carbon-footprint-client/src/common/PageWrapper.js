@@ -13,24 +13,15 @@ const PageWrapper = ({ children, backgroundImage }) => {
     document.documentElement.classList.toggle('dark', isDark);
   }, []);
 
-  useEffect(() => {
-    if (!backgroundImage) {
-      setBgLoaded(true);
-      return;
-    }
+useEffect(() => {
+  const img = new Image();
+  img.src = backgroundImage;
+  img.onload = () => {
+    setBgLoaded(true);  
+    setLoading(false);  // stop loader only when bg is ready
+  };
+}, [backgroundImage, setLoading]);
 
-    const img = new Image();
-    img.src = backgroundImage;
-
-    img.onload = () => {
-      setBgLoaded(true);
-    };
-
-    // in case of error, still proceed
-    img.onerror = () => {
-      setBgLoaded(true);
-    };
-  }, [backgroundImage]);
 
   useEffect(() => {
   console.log('bgLoaded:', bgLoaded, 'canStop:', canStop);

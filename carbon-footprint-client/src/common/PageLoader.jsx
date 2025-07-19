@@ -10,7 +10,13 @@ export default function PageLoader() {
       exit={{ opacity: 0 }}
       transition={{ duration: 0.2, ease: 'easeInOut' }}
     >
-      <div className="loader border-4 border-emerald-300 border-t-transparent rounded-full w-12 h-12 animate-spin"></div>
+      <motion.span
+        className="text-6xl"
+        animate={{ rotate: 360 }}
+        transition={{ repeat: Infinity, duration: 2, ease: 'linear' }}
+      >
+        🌍
+      </motion.span>
     </motion.div>
   );
 }
