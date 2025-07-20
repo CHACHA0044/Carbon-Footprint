@@ -53,6 +53,11 @@ setShowLimitMsg(allEntries.length >= 5);
   }
 }, [location.state?.updated]);
 
+ useEffect(() => {
+  if (!loading && data.length > 0) {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+}, [data, loading]);
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -86,7 +91,7 @@ setShowLimitMsg(allEntries.length >= 5);
       </div>
     </div>
     <div className="w-full max-w-7xl flex flex-col text-emerald-500 dark:text-gray-100 px-6 py-4 space-y-4 transition-colors duration-500 overflow-visible overflow-x-hidden">
-    <div className="mt-8 mb-4 text-center mx-auto">
+    <div className="my-6 text-center mx-auto">
       <h1 className="text-4xl md:text-6xl font-bold tracking-tight text-emerald-500 dark:text-white transition-colors duration-500">
         Your Climate Dashboard
       </h1>
@@ -131,7 +136,7 @@ setShowLimitMsg(allEntries.length >= 5);
               <motion.div
                 key={entry._id || index}
                 layout
-                initial={{ opacity: 0, y: 20, scale: 0.95 }}
+                initial={{ opacity: 0, y: -30, scale: 0.95 }}
                 animate={{ opacity: 1, y: 0, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.8 }}
                 transition={{ type: "spring", stiffness: 400, damping: 17 }}
@@ -161,10 +166,10 @@ setShowLimitMsg(allEntries.length >= 5);
   >
     <div className="text-sm text-emerald-500 dark:text-gray-100 transition-colors duration-500">
       <p>{entry.suggestions}</p>
-    <p className="text-xs italic text-gray-600 dark:text-gray-400 mt-1">
+    <p className="text-xs italic text-emerald-500 dark:text-white mt-1">
     {entry.updatedAt && entry.updatedAt !== entry.createdAt
-      ? `Updated on ${new Date(entry.updatedAt).toLocaleDateString()}`
-      : `Created on ${new Date(entry.createdAt).toLocaleDateString()}`}
+      ? `Updated on ${new Date(entry.updatedAt).toLocaleString()}`
+      : `Created on ${new Date(entry.createdAt).toLocaleString()}`}
   </p>
   </div>
   </motion.div>
@@ -175,21 +180,25 @@ setShowLimitMsg(allEntries.length >= 5);
               </motion.div>
 </AnimatePresence>
           ) : (
-            <motion.div className="text-2xl md:text-3xl font-semibold text-emerald-600 dark:text-white flex justify-center items-center gap-1">
-  <span>You haven't submitted any carbon data yet</span>
+            <div className="text-2xl md:text-3xl font-semibold text-emerald-600 dark:text-white text-center">
+  You haven't submitted any carbon data yet
   <motion.span
+    className="inline-block text-3xl font-semibold"
     animate={{ opacity: [0, 1, 0] }}
     transition={{ duration: 1.2, repeat: Infinity, delay: 0 }}
   >.</motion.span>
   <motion.span
+    className="inline-block text-3xl font-semibold"
     animate={{ opacity: [0, 1, 0] }}
     transition={{ duration: 1.2, repeat: Infinity, delay: 0.4 }}
   >.</motion.span>
   <motion.span
+    className="inline-block text-3xl font-semibold"
     animate={{ opacity: [0, 1, 0] }}
     transition={{ duration: 1.2, repeat: Infinity, delay: 0.8 }}
   >.</motion.span>
-</motion.div>
+</div>
+
 
           )}
 
@@ -274,7 +283,7 @@ setShowLimitMsg(allEntries.length >= 5);
   <motion.section
   layout
     key={section.id}
-    initial={{ opacity: 0, y: 20, scale: 0.95 }}
+    initial={{ opacity: 0, y: -30, scale: 0.95 }}
     animate={{ opacity: 1, y: 0, scale: 1 }}
     exit={{ opacity: 0, scale: 0.8 }}
     transition={{ type: "spring", stiffness: 400, damping: 17 }}
@@ -306,12 +315,15 @@ setShowLimitMsg(allEntries.length >= 5);
   <button
     onClick={() => {
   if (data.length >= 5) {
-    setShowLimitMsg(false);
-    setTimeout(() => setShowLimitMsg(true), 50);
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  } else {
-    navigate('/footprint');
-  }
+  setShowLimitMsg(false);
+  setTimeout(() => {
+    setShowLimitMsg(true);
+    setTimeout(() => window.scrollTo(0, 0), 50); 
+  }, 50);
+} else {
+  navigate('/footprint');
+}
+
 }}
     className="w-32 sm:w-40 md:w-48 px-4 py-3 flex items-center justify-center text-emerald-500 dark:text-white bg-transparent border border-white rounded hover:bg-emerald-700 hover:text-white dark:hover:text-black active:scale-75 active:bg-emerald-800 dark:active:bg-white focus:ring focus:ring-green-800 transition duration-300"
   >
