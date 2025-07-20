@@ -55,7 +55,7 @@ setShowLimitMsg(allEntries.length >= 5);
 
  useEffect(() => {
   if (!loading && data.length > 0) {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    window.scrollTo({ top: 0, left:0, behavior: 'instant' });
   }
 }, [data, loading]);
 
@@ -91,8 +91,8 @@ setShowLimitMsg(allEntries.length >= 5);
       </div>
     </div>
     <div className="w-full max-w-7xl flex flex-col text-emerald-500 dark:text-gray-100 px-6 py-4 space-y-4 transition-colors duration-500 overflow-visible overflow-x-hidden">
-    <div className="my-6 text-center mx-auto">
-      <h1 className="text-4xl md:text-6xl font-bold tracking-tight text-emerald-500 dark:text-white transition-colors duration-500">
+    <div className=" py-4 md:my-6 text-center mx-auto">
+      <h1 className="text-4xl md:text-6xl mb:2 font-bold tracking-tight text-emerald-500 dark:text-white transition-colors duration-500">
         Your Climate Dashboard
       </h1>
       {showLimitMsg && (
@@ -180,8 +180,8 @@ setShowLimitMsg(allEntries.length >= 5);
               </motion.div>
 </AnimatePresence>
           ) : (
-            <div className="text-2xl md:text-3xl font-semibold text-emerald-600 dark:text-white text-center">
-  You haven't submitted any carbon data yet
+            <div className="text-2xl md:text-3xl mt-2 font-semibold text-emerald-600 dark:text-white text-center">
+  You haven't submitted any carbon data yet 
   <motion.span
     className="inline-block text-3xl font-semibold"
     animate={{ opacity: [0, 1, 0] }}
