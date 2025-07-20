@@ -168,13 +168,13 @@ return (
                   whileTap={{ scale: 0.97, transition: { duration: 0.05 } }}
                 className="bg-white/20 dark:bg-gray-800/40 backdrop-blur-md shadow-md rounded-lg p-4 mb-4 origin-center transition-colors duration-300"
               >
+                <p>🌍 Total Emissions: {entry.totalEmissionKg || entry.totalEmissions} kg CO₂</p>
+                <p className="italic">💡 Suggestions: <p dangerouslySetInnerHTML={{ __html: entry.suggestions }} ></p></p>
                 <p className="text-xs italic text-emerald-500 dark:text-white mt-1">
                   {entry.updatedAt && entry.updatedAt !== entry.createdAt
                     ? `Updated on ${new Date(entry.updatedAt).toLocaleString()}`
                     : `Created on ${new Date(entry.createdAt).toLocaleString()}`}
                 </p>
-                <p>🌍 Total Emissions: {entry.totalEmissionKg || entry.totalEmissions} kg CO₂</p>
-                <p className="italic">💡 Suggestions: {entry.suggestions}</p>
                 <div className="mt-3 flex gap-3">
                   <button
                     className="bg-blue-500 hover:bg-blue-800 text-emerald-500 dark:text-white px-4 py-1 rounded active:scale-75 transition duration-300"
