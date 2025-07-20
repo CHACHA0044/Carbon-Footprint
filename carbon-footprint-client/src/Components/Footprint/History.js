@@ -66,7 +66,7 @@ setHistory(sorted);
     await fetchHistory();
     setTimeout(() => {
       setDeletedId(null); // Reset after delay
-    }, 500);
+    }, 1000);
   } catch (err) {
     console.error(err);
     setError('Failed to delete entry ❌');

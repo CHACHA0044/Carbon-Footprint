@@ -3,9 +3,10 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import PageWrapper from 'common/PageWrapper';
-
+import useAuthRedirect from 'hooks/useAuthRedirect';
 
 const Footprint = () => {
+  useAuthRedirect(); 
   const token = localStorage.getItem('token');
   const [formData, setFormData] = useState({
     food: { type: '', amountKg: '' },

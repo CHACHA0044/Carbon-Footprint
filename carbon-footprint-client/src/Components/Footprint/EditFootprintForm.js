@@ -3,7 +3,9 @@ import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import PageWrapper from 'common/PageWrapper';
+import useAuthRedirect from 'hooks/useAuthRedirect';
 const EditFootprintForm = () => {
+  useAuthRedirect(); 
   const { id } = useParams();
   const navigate = useNavigate();
   const token = localStorage.getItem('token');

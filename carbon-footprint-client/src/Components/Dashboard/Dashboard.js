@@ -3,8 +3,9 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import PageWrapper from 'common/PageWrapper';
 import { AnimatePresence } from 'framer-motion';
-
+import useAuthRedirect from 'hooks/useAuthRedirect';
   const Dashboard = () => {
+  useAuthRedirect(); 
   const [data, setData] = useState([]);
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
