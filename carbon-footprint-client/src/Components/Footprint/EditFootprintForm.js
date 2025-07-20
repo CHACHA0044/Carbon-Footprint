@@ -14,6 +14,9 @@ const EditFootprintForm = () => {
     waste: []
   });
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
+  const [success, setSuccess] = useState('');
+  const [saving, setSaving] = useState(false);
 
   useEffect(() => {
     const fetchEntry = async () => {
@@ -47,21 +50,35 @@ const EditFootprintForm = () => {
   };
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    try {
-  const res = await API.put(`/footprint/${id}`, form, {
-    headers: { Authorization: `Bearer ${token}` }
-  });
+  e.preventDefault();
+  setError('');
+  setSuccess('');
+  setSaving(true);
 
-  alert('Entry updated successfully');
-  navigate('/dashboard', { state: { updated: Date.now() } });
-} catch (err) {
-  const errorMsg = err.response?.data?.error || 'Update failed';
-  alert(errorMsg);
-}
-  };
+  try {
+    await API.put(`/footprint/${id}`, form, {
+      headers: { Authorization: `Bearer ${token}` }
+    });
 
- // if (loading) return <p className="text-center text-white">Loading entry...</p>;
+    setSuccess('🥂');
+    setTimeout(() => {
+      navigate('/dashboard', { state: { updated: Date.now() } });
+    }, 600);
+  } catch (err) {
+    const errorMsg = err.response?.data?.error || 'Update failed';
+    setError(`❌ ${errorMsg}`);
+  } finally {
+    setSaving(false);
+  }
+};
+
+useEffect(() => {
+  window.scrollTo({ top: 0, left: 0, behavior: "auto" });
+  document.documentElement.scrollTop = 0;
+  document.body.scrollTop = 0;
+}, []);
+
+ if (loading) return <p className="text-center text-white">Loading entry...</p>;
 
   return (
     <motion.div
@@ -209,14 +226,26 @@ const EditFootprintForm = () => {
                 </div>
               ))}
             </div>
+{success && <p className="text-green-500 text-sm text-center animate-pulse">{success}</p>}
+{error && <p className="text-red-500 text-sm text-center animate-bounce">{error}</p>}
 
             {/* SUBMIT */}
             <button
-              type="submit"
-              className="w-full bg-emerald-500 hover:bg-emerald-600 text-white py-2 rounded active:scale-75 transition "
-            >
-              💾 Save Changes
-            </button>
+  type="submit"
+  disabled={saving}
+  className="w-full py-2 mt-4 font-semibold text-emerald-500 dark:text-white bg-transparent border border-white rounded hover:bg-emerald-700 dark:hover:text-black hover:text-white transition duration-300 active:scale-75 flex items-center justify-center gap-2"
+>
+  {saving ? (
+    <>
+      <svg className="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z" />
+      </svg>
+      Saving...
+    </>
+  ) : success ? 'Saved' : '💾 Save Changes'}
+</button>
+
           </form>
         </div>
       </div>

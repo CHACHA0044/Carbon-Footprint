@@ -1,5 +1,5 @@
 import API from 'api/api';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import PageWrapper from 'common/PageWrapper';
@@ -96,6 +96,12 @@ const handleSubmit = async (e) => {
     setLoading(false);
   }
 };
+
+useEffect(() => {
+  window.scrollTo({ top: 0, left: 0, behavior: "auto" });
+  document.documentElement.scrollTop = 0;
+  document.body.scrollTop = 0;
+}, []);
 
 
 // ui

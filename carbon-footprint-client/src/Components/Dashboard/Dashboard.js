@@ -53,11 +53,16 @@ setShowLimitMsg(allEntries.length >= 5);
   }
 }, [location.state?.updated]);
 
- useEffect(() => {
+useEffect(() => {
   if (!loading && data.length > 0) {
-    window.scrollTo({ top: 0, left:0, behavior: 'instant' });
+    requestAnimationFrame(() => {
+      window.scrollTo(0, 0);
+      document.documentElement.scrollTop = 0; 
+      document.body.scrollTop = 0;            
+    });
   }
 }, [data, loading]);
+
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -336,15 +341,18 @@ setShowLimitMsg(allEntries.length >= 5);
   if (data.length >= 5) {
   setShowLimitMsg(false);
   setTimeout(() => {
-    setShowLimitMsg(true);
-    setTimeout(() => window.scrollTo(0, 0), 50); 
-  }, 50);
+  setShowLimitMsg(true);
+  requestAnimationFrame(() => {
+    window.scrollTo(0, 0);
+    document.documentElement.scrollTop = 0;
+    document.body.scrollTop = 0;
+  });
+}, 100);
 } else {
   navigate('/footprint');
 }
-
 }}
-    className="w-32 sm:w-40 md:w-48 px-4 py-3 flex items-center justify-center text-emerald-500 dark:text-white bg-transparent border border-white rounded hover:bg-emerald-700 hover:text-white dark:hover:text-black active:scale-75 active:bg-emerald-800 dark:active:bg-white focus:ring focus:ring-green-800 transition duration-300"
+  className="w-32 sm:w-40 md:w-48 px-4 py-3 flex items-center justify-center text-emerald-500 dark:text-white bg-transparent border border-white rounded hover:bg-emerald-700 hover:text-white dark:hover:text-black active:scale-75 active:bg-emerald-800 dark:active:bg-white focus:ring focus:ring-green-800 transition duration-300"
   >
    New Entry
   </button>
@@ -353,7 +361,7 @@ setShowLimitMsg(allEntries.length >= 5);
     onClick={() => navigate('/history')}
     className="w-32 sm:w-40 md:w-48 px-4 py-3 flex items-center justify-center text-emerald-500 dark:text-white bg-transparent border border-white rounded hover:bg-emerald-700 hover:text-white dark:hover:text-black active:scale-75 active:bg-emerald-800 dark:active:bg-white focus:ring focus:ring-green-800 transition duration-300"
   >
-    Edit Entries
+    Edit/Delete
   </button>
 
   <button
