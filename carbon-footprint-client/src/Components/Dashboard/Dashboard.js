@@ -11,6 +11,9 @@ import { AnimatePresence } from 'framer-motion';
   const [openSection, setOpenSection] = useState(null);
   const [version, setVersion] = useState(0);
   const [showLimitMsg, setShowLimitMsg] = useState(false);
+  const [logoutLoading, setLogoutLoading] = useState(false);
+  const [logoutError, setLogoutError] = useState('');
+  const [logoutSuccess, setLogoutSuccess] = useState('');
   const sectionRefs = useRef([]);
   const location = useLocation();
   const navigate = useNavigate(); 
@@ -67,19 +70,29 @@ useEffect(() => {
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (sectionRefs.current.every(ref => !ref || !ref.contains(event.target))) {
-    setOpenSection(null);
-}
-    };
-
+    setOpenSection(null);}};
     document.addEventListener('mousedown', handleClickOutside);
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
-  const handleLogout = () => {
+  const handleLogout = async () => {
+  setLogoutError('');
+  setLogoutSuccess('');
+  setLogoutLoading(true);
+  try {
+    await new Promise(resolve => setTimeout(resolve, 800));
     localStorage.removeItem('token');
     localStorage.removeItem('user');
-    navigate('/home');
-  };
+    setLogoutSuccess('✌');
+    setTimeout(() => {
+      navigate('/home');
+    }, 600);
+  } catch (err) {
+    setLogoutError('❌ Logout failed');
+  } finally {
+    setLogoutLoading(false);
+  }
+};
 
   return (
     <motion.div
@@ -91,12 +104,12 @@ useEffect(() => {
           >
     <PageWrapper backgroundImage="/images/dashboard-bk.webp">
     <div className="relative w-full px-0">
-      <div className="absolute top-4 left-0 pl:2 md:pl-3 text-base md:text-2xl font-semibold text-emerald-600 dark:text-gray-100 transition-colors duration-500">
+      <div className="absolute top-4 left-0 pl-2 md:pl-3 text-base md:text-2xl font-semibold text-emerald-600 dark:text-gray-100 transition-colors duration-500">
       🫡 Welcome, {user?.name || 'User'}
       </div>
     </div>
-    <div className="w-full max-w-7xl flex flex-col text-emerald-500 dark:text-gray-100 px-6 transition-colors duration-500 overflow-visible overflow-x-hidden">
-    <div className=" py-6 md:my-8 text-center mx-auto">
+    <div className="w-full max-w-7xl mt-6 flex flex-col text-emerald-500 dark:text-gray-100 px-6 transition-colors duration-500 overflow-visible overflow-x-hidden">
+    <div className=" py-6 text-center mx-auto">
       <h1 className="text-4xl md:text-6xl font-bold tracking-tight text-emerald-500 dark:text-white transition-colors duration-500">
         Your Climate Dashboard
       </h1>
@@ -157,7 +170,7 @@ useEffect(() => {
   className="px-1 pb-1 cursor-pointer transition-all duration-500"
 >
   <h2 className="text-xl md:text-2xl font-bold text-emerald-500 dark:text-white transition-colors duration-500">
-  {openSection === `suggestion-${index}` ? 'Suggestions:' : 'Suggestions...'}
+  {openSection === `suggestion-${index}` ? '💡 Suggestions:' : '💡 Suggestions...'}
   </h2>
   <motion.div
   layout
@@ -167,7 +180,7 @@ useEffect(() => {
         : 'max-h-0 opacity-0'
     }`}
   >
-    <div className="text-sm text-emerald-500 dark:text-gray-100 transition-colors duration-500">
+    <div className="text-sm text-emerald-500 dark:text-gray-100 transition-colors duration-300">
       <p dangerouslySetInnerHTML={{ __html: entry.suggestions }} ></p>
     <p className="text-xs italic text-emerald-500 dark:text-white mt-1">
     {entry.updatedAt && entry.updatedAt !== entry.createdAt
@@ -352,24 +365,41 @@ useEffect(() => {
   navigate('/footprint');
 }
 }}
-  className="w-32 sm:w-40 md:w-48 px-4 py-3 flex items-center justify-center text-emerald-500 dark:text-white bg-transparent border border-white rounded hover:bg-emerald-700 hover:text-white dark:hover:text-black active:scale-75 active:bg-emerald-800 dark:active:bg-white focus:ring focus:ring-green-800 transition duration-300"
+  className="w-32 sm:w-40 md:w-48 px-4 py-3 flex items-center justify-center text-emerald-500 dark:text-white bg-sky-500 border border-white rounded hover:bg-sky-800 hover:text-white dark:hover:text-black active:scale-75 active:bg-sky-800 dark:active:bg-white focus:ring focus:ring-green-800 transition duration-300"
   >
    New Entry
   </button>
 
   <button
     onClick={() => navigate('/history')}
-    className="w-32 sm:w-40 md:w-48 px-4 py-3 flex items-center justify-center text-emerald-500 dark:text-white bg-transparent border border-white rounded hover:bg-emerald-700 hover:text-white dark:hover:text-black active:scale-75 active:bg-emerald-800 dark:active:bg-white focus:ring focus:ring-green-800 transition duration-300"
+    className="w-32 sm:w-40 md:w-48 px-4 py-3 flex items-center justify-center text-emerald-500 dark:text-white bg-amber-500 border border-white rounded hover:bg-amber-800 hover:text-white dark:hover:text-black active:scale-75 active:bg-amber-800 dark:active:bg-white focus:ring focus:ring-green-800 transition duration-300"
   >
     Edit/Delete
   </button>
-
+ <div>
   <button
     onClick={handleLogout}
-    className="w-32 sm:w-40 md:w-48 px-4 py-3 flex items-center justify-center text-emerald-500 dark:text-white bg-transparent border border-white rounded hover:bg-emerald-700 hover:text-white dark:hover:text-black active:scale-75 active:bg-emerald-800 dark:active:bg-white focus:ring focus:ring-green-800 transition duration-300"
+    disabled={logoutLoading}
+    className="w-32 sm:w-40 md:w-48 px-4 py-3 flex items-center justify-center text-emerald-500 dark:text-white bg-rose-500 border border-white rounded hover:bg-rose-800 hover:text-white dark:hover:text-black active:scale-75 active:bg-rose-800 dark:active:bg-white focus:ring focus:ring-green-800 transition duration-300"
   >
-    Logout
+    {logoutLoading ? (
+      <>
+        <svg className="animate-spin h-5 w-5 text-rose-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+          <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+          <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z" />
+        </svg>
+        Logging out...
+      </>
+    ) : logoutSuccess ? 'Logged out' : 'Logout'}
   </button>
+
+  {logoutSuccess && (
+    <p className="text-green-500 text-sm mt-1 animate-pulse">{logoutSuccess}</p>
+  )}
+  {logoutError && (
+    <p className="text-red-500 text-sm mt-1 animate-bounce">{logoutError}</p>
+  )}
+  </div>
 </div>
 </div>
         

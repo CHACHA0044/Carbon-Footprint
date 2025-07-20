@@ -15,6 +15,7 @@ const History = () => {
   const [clearingAll, setClearingAll] = useState(false); // for clear all
   const [deletedId, setDeletedId] = useState(null);
   const [cleared, setCleared] = useState(false);
+  const [openSection, setOpenSection] = useState(null);
 
   useEffect(() => {
     fetchHistory();
@@ -156,7 +157,7 @@ return (
       initial="hidden"
       animate="visible"
     >
-           { history.map((entry) => (
+           { history.map((entry, index) => (
               <motion.div
                 key={entry._id}
                 layout
@@ -166,10 +167,15 @@ return (
                   transition={{ type: "spring", stiffness: 400, damping: 17 }}
                   whileHover={{ scale: 1.03, boxShadow: "0px 8px 20px rgba(0,0,0,0.2)" }}
                   whileTap={{ scale: 0.97, transition: { duration: 0.05 } }}
-                className="bg-white/20 dark:bg-gray-800/40 backdrop-blur-md shadow-md rounded-lg p-4 mb-4 origin-center transition-colors duration-300"
+                  className="bg-white/20 dark:bg-gray-800/40 backdrop-blur-md shadow-md rounded-lg p-4 mb-4 origin-center transition-colors duration-300"
+                  onClick={() =>
+                  setOpenSection((prev) => (prev === entry._id ? null : entry._id))
+                }
               >
-                <p>🌍 Total Emissions: {entry.totalEmissionKg || entry.totalEmissions} kg CO₂</p>
-                <p className="italic">💡 Suggestions: <p dangerouslySetInnerHTML={{ __html: entry.suggestions }} ></p></p>
+                <p className="text-2xl md:text-3xl font-semibold text-emerald-500 dark:text-white transition-colors duration-500"><strong>🏭 Total Emission:</strong> {entry.totalEmissionKg} kg CO2</p>
+                <h2 className="text-xl md:text-2xl font-bold text-emerald-500 dark:text-white transition-colors duration-500">
+                {openSection === entry._id ? '💡 Suggestions:' : '💡 Suggestions...'}
+                </h2>
                 <p className="text-xs italic text-emerald-500 dark:text-white mt-1">
                   {entry.updatedAt && entry.updatedAt !== entry.createdAt
                     ? `Updated on ${new Date(entry.updatedAt).toLocaleString()}`
@@ -178,13 +184,14 @@ return (
                 <div className="mt-3 flex gap-3">
                   <button
                     className="bg-blue-500 hover:bg-blue-800 text-emerald-500 dark:text-white px-4 py-1 rounded active:scale-75 transition duration-300"
-                    onClick={() => navigate(`/edit/${entry._id}`)}
+                    onClick={(e) => { e.stopPropagation(); navigate(`/edit/${entry._id}`);}}
                   >
-                    Edit
+                   ✏️ Edit
                   </button>
                   <button
                     className="bg-red-500 hover:bg-red-800 text-emerald-500 dark:text-white px-4 py-1 rounded flex items-center gap-2 active:scale-75 transition duration-300"
-                    onClick={() => handleDelete(entry._id)}
+                    onClick={(e) => { e.stopPropagation();
+                      handleDelete(entry._id)}}
                     disabled={loadingId === entry._id}
                   >
                     {loadingId === entry._id ? (
@@ -213,6 +220,17 @@ return (
                     )}
                   </button>
                 </div>
+                <motion.div
+                layout
+                className={`transition-all duration-500 ease-in-out overflow-hidden ${
+                  openSection === entry._id ? 'max-h-[500px] opacity-100 mt-2' : 'max-h-0 opacity-0'
+                }`}
+              >
+                <div
+                  className="text-sm text-emerald-500 dark:text-gray-100 transition-colors duration-300"
+                  dangerouslySetInnerHTML={{ __html: entry.suggestions }}
+                />
+              </motion.div>
               </motion.div>
             ))}
             </motion.div>
