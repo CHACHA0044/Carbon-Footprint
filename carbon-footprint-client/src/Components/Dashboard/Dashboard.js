@@ -350,7 +350,9 @@ useEffect(() => {
         </main>
         
 <div className="relative w-full flex flex-col sm:flex-row justify-between items-center pl-6 pr-6 gap-3">
-  <button
+  <motion.button
+  whileTap={{scale: 0.75}}
+  transition={{ type: 'spring', stiffness: 300, damping: 20 }}
     onClick={() => {
   if (data.length >= 5) {
   setShowLimitMsg(false);
@@ -366,22 +368,26 @@ useEffect(() => {
   navigate('/footprint');
 }
 }}
-  className="w-32 sm:w-40 md:w-48 px-4 py-3 flex items-center justify-center text-emerald-500 dark:text-white bg-sky-500 border border-white rounded hover:bg-sky-800 hover:text-white dark:hover:text-black active:scale-75 active:bg-sky-800 dark:active:bg-white focus:ring focus:ring-green-800 transition duration-300"
+  className="w-32 sm:w-40 md:w-48 px-4 py-3 flex items-center justify-center text-emerald-500 dark:text-white bg-sky-500 border border-white rounded hover:bg-sky-800 hover:text-white dark:hover:text-black active:bg-sky-800 dark:active:bg-white focus:ring focus:ring-green-800 transition duration-300"
   >
    New Entry
-  </button>
+  </motion.button>
 
-  <button
+  <motion.button
+  whileTap={{ scale: 0.75 }}
+  transition={{ type: 'spring', stiffness: 300, damping: 20 }}
     onClick={() => navigate('/history')}
-    className="w-32 sm:w-40 md:w-48 px-4 py-3 flex items-center justify-center text-emerald-500 dark:text-white bg-amber-500 border border-white rounded hover:bg-amber-800 hover:text-white dark:hover:text-black active:scale-75 active:bg-amber-800 dark:active:bg-white focus:ring focus:ring-green-800 transition duration-300"
+    className="w-32 sm:w-40 md:w-48 px-4 py-3 flex items-center justify-center text-emerald-500 dark:text-white bg-amber-500 border border-white rounded hover:bg-amber-800 hover:text-white dark:hover:text-black active:bg-amber-800 dark:active:bg-white focus:ring focus:ring-green-800 transition duration-300"
   >
     Edit/Delete
-  </button>
+  </motion.button>
  <div>
-  <button
+  <motion.button
+  whileTap={{ scale: 0.75 }}
+  transition={{ type: 'spring', stiffness: 300, damping: 20 }}
     onClick={handleLogout}
     disabled={logoutLoading}
-    className="w-32 sm:w-40 md:w-48 px-4 py-3 flex items-center justify-center text-emerald-500 dark:text-white bg-rose-500 border border-white rounded hover:bg-rose-800 hover:text-white dark:hover:text-black active:scale-75 active:bg-rose-800 dark:active:bg-white focus:ring focus:ring-green-800 transition duration-300"
+    className="w-32 sm:w-40 md:w-48 px-4 py-3 flex items-center justify-center text-emerald-500 dark:text-white bg-rose-500 border border-white rounded hover:bg-rose-800 hover:text-white dark:hover:text-black active:bg-rose-800 dark:active:bg-white focus:ring focus:ring-green-800 transition duration-300"
   >
     {logoutLoading ? (
       <>
@@ -392,7 +398,7 @@ useEffect(() => {
         Logging out...
       </>
     ) : logoutSuccess ? 'Logged out' : 'Logout'}
-  </button>
+  </motion.button>
 
   {logoutSuccess && (
     <p className="text-green-500 text-sm mt-1 animate-pulse">{logoutSuccess}</p>
