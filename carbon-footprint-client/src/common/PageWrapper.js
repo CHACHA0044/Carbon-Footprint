@@ -65,7 +65,7 @@ console.log('PageWrapper image:', backgroundImage);
     >
       {/* Dark mode toggle button */}
       <div className="relative w-full px-0">
-      <div className="absolute top-3 right-3 z-50">
+      <div className="absolute top-3 right-2 md:right-3 z-50">
         <button
           onClick={toggleTheme}
           className="px-3 py-4 bg-transparent text-emerald-700 dark:text-white transition duration-500"

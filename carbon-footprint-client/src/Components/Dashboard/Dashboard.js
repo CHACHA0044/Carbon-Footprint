@@ -86,13 +86,13 @@ setShowLimitMsg(allEntries.length >= 5);
           >
     <PageWrapper backgroundImage="/images/dashboard-bk.webp">
     <div className="relative w-full px-0">
-      <div className="absolute top-6 left-0 pl-3 text-base md:text-2xl font-semibold text-emerald-600 dark:text-gray-100 transition-colors duration-500">
+      <div className="absolute top-3 left-0 pl:2 md:pl-3 text-base md:text-2xl font-semibold text-emerald-600 dark:text-gray-100 transition-colors duration-500">
       🫡 Welcome, {user?.name || 'User'}
       </div>
     </div>
-    <div className="w-full max-w-7xl flex flex-col text-emerald-500 dark:text-gray-100 px-6 py-4 space-y-4 transition-colors duration-500 overflow-visible overflow-x-hidden">
+    <div className="w-full max-w-7xl flex flex-col text-emerald-500 dark:text-gray-100 px-6 transition-colors duration-500 overflow-visible overflow-x-hidden">
     <div className=" py-4 md:my-6 text-center mx-auto">
-      <h1 className="text-4xl md:text-6xl mb:2 font-bold tracking-tight text-emerald-500 dark:text-white transition-colors duration-500">
+      <h1 className="text-4xl md:text-6xl font-bold tracking-tight text-emerald-500 dark:text-white transition-colors duration-500">
         Your Climate Dashboard
       </h1>
       {showLimitMsg && (
@@ -180,7 +180,7 @@ setShowLimitMsg(allEntries.length >= 5);
               </motion.div>
 </AnimatePresence>
           ) : (
-            <div className="text-2xl md:text-3xl mt-2 font-semibold text-emerald-600 dark:text-white text-center">
+            <div className="text-2xl md:text-3xl font-semibold text-emerald-600 dark:text-white text-center">
   You haven't submitted any carbon data yet 
   <motion.span
     className="inline-block text-3xl font-semibold"
