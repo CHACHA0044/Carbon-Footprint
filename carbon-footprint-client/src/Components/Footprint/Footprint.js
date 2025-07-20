@@ -79,6 +79,34 @@ const handleSubmit = async (e) => {
   setSuccess('');
   setLoading(true);
 
+ const hasEmpty = 
+    !formData.food.type || 
+    formData.food.amountKg === '' ||
+    formData.transport.some(t => !t.mode || t.distanceKm === '') ||
+    formData.electricity.some(e => !e.source || e.consumptionKwh === '') ||
+    formData.waste.some(w => 
+      w.plasticKg === '' || w.paperKg === '' || w.foodWasteKg === ''
+    );
+
+  const hasNegative =
+    Number(formData.food.amountKg) < 0 ||
+    formData.transport.some(t => Number(t.distanceKm) < 0) ||
+    formData.electricity.some(e => Number(e.consumptionKwh) < 0) ||
+    formData.waste.some(w => 
+      Number(w.plasticKg) < 0 || Number(w.paperKg) < 0 || Number(w.foodWasteKg) < 0
+    );
+
+  if (hasEmpty) {
+    setError('❓ Please fill in all required fields.');
+    setLoading(false);
+    return;
+  }
+
+  if (hasNegative) {
+    setError('🧩 Values cannot be negative.');
+    setLoading(false);
+    return;
+  }
   try {
     const res = await API.post('/footprint', formData, {
       headers: { Authorization: `Bearer ${token}` }

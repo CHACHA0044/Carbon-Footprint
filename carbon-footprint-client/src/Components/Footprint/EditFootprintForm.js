@@ -55,6 +55,35 @@ const EditFootprintForm = () => {
   setSuccess('');
   setSaving(true);
 
+const hasEmpty = 
+    !form.food.type || 
+    form.food.amountKg === '' ||
+    form.transport.some(t => !t.mode || t.distanceKm === '') ||
+    form.electricity.some(e => !e.source || e.consumptionKwh === '') ||
+    form.waste.some(w => 
+      w.plasticKg === '' || w.paperKg === '' || w.foodWasteKg === ''
+    );
+
+  const hasNegative =
+    Number(form.food.amountKg) < 0 ||
+    form.transport.some(t => Number(t.distanceKm) < 0) ||
+    form.electricity.some(e => Number(e.consumptionKwh) < 0) ||
+    form.waste.some(w => 
+      Number(w.plasticKg) < 0 || Number(w.paperKg) < 0 || Number(w.foodWasteKg) < 0
+    );
+
+  if (hasEmpty) {
+    setError('❓ Please fill in all required fields.');
+    setSaving(false);
+    return;
+  }
+
+  if (hasNegative) {
+    setError('🧩 Values cannot be negative.');
+    setSaving(false);
+    return;
+  }
+
   try {
     await API.put(`/footprint/${id}`, form, {
       headers: { Authorization: `Bearer ${token}` }
@@ -78,7 +107,7 @@ useEffect(() => {
   document.body.scrollTop = 0;
 }, []);
 
- if (loading) return <p className="text-center text-white">Loading entry...</p>;
+ // if (loading) return <p className="text-center text-white">Loading entry...</p>;
 
   return (
     <motion.div
