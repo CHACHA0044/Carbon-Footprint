@@ -86,12 +86,12 @@ setShowLimitMsg(allEntries.length >= 5);
           >
     <PageWrapper backgroundImage="/images/dashboard-bk.webp">
     <div className="relative w-full px-0">
-      <div className="absolute top-3 left-0 pl:2 md:pl-3 text-base md:text-2xl font-semibold text-emerald-600 dark:text-gray-100 transition-colors duration-500">
+      <div className="absolute top-4 left-0 pl:2 md:pl-3 text-base md:text-2xl font-semibold text-emerald-600 dark:text-gray-100 transition-colors duration-500">
       🫡 Welcome, {user?.name || 'User'}
       </div>
     </div>
     <div className="w-full max-w-7xl flex flex-col text-emerald-500 dark:text-gray-100 px-6 transition-colors duration-500 overflow-visible overflow-x-hidden">
-    <div className=" py-4 md:my-6 text-center mx-auto">
+    <div className=" py-6 md:my-8 text-center mx-auto">
       <h1 className="text-4xl md:text-6xl font-bold tracking-tight text-emerald-500 dark:text-white transition-colors duration-500">
         Your Climate Dashboard
       </h1>
@@ -107,9 +107,7 @@ setShowLimitMsg(allEntries.length >= 5);
   </motion.div>
 )}
 
-
     </div>
-
         <main className="flex flex-col space-y-6">
           {loading ? (
             <motion.p
@@ -147,7 +145,7 @@ setShowLimitMsg(allEntries.length >= 5);
                   setOpenSection((prev) => (prev === `suggestion-${index}` ? null : `suggestion-${index}`))
                 }
               >
-                <p className="text-2xl md:text-3xl font-semibold text-emerald-500 dark:text-white transition-colors duration-500"><strong>Total Emission:</strong> {entry.totalEmissionKg} kg CO2</p>
+                <p className="text-2xl md:text-3xl font-semibold text-emerald-500 dark:text-white transition-colors duration-500"><strong>🏭 Total Emission:</strong> {entry.totalEmissionKg} kg CO2</p>
                 <section
   key={`suggestion-${index}`}
   ref={(el) => (sectionRefs.current[index + data.length] = el)} 
@@ -165,7 +163,7 @@ setShowLimitMsg(allEntries.length >= 5);
     }`}
   >
     <div className="text-sm text-emerald-500 dark:text-gray-100 transition-colors duration-500">
-      <p>{entry.suggestions}</p>
+      <p dangerouslySetInnerHTML={{ __html: entry.suggestions }} ></p>
     <p className="text-xs italic text-emerald-500 dark:text-white mt-1">
     {entry.updatedAt && entry.updatedAt !== entry.createdAt
       ? `Updated on ${new Date(entry.updatedAt).toLocaleString()}`
@@ -211,12 +209,12 @@ setShowLimitMsg(allEntries.length >= 5);
     content: (
       <>
         <p className="text-sm text-emerald-500 dark:text-gray-100 transition-colors duration-500">
-          🌫️ Carbon Dioxide (CO₂) is like Earth's invisible blanket. It keeps us warm — but too much of it, from burning fuels 🚗🔥, overheats the planet! 😓
+          🌫️ Carbon Dioxide (CO₂) is like Earth's invisible blanket. It keeps us warm — but too much of it, from burning fuels 🚗🔥,causes overheating and extreme weather patterns! 😓
         </p>
         <ul className="list-disc list-inside text-sm text-emerald-500 dark:text-gray-100 mt-2 transition-colors duration-500">
-          <li>🌀 Methane (CH₄): From burping cows & landfills 🐄</li>
-          <li>🌾 Nitrous Oxide (N₂O): From farming & fertilizers</li>
-          <li>❄️ Fluorinated Gases: Used in fridges and ACs</li>
+          <li>🌀 Methane (CH₄): Produced by livestock, rice farming, and landfill. </li>
+          <li>🌾 Nitrous Oxide (N₂O): Released from fertilizers and agricultural activities.</li>
+          <li>❄️ Fluorinated Gases: Man-made gases from industrial processes and cooling system. </li>
         </ul>
         <p className="text-sm text-emerald-500 dark:text-gray-100 mt-2 transition-colors duration-500">
           These gases trap heat and make Earth too hot to handle. 🔥
@@ -229,30 +227,44 @@ setShowLimitMsg(allEntries.length >= 5);
     title: '📊 How Much CO₂ Do We Emit Individually?',
     content: (
       <p className="text-sm text-emerald-500 dark:text-gray-100 transition-colors duration-500">
-        🧮 In 2024, the average carbon footprint was 4.7 tons/year (~392 kg/month). That’s a lot of CO₂! Emissions vary by country:
-        <br />🌎 USA: 1,240 kg/month 😬
-        <br />🇮🇳 India: 192 kg/month
-        <br />🌍 Sub-Saharan Africa: 75 kg/month
+        🧮 In 2024, the average carbon footprint was about <strong>4.7 tons per year</strong> (~392 kg per month). 
+        But this varies widely by region:
+        <br />🌎 <strong>USA:</strong> ~1,240 kg/month 😬 (energy-heavy lifestyle)
+        <br />🇮🇳 <strong>India:</strong> ~192 kg/month (rising with rapid urbanization)
+        <br />🌍 <strong>Sub-Saharan Africa:</strong> ~75 kg/month (lowest yet most affected by climate change)
         <br />
-        Let’s keep it low — our future depends on it! 🌱
+        <br />
+        Each ton matters. Cutting down even by 10% — through energy conservation, green transport, and mindful habits — 
+        helps slow climate change for future generations. 🌱
       </p>
     ),
   },
-  {
+   {
     id: 'impact',
     title: '🌡️ Carbon and Greenhouse Gases',
     content: (
       <p className="text-sm text-emerald-500 dark:text-gray-100 transition-colors duration-500">
-        CO₂ is the biggest greenhouse gas villain! 🦹‍♂️ It traps heat like a thermal blanket — great in winter, bad for the planet. Other gases like CH₄, N₂O, and F-gases add to the mess. Together, they change our climate dramatically. 🌪️☀️🌊
+        CO₂ is the largest contributor to global warming, trapping heat like a thermal blanket. 
+        Other gases such as CH₄, N₂O, and F-gases multiply the effect. Together, they’re driving 
+        extreme weather — hotter summers, stronger storms, and rising sea levels. 🌪️🔥🌊  
+        <br />
+        Every action to reduce emissions — from using renewable energy to planting trees — 
+        slows the rise of Earth’s temperature and protects ecosystems worldwide. 🌳
       </p>
     ),
   },
-  {
+   {
     id: 'solutions',
     title: '🔍 Why Calculate Your Carbon Footprint?',
     content: (
       <p className="text-sm text-emerald-500 dark:text-gray-100 transition-colors duration-500">
-        📏 Knowing your carbon footprint helps you take charge! You’ll see where you're doing great 🌟 and where you can improve 🌿 — from switching to green energy to biking instead of driving.
+        📏 Knowing your footprint shows how your choices affect the planet. You’ll identify 
+        areas to cut emissions — whether it’s switching to renewable energy, reducing car travel, 
+        or improving home efficiency.  
+        <br />
+        <br />
+        Tracking your impact helps you build sustainable habits, save money, and join a 
+        growing community of people making positive environmental changes. 🌿
       </p>
     ),
   },
@@ -261,7 +273,13 @@ setShowLimitMsg(allEntries.length >= 5);
     title: '📱 How Our Calculator Works',
     content: (
       <p className="text-sm text-emerald-500 dark:text-gray-100 transition-colors duration-500">
-        Our tool is super simple! Just enter details like energy usage ⚡, travel 🚙✈️, diet 🥗, and waste ♻️. We’ll calculate your impact and help you cut down!
+        Our tool estimates your emissions based on <em>energy use</em> ⚡, <em>travel habits</em> 🚙✈️, 
+        <em>diet</em> 🥗, and <em>waste management</em> ♻️.  
+        <br />
+        <br />
+        After entering your details, you’ll get a breakdown of your monthly CO₂ footprint 
+        and practical suggestions for reducing it. Think of it as your personal guide to 
+        sustainable living — simple, clear, and actionable! ✨
       </p>
     ),
   },
@@ -270,11 +288,12 @@ setShowLimitMsg(allEntries.length >= 5);
     title: '🌱 Your Action Plan Starts Here!',
     content: (
       <ul className="list-disc list-inside text-sm text-emerald-500 dark:text-gray-100 transition-colors duration-500">
-        <li>💡 Energy: Switch to LEDs or solar power</li>
-        <li>🚶‍♂️ Travel: Walk, bike, or use public transport</li>
-        <li>♻️ Waste: Reuse, recycle, reduce</li>
-        <li>🥦 Diet: Try more plant-based meals</li>
-        <li>📣 Voice: Speak up & support green policies</li>
+        <li>💡 <strong>Energy:</strong> Switch to LEDs, unplug idle electronics, and explore solar options.</li>
+        <li>🚶‍♂️ <strong>Transport:</strong> Walk, cycle, or use public transit to cut fuel emissions.</li>
+        <li>♻️ <strong>Waste:</strong> Reuse, recycle, and compost to reduce landfill methane.</li>
+        <li>🥦 <strong>Diet:</strong> Incorporate more plant-based meals and reduce food waste.</li>
+        <li>📣 <strong>Voice:</strong> Support eco-friendly policies and encourage others to act sustainably.</li>
+        <li>🌍 <strong>Mindset:</strong> Small changes, multiplied by millions, can reshape our planet’s future.</li>
       </ul>
     ),
   },

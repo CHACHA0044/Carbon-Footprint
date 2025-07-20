@@ -98,33 +98,41 @@ function calculateEmissions(data) {
   );
 
   // --- Suggestions ---
-  let suggestions = capped
-    ? "⚠️ Some unusually high inputs were capped to keep values realistic for a month.\n"
-    : "";
+let suggestions = capped
+  ? "⚠️ Some unusually high values were capped to keep results realistic for a month.\n"
+  : "";
 
-  const categories = [
-    { name: "Food", value: foodEmission, emoji: "🥗" },
-    { name: "Transport", value: transportTotal, emoji: "🚗" },
-    { name: "Electricity", value: electricityTotal, emoji: "⚡" },
-    { name: "Waste", value: wasteTotal, emoji: "🗑️" }
-  ].sort((a, b) => b.value - a.value);
+const categories = [
+  { name: "Food", value: foodEmission, emoji: "🥗" },
+  { name: "Transport", value: transportTotal, emoji: "🚗" },
+  { name: "Electricity", value: electricityTotal, emoji: "⚡" },
+  { name: "Waste", value: wasteTotal, emoji: "🗑️" }
+].sort((a, b) => b.value - a.value);
 
-  if (totalEmissionKg <= 300) {
-    suggestions += "🌱 **Excellent!** Your monthly footprint is low. Keep up your eco-friendly habits — consider tree-planting or helping others reduce their footprint!";
-  } else {
-    suggestions += "Here’s where you can make the biggest impact:\n";
-    categories.slice(0, 2).forEach(c => {
-      if (c.name === "Food")
-        suggestions += `${c.emoji} Reduce meat & dairy, and include more plant-based meals.\n`;
-      if (c.name === "Transport")
-        suggestions += `${c.emoji} Prefer public transport, carpool, or biking for short trips.\n`;
-      if (c.name === "Electricity")
-        suggestions += `${c.emoji} Shift to renewables and avoid unnecessary power consumption.\n`;
-      if (c.name === "Waste")
-        suggestions += `${c.emoji} Recycle plastics, compost food, and reduce paper usage.\n`;
-    });
-    suggestions += "💡 Small consistent efforts lead to a significant monthly reduction!";
-  }
+if (totalEmissionKg <= 300) {
+  suggestions +=
+    "🌱 <strong>Your monthly footprint is well below average</strong> — that’s a great achievement! Keep up the conscious choices like energy-saving habits, eco-friendly travel, and minimal waste. Consider going further by supporting local green initiatives and planting trees. 🌳";
+} else if (totalEmissionKg <= 700) {
+  suggestions +=
+    "🌿 <strong>Your emissions are moderate</strong>, but there’s still room to improve. Focus on your top emission sources below to make the biggest impact:\n";
+} else {
+  suggestions +=
+    "🔥 <strong>Your footprint is on the higher side</strong>. Don’t worry — by acting on the top sources below, you can make a significant monthly reduction:\n";
+}
+
+categories.slice(0, 2).forEach((c) => {
+  if (c.name === "Food")
+    suggestions += `${c.emoji} <strong>Food:</strong> Try reducing meat & dairy intake, choose seasonal produce, and cut down on processed foods.\n`;
+  if (c.name === "Transport")
+    suggestions += `${c.emoji} <strong>Transport:</strong> Combine errands, carpool, or switch to public transport. For short trips, walking or cycling helps both health and the planet.\n`;
+  if (c.name === "Electricity")
+    suggestions += `${c.emoji} <strong>Electricity:</strong> Switch off devices when not in use, improve home insulation, and explore renewable energy like solar panels.\n`;
+  if (c.name === "Waste")
+    suggestions += `${c.emoji} <strong>Waste:</strong> Recycle plastics, compost food scraps, and reduce single-use items like plastic bags and paper towels.\n`;
+});
+
+suggestions += "\n💡 <strong>Remember</strong>, small, consistent changes build lasting habits and lower your carbon footprint month by month!";
+
 
   return {
     totalEmissionKg,
