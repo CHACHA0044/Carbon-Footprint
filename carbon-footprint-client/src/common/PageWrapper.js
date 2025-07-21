@@ -57,7 +57,7 @@ console.log('PageWrapper image:', backgroundImage);
   <div className="fixed top-0 left-0 w-full h-full -z-10 bg-cover bg-no-repeat"
       style={{
         backgroundImage: bgLoaded ? `url(${backgroundImage})` : "none",
-        backgroundColor: "#000",
+        backgroundColor: bgLoaded ? "transparent" : "#000",
         backgroundSize: '100% 100%',
         backgroundRepeat: 'no-repeat',
         backgroundPosition: 'center',
