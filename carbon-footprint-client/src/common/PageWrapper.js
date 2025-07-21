@@ -54,9 +54,10 @@ console.log('PageWrapper image:', backgroundImage);
       className={`min-h-screen w-full flex flex-col overflow-x-hidden justify-between items-center transition-opacity duration-300 ${
     bgLoaded ? "opacity-100" : "opacity-0"
   }`}>
-  <div className="fixed top-0 left-0 w-full h-full -z-10 bg-cover"
+  <div className="fixed top-0 left-0 w-full h-full -z-10 bg-cover bg-no-repeat"
       style={{
-        backgroundImage: `url(${backgroundImage})`,
+        backgroundImage: bgLoaded ? `url(${backgroundImage})` : "none",
+        backgroundColor: "#000",
         backgroundSize: '100% 100%',
         backgroundRepeat: 'no-repeat',
         backgroundPosition: 'center',
