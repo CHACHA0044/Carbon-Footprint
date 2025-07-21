@@ -51,24 +51,23 @@ console.log('PageWrapper image:', backgroundImage);
 
   return (
     <div
-      className={`min-h-screen w-full flex flex-col justify-between items-center transition-opacity duration-500 ${
+      className={`min-h-screen w-full flex flex-col overflow-x-hidden justify-between items-center transition-opacity duration-300 ${
     bgLoaded ? 'opacity-100' : 'opacity-0'
-  }`}
+  }`}>
+  <div className="fixed top-0 left-0 w-full h-full -z-10 bg-cover bg-black"
       style={{
-        backgroundImage: backgroundImage ? `url(${backgroundImage})` : 'none',
-        backgroundAttachment: isMobile ? 'scroll' : 'fixed',
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
+        backgroundImage: `url(${backgroundImage})`,
+        backgroundSize: '100% 100%',
         backgroundRepeat: 'no-repeat',
-        backgroundColor: '#000',
-      }}
-    >
+        backgroundPosition: 'center',
+      }}/>
+      
       {/* Dark mode toggle button */}
       <div className="relative w-full px-0">
       <div className="absolute top-3 right-2 md:right-3 z-50">
         <button
           onClick={toggleTheme}
-          className="px-3 py-4 bg-transparent text-emerald-700 dark:text-white transition duration-500"
+          className="px-3 py-4 bg-transparent text-emerald-700 dark:text-white transition duration-300"
         >
           {darkMode ? '⁺₊⋆ ☾ ⋆⁺₊' : '⁺₊⋆ 𖤓 ⋆⁺₊'}
         </button>

@@ -330,17 +330,14 @@ useEffect(() => {
     ref={(el) => (sectionRefs.current[index] = el)}
     className="p-4 bg-white/20 dark:bg-gray-800/40 rounded-xl backdrop-blur-md shadow-md cursor-pointer origin-center transition-colors duration-300"
     onClick={() =>
-      setOpenSection((prev) => (prev === section.id ? null : section.id))
-    }
-  >
+      setOpenSection((prev) => (prev === section.id ? null : section.id))}>
     <h2 className="text-2xl md:text-3xl font-bold text-emerald-500 dark:text-white mb-2 transition-colors duration-500">
       {section.title}
     </h2>
     <div
       className={`transition-all duration-500 ease-in-out overflow-hidden ${  
         openSection === section.id ? 'max-h-[500px] opacity-100 mt-2' : 'max-h-0 opacity-0'
-      }`}
-    >
+      }`}>
       {section.content}
     </div>
   </motion.section>
@@ -348,17 +345,16 @@ useEffect(() => {
 
 }</div>
         </main>
-        
-<div className="relative w-full flex flex-col sm:flex-row justify-between items-center pl-6 pr-6 gap-3">
+<div className="relative w-full flex flex-col sm:flex-row justify-between items-center pl-6 pr-6 gap-3 overflow-hidden">
   <motion.button
-    whileTap={{ scale: 0.9 }}
+    whileTap={{ scale: 0.92 }}
     whileHover={{
-      scale: 1.05,
+      scale: 1.03,
       backgroundColor: "rgb(7 89 133)", // sky-800
       boxShadow: "0 0 15px rgba(7, 89, 133, 0.6)",
       color: "#ffffff",
     }}
-    transition={{ type: "spring", stiffness: 400, damping: 20 }}
+    transition={{ duration: 0.15, ease: "easeOut" }}
     onClick={() => {
   if (data.length >= 5) {
   setShowLimitMsg(false);
@@ -380,14 +376,14 @@ useEffect(() => {
   </motion.button>
 
   <motion.button
-  whileTap={{ scale: 0.9 }}
+  whileTap={{ scale: 0.92 }}
     whileHover={{
-      scale: 1.05,
+      scale: 1.03,
       backgroundColor: "rgb(146 64 14)", // amber-800
       boxShadow: "0 0 15px rgba(146, 64, 14, 0.6)",
       color: "#ffffff",
     }}
-    transition={{ type: "spring", stiffness: 400, damping: 20 }}
+    transition={{ duration: 0.15, ease: "easeOut" }}
     onClick={() => navigate('/history')}
     className="w-32 sm:w-40 md:w-48 px-4 py-3 flex items-center justify-center text-emerald-500 dark:text-white bg-amber-500 border border-white rounded focus:ring focus:ring-green-800 transition duration-300"
   >
@@ -395,14 +391,14 @@ useEffect(() => {
   </motion.button>
  <div>
   <motion.button
- whileTap={{ scale: 0.9 }}
+ whileTap={{ scale: 0.92 }}
     whileHover={{
-      scale: 1.05,
+      scale: 1.03,
       backgroundColor: "rgb(153 27 27)", // rose-800
       boxShadow: "0 0 15px rgba(153, 27, 27, 0.6)",
       color: "#ffffff",
     }}
-    transition={{ type: "spring", stiffness: 400, damping: 20 }}
+    transition={{ duration: 0.15, ease: "easeOut" }}
     onClick={handleLogout}
     disabled={logoutLoading}
     className="w-32 sm:w-40 md:w-48 px-4 py-3 flex items-center justify-center text-emerald-500 dark:text-white bg-rose-500 border border-white rounded focus:ring focus:ring-green-800 transition duration-300"
@@ -426,8 +422,7 @@ useEffect(() => {
   )}
   </div>
 </div>
-</div>
-        
+</div>    
     </PageWrapper>
     </motion.div>
   );
