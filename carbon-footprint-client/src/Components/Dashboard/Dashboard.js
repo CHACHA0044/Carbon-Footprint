@@ -345,7 +345,7 @@ useEffect(() => {
 
 }</div>
         </main>
-<div className="relative w-full flex flex-col sm:flex-row justify-between items-center pl-6 pr-6 gap-3 overflow-visible">
+{/* <div className="relative w-full flex flex-col sm:flex-row justify-between items-center pl-6 pr-6 gap-3 overflow-visible">
   <motion.button
     whileTap={{ scale: 0.85 }}
     whileHover={{
@@ -421,7 +421,46 @@ useEffect(() => {
     <p className="text-red-500 text-sm mt-1 animate-bounce">{logoutError}</p>
   )}
   </div>
+</div> */}
+<div className="flex flex-col sm:flex-row justify-between items-center gap-4 w-full px-6">
+  {[
+    { text: "New Entry", color: "sky", path: "/footprint" },
+    { text: "Edit/Delete", color: "amber", path: "/history" },
+  ].map(({ text, color, path }) => (
+    <motion.button
+      key={text}
+      whileTap={{ scale: 0.9 }}
+      whileHover={{
+        scale: 1.05,
+        backgroundColor: `rgb(var(--tw-color-${color}-600))`,
+        boxShadow: `0 4px 15px rgba(var(--tw-color-${color}-600-rgb), 0.4)`,
+      }}
+      transition={{ type: "spring", stiffness: 400, damping: 25 }}
+      onClick={() => {
+        setTimeout(() => navigate(path), 180); // smooth transition
+      }}
+      className={`w-36 sm:w-44 px-4 py-3 rounded-lg shadow-md text-white bg-${color}-500 border border-white text-base font-medium transition-colors duration-200`}
+    >
+      {text}
+    </motion.button>
+  ))}
+
+  <motion.button
+    whileTap={{ scale: 0.9 }}
+    whileHover={{
+      scale: 1.05,
+      backgroundColor: "rgb(153 27 27)", // rose-800
+      boxShadow: "0 4px 15px rgba(153, 27, 27, 0.4)",
+    }}
+    transition={{ type: "spring", stiffness: 400, damping: 25 }}
+    onClick={handleLogout}
+    disabled={logoutLoading}
+    className="w-36 sm:w-44 px-4 py-3 rounded-lg shadow-md text-white bg-rose-500 border border-white text-base font-medium transition-colors duration-200"
+  >
+    {logoutLoading ? "Logging out..." : logoutSuccess ? "Logged out" : "Logout"}
+  </motion.button>
 </div>
+
 </div>    
     </PageWrapper>
     </motion.div>
