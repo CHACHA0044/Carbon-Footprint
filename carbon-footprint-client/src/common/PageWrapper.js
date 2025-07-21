@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { useLoading } from 'context/LoadingContext';
 const PageWrapper = ({ children, backgroundImage }) => {
   const [darkMode, setDarkMode] = useState(false);
   const [bgLoaded, setBgLoaded] = useState(false);
   const { setLoading, canStop } = useLoading();
+  const cachedImage = useRef(null);
   const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
 
   useEffect(() => {
@@ -13,33 +14,19 @@ const PageWrapper = ({ children, backgroundImage }) => {
     document.documentElement.classList.toggle('dark', isDark);
   }, []);
 
-useEffect(() => {
-  const img = new Image();
-  img.src = backgroundImage;
-  img.onload = () => {
-    setBgLoaded(true);  
-    setLoading(false);  // stop loader only when bg is ready
-  };
-}, [backgroundImage, setLoading]);
+ useEffect(() => {
+    if (!backgroundImage) return;
+    setBgLoaded(false);
+    setLoading(true); // show loader while image loads
 
-
-  useEffect(() => {
-  console.log('bgLoaded:', bgLoaded, 'canStop:', canStop);
-  if (bgLoaded && canStop) {
-    console.log('→hitting loader');
-    setLoading(false);
-  }
-}, [bgLoaded, canStop, setLoading]);
-
-
-useEffect(() => {
-  const fallback = setTimeout(() => {
-    console.warn('Loader fallback triggered');
-    setLoading(false);
-  }, 3000);
-  return () => clearTimeout(fallback);
-}, [setLoading]);
-
+    const img = new Image();
+    img.src = backgroundImage;
+    img.onload = () => {
+      cachedImage.current = backgroundImage; // persistently store the loaded image
+      setBgLoaded(true);
+      setLoading(false); // hide loader only after image loads
+    };
+  }, [backgroundImage, setLoading]);
 
   const toggleTheme = () => {
     const newMode = !darkMode;
@@ -50,20 +37,16 @@ useEffect(() => {
 console.log('PageWrapper image:', backgroundImage);
 console.log('bgLoaded:', bgLoaded, 'backgroundImage:', backgroundImage);
   return (
-    <div className="relative min-h-screen w-full flex flex-col overflow-x-hidden justify-between items-center">
-    {/* Always-on background layer */}
-    <div
-      className="fixed inset-0 -z-10 bg-cover bg-center bg-no-repeat transition-opacity duration-700"
-      style={{
-        backgroundImage: backgroundImage ? `url(${backgroundImage})` : "none",
-        opacity: bgLoaded ? 1 : 0,
-        backgroundColor: "#000",
-      }}
-    >
-      
-    </div>
+     <div className="relative min-h-screen w-full flex flex-col overflow-x-hidden justify-between items-center">
+      {/* Persistent background */}
+      <div
+        className="fixed inset-0 -z-10 bg-cover bg-center bg-no-repeat transition-opacity duration-700"
+        style={{
+          backgroundImage: cachedImage.current ? `url(${cachedImage.current})` : 'none',
+          opacity: cachedImage.current ? 1 : 0,
+        }}
+      ></div>
 
-      
       {/* Dark mode toggle button */}
       <div className="relative w-full px-0">
       <div className="absolute top-3 right-2 md:right-3 z-50">
