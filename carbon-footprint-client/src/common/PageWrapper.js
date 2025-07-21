@@ -48,18 +48,20 @@ useEffect(() => {
     document.documentElement.classList.toggle('dark', newMode);
   };
 console.log('PageWrapper image:', backgroundImage);
-
+console.log('bgLoaded:', bgLoaded, 'backgroundImage:', backgroundImage);
   return (
     <div className="relative min-h-screen w-full flex flex-col overflow-x-hidden justify-between items-center">
     {/* Always-on background layer */}
     <div
       className="fixed inset-0 -z-10 bg-cover bg-center bg-no-repeat transition-opacity duration-700"
       style={{
-        backgroundImage: `url(${backgroundImage})`,
+        backgroundImage: backgroundImage ? `url(${backgroundImage})` : "none",
         opacity: bgLoaded ? 1 : 0,
         backgroundColor: "#000",
       }}
-    ></div>
+    >
+      
+    </div>
 
       
       {/* Dark mode toggle button */}
