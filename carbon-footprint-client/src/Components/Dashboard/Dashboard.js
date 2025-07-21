@@ -345,16 +345,16 @@ useEffect(() => {
 
 }</div>
         </main>
-<div className="relative w-full flex flex-col sm:flex-row justify-between items-center pl-6 pr-6 gap-3 overflow-hidden">
+<div className="relative w-full flex flex-col sm:flex-row justify-between items-center pl-6 pr-6 gap-3 overflow-visible">
   <motion.button
-    whileTap={{ scale: 0.92 }}
+    whileTap={{ scale: 0.85 }}
     whileHover={{
-      scale: 1.03,
+      scale: 1.06,
       backgroundColor: "rgb(7 89 133)", // sky-800
       boxShadow: "0 0 15px rgba(7, 89, 133, 0.6)",
       color: "#ffffff",
     }}
-    transition={{ duration: 0.15, ease: "easeOut" }}
+    transition={{ type: "spring", stiffness: 500, damping: 25 }}
     onClick={() => {
   if (data.length >= 5) {
   setShowLimitMsg(false);
@@ -370,22 +370,22 @@ useEffect(() => {
   navigate('/footprint');
 }
 }}
-  className="w-32 sm:w-40 md:w-48 px-4 py-3 flex items-center justify-center text-emerald-500 dark:text-white bg-sky-500 border border-white rounded focus:ring focus:ring-green-800 transition duration-300"
+  className="w-32 sm:w-40 md:w-48 px-4 py-3 flex items-center justify-center text-emerald-500 dark:text-white bg-sky-500 border border-white rounded focus:ring focus:ring-green-800 transition duration-200 ease-in-out transform-gpu"
   >
    New Entry
   </motion.button>
 
   <motion.button
-  whileTap={{ scale: 0.92 }}
+  whileTap={{ scale: 0.85 }}
     whileHover={{
-      scale: 1.03,
+      scale: 1.06,
       backgroundColor: "rgb(146 64 14)", // amber-800
       boxShadow: "0 0 15px rgba(146, 64, 14, 0.6)",
       color: "#ffffff",
     }}
-    transition={{ duration: 0.15, ease: "easeOut" }}
+    transition={{ type: "spring", stiffness: 500, damping: 25 }}
     onClick={() => navigate('/history')}
-    className="w-32 sm:w-40 md:w-48 px-4 py-3 flex items-center justify-center text-emerald-500 dark:text-white bg-amber-500 border border-white rounded focus:ring focus:ring-green-800 transition duration-300"
+    className="w-32 sm:w-40 md:w-48 px-4 py-3 flex items-center justify-center text-emerald-500 dark:text-white bg-amber-500 border border-white rounded focus:ring focus:ring-green-800 transition duration-200 ease-in-out transform-gpu"
   >
     Edit/Delete
   </motion.button>
@@ -398,10 +398,10 @@ useEffect(() => {
       boxShadow: "0 0 15px rgba(153, 27, 27, 0.6)",
       color: "#ffffff",
     }}
-    transition={{ duration: 0.15, ease: "easeOut" }}
+    transition={{ type: "spring", stiffness: 500, damping: 25 }}
     onClick={handleLogout}
     disabled={logoutLoading}
-    className="w-32 sm:w-40 md:w-48 px-4 py-3 flex items-center justify-center text-emerald-500 dark:text-white bg-rose-500 border border-white rounded focus:ring focus:ring-green-800 transition duration-300"
+    className="w-32 sm:w-40 md:w-48 px-4 py-3 flex items-center justify-center text-emerald-500 dark:text-white bg-rose-500 border border-white rounded focus:ring focus:ring-green-800 transition duration-200 ease-in-out transform-gpu"
   >
     {logoutLoading ? (
       <>
