@@ -50,18 +50,17 @@ useEffect(() => {
 console.log('PageWrapper image:', backgroundImage);
 
   return (
+    <div className="min-h-screen w-full flex flex-col overflow-x-hidden justify-between items-center">
+    {/* Background layer */}
     <div
-      className={`min-h-screen w-full flex flex-col overflow-x-hidden justify-between items-center transition-opacity duration-300 ${
-    bgLoaded ? "opacity-100" : "opacity-0"
-  }`}>
-  <div className="fixed top-0 left-0 w-full h-full -z-10 bg-cover bg-no-repeat"
+      className={`fixed inset-0 -z-10 bg-cover bg-center bg-no-repeat transition-opacity duration-500 ${
+        bgLoaded ? "opacity-100" : "opacity-0"
+      }`}
       style={{
-        backgroundImage: bgLoaded ? `url(${backgroundImage})` : "none",
-        backgroundColor: bgLoaded ? "transparent" : "#000",
-        backgroundSize: '100% 100%',
-        backgroundRepeat: 'no-repeat',
-        backgroundPosition: 'center',
-      }}></div>
+        backgroundImage: `url(${backgroundImage})`,
+        backgroundSize: "cover",
+      }}
+    ></div>
       
       {/* Dark mode toggle button */}
       <div className="relative w-full px-0">
