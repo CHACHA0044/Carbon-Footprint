@@ -429,35 +429,65 @@ useEffect(() => {
   ].map(({ text, color, path }) => (
     <motion.button
       key={text}
-      whileTap={{ scale: 0.9 }}
+      whileTap={{ scale: 0.85 }}
       whileHover={{
         scale: 1.05,
-        backgroundColor: `rgb(var(--tw-color-${color}-600))`,
-        boxShadow: `0 4px 15px rgba(var(--tw-color-${color}-600-rgb), 0.4)`,
       }}
       transition={{ type: "spring", stiffness: 400, damping: 25 }}
       onClick={() => {
         setTimeout(() => navigate(path), 180); // smooth transition
       }}
-      className={`w-36 sm:w-44 px-4 py-3 rounded-lg shadow-md text-white bg-${color}-500 border border-white text-base font-medium transition-colors duration-200`}
+      className={`relative w-36 sm:w-44 px-4 py-3 rounded-lg shadow-lg 
+                  text-white bg-${color}-500 border border-white text-base 
+                  font-medium overflow-hidden transition-all duration-300`}
     >
+      {/* Hover wipe overlay */}
+      <span className="absolute inset-0 bg-gradient-to-r from-white/20 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-500"></span>
       {text}
     </motion.button>
   ))}
 
   <motion.button
-    whileTap={{ scale: 0.9 }}
+    whileTap={{ scale: 0.85 }}
     whileHover={{
       scale: 1.05,
-      backgroundColor: "rgb(153 27 27)", // rose-800
-      boxShadow: "0 4px 15px rgba(153, 27, 27, 0.4)",
     }}
     transition={{ type: "spring", stiffness: 400, damping: 25 }}
     onClick={handleLogout}
     disabled={logoutLoading}
-    className="w-36 sm:w-44 px-4 py-3 rounded-lg shadow-md text-white bg-rose-500 border border-white text-base font-medium transition-colors duration-200"
+    className="relative w-36 sm:w-44 px-4 py-3 rounded-lg shadow-lg text-white bg-rose-500 border border-white text-base font-medium overflow-hidden transition-all duration-300"
   >
-    {logoutLoading ? "Logging out..." : logoutSuccess ? "Logged out" : "Logout"}
+    <span className="absolute inset-0 bg-gradient-to-r from-white/20 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-500"></span>
+    {logoutLoading ? (
+      <motion.span
+        key="loading"
+        className="flex items-center justify-center gap-2"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+      >
+        ⏳ Logging out...
+      </motion.span>
+    ) : logoutSuccess ? (
+      <motion.span
+        key="success"
+        initial={{ scale: 0 }}
+        animate={{ scale: 1 }}
+        transition={{ type: "spring", stiffness: 300 }}
+      >
+        ✅ Logged out
+      </motion.span>
+    ) : logoutError ? (
+      <motion.span
+        key="error"
+        initial={{ x: -5 }}
+        animate={{ x: [0, -5, 5, -5, 5, 0] }}
+        transition={{ duration: 0.4 }}
+      >
+        ❌ Logout failed
+      </motion.span>
+    ) : (
+      "Logout"
+    )}
   </motion.button>
 </div>
 
