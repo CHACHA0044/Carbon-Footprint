@@ -50,15 +50,14 @@ useEffect(() => {
 console.log('PageWrapper image:', backgroundImage);
 
   return (
-    <div className="min-h-screen w-full flex flex-col overflow-x-hidden justify-between items-center">
-    {/* Background layer */}
+      <div className="min-h-screen w-full flex flex-col overflow-x-hidden justify-between items-center">
+    {/* Background layer stays visible, no opacity toggle */}
     <div
-      className={`fixed inset-0 -z-10 bg-cover bg-center bg-no-repeat transition-opacity duration-500 ${
-        bgLoaded ? "opacity-100" : "opacity-0"
-      }`}
+      className="fixed inset-0 -z-10 bg-cover bg-center bg-no-repeat"
       style={{
         backgroundImage: `url(${backgroundImage})`,
         backgroundSize: "cover",
+        backgroundColor: bgLoaded ? "transparent" : "#000",
       }}
     ></div>
       
