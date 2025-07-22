@@ -348,21 +348,29 @@ useEffect(() => {
 
 <div className="relative w-full flex flex-col sm:flex-row justify-between items-center px-6 gap-4 mt-6">
   {[
-    { text: "New Entry", color: "from-sky-400 to-sky-600", path: "/footprint" },
-    { text: "Edit/Delete", color: "from-amber-400 to-amber-600", path: "/history" },
+    { text: "New Entry", color: "from-sky-500 to-sky-700", path: "/footprint" },
+    { text: "Edit/Delete", color: "from-amber-500 to-amber-700", path: "/history" },
   ].map(({ text, color, path }) => (
     <motion.button
       key={text}
-      whileTap={{ scale: 0.96 }}
-      whileHover={{ scale: 1.02 }}
-      transition={{ duration: 0.18, ease: "easeOut" }}
-      onClick={() => setTimeout(() => navigate(path), 150)}
-      className={`relative w-36 sm:w-44 px-5 py-3 rounded-xl text-white bg-gradient-to-br ${color}
-                  border border-white text-base font-semibold shadow-md overflow-hidden will-change-transform`}
+      onClick={() => setTimeout(() => navigate(path), 120)}
+      className={`relative w-36 sm:w-44 px-5 py-3 rounded-lg text-white bg-gradient-to-br ${color}
+                  border border-white font-semibold shadow-lg overflow-hidden`}
+      style={{
+        transformOrigin: "center",
+        willChange: "transform, background, box-shadow"
+      }}
+      initial={false}
+      whileHover={{
+        scale: 1.015,
+        boxShadow: "0 8px 20px rgba(0,0,0,0.25)"
+      }}
+      whileTap={{ scale: 0.95 }}
+      transition={{ duration: 0.15, ease: "easeOut" }}
     >
       {/* Transparent wipe animation */}
       <motion.span
-        className="absolute inset-0 bg-white/40"
+        className="absolute inset-0 bg-white/20 pointer-events-none"
         initial={{ x: "-100%" }}
         whileHover={{ x: "100%" }}
         transition={{ duration: 0.4, ease: "easeInOut" }}
@@ -374,16 +382,24 @@ useEffect(() => {
 
   {/* Logout button */}
   <motion.button
-    whileTap={{ scale: 0.96 }}
-    whileHover={{ scale: 1.02 }}
-    transition={{ duration: 0.18, ease: "easeOut" }}
     onClick={handleLogout}
     disabled={logoutLoading}
-    className="relative w-36 sm:w-44 px-5 py-3 rounded-xl text-white bg-gradient-to-br from-rose-400 to-rose-600 
-               border border-white text-base font-semibold shadow-md overflow-hidden will-change-transform"
+    className="relative w-36 sm:w-44 px-5 py-3 rounded-lg text-white bg-gradient-to-br from-rose-500 to-rose-700 
+               border border-white font-semibold shadow-lg overflow-hidden"
+    style={{
+      transformOrigin: "center",
+      willChange: "transform, background, box-shadow"
+    }}
+    initial={false}
+    whileHover={{
+      scale: 1.015,
+      boxShadow: "0 8px 20px rgba(0,0,0,0.25)"
+    }}
+    whileTap={{ scale: 0.95 }}
+    transition={{ duration: 0.15, ease: "easeOut" }}
   >
     <motion.span
-      className="absolute inset-0 bg-white/40"
+      className="absolute inset-0 bg-white/20 pointer-events-none"
       initial={{ x: "-100%" }}
       whileHover={{ x: "100%" }}
       transition={{ duration: 0.4, ease: "easeInOut" }}
@@ -394,7 +410,7 @@ useEffect(() => {
         <>
           <motion.span
             animate={{ rotate: 360 }}
-            transition={{ repeat: Infinity, duration: 1, ease: "linear" }}
+            transition={{ repeat: Infinity, duration: 0.9, ease: "linear" }}
           >
             ⏳
           </motion.span>
