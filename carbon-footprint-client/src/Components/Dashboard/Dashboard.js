@@ -345,134 +345,57 @@ useEffect(() => {
 
 }</div>
         </main>
-{/* <div className="relative w-full flex flex-col sm:flex-row justify-between items-center pl-6 pr-6 gap-3 overflow-visible">
-  <motion.button
-    whileTap={{ scale: 0.85 }}
-    whileHover={{
-      scale: 1.06,
-      backgroundColor: "rgb(7 89 133)", // sky-800
-      boxShadow: "0 0 15px rgba(7, 89, 133, 0.6)",
-      color: "#ffffff",
-    }}
-    transition={{ type: "spring", stiffness: 500, damping: 25 }}
-    onClick={() => {
-  if (data.length >= 5) {
-  setShowLimitMsg(false);
-  setTimeout(() => {
-  setShowLimitMsg(true);
-  requestAnimationFrame(() => {
-    window.scrollTo(0, 0);
-    document.documentElement.scrollTop = 0;
-    document.body.scrollTop = 0;
-  });
-}, 100);
-} else {
-  navigate('/footprint');
-}
-}}
-  className="w-32 sm:w-40 md:w-48 px-4 py-3 flex items-center justify-center text-emerald-500 dark:text-white bg-sky-500 border border-white rounded focus:ring focus:ring-green-800 transition duration-200 ease-in-out transform-gpu"
-  >
-   New Entry
-  </motion.button>
 
-  <motion.button
-  whileTap={{ scale: 0.85 }}
-    whileHover={{
-      scale: 1.06,
-      backgroundColor: "rgb(146 64 14)", // amber-800
-      boxShadow: "0 0 15px rgba(146, 64, 14, 0.6)",
-      color: "#ffffff",
-    }}
-    transition={{ type: "spring", stiffness: 500, damping: 25 }}
-    onClick={() => navigate('/history')}
-    className="w-32 sm:w-40 md:w-48 px-4 py-3 flex items-center justify-center text-emerald-500 dark:text-white bg-amber-500 border border-white rounded focus:ring focus:ring-green-800 transition duration-200 ease-in-out transform-gpu"
-  >
-    Edit/Delete
-  </motion.button>
- <div>
-  <motion.button
- whileTap={{ scale: 0.92 }}
-    whileHover={{
-      scale: 1.03,
-      backgroundColor: "rgb(153 27 27)", // rose-800
-      boxShadow: "0 0 15px rgba(153, 27, 27, 0.6)",
-      color: "#ffffff",
-    }}
-    transition={{ type: "spring", stiffness: 500, damping: 25 }}
-    onClick={handleLogout}
-    disabled={logoutLoading}
-    className="w-32 sm:w-40 md:w-48 px-4 py-3 flex items-center justify-center text-emerald-500 dark:text-white bg-rose-500 border border-white rounded focus:ring focus:ring-green-800 transition duration-200 ease-in-out transform-gpu"
-  >
-    {logoutLoading ? (
-      <>
-        <svg className="animate-spin h-5 w-5 text-rose-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-          <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-          <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z" />
-        </svg>
-        Logging out...
-      </>
-    ) : logoutSuccess ? 'Logged out' : 'Logout'}
-  </motion.button>
-
-  {logoutSuccess && (
-    <p className="text-green-500 text-sm mt-1 animate-pulse">{logoutSuccess}</p>
-  )}
-  {logoutError && (
-    <p className="text-red-500 text-sm mt-1 animate-bounce">{logoutError}</p>
-  )}
-  </div>
-</div> */}
-<div className="relative w-full flex flex-col sm:flex-row justify-center sm:justify-between items-center px-6 gap-4 mt-6 overflow-hidden">
+<div className="relative w-full flex flex-col sm:flex-row justify-between items-center px-6 gap-4 mt-6 overflow-hidden">
   {[
-    { text: "New Entry", color: "from-sky-400 via-sky-500 to-sky-600", path: "/footprint" },
-    { text: "Edit/Delete", color: "from-amber-400 via-amber-500 to-amber-600", path: "/history" },
-  ].map(({ text, color, path }) => (
+    { text: "New Entry", color: "from-sky-400 to-sky-600", hover: "from-sky-500 to-sky-700", path: "/footprint" },
+    { text: "Edit/Delete", color: "from-amber-400 to-amber-600", hover: "from-amber-500 to-amber-700", path: "/history" },
+  ].map(({ text, color, hover, path }) => (
     <motion.button
       key={text}
-      whileTap={{ scale: 0.92 }}
-      whileHover={{ scale: 1.05 }}
-      transition={{ type: "spring", stiffness: 300, damping: 20 }}
-      onClick={() => setTimeout(() => navigate(path), 200)}
-      className={`relative w-36 sm:w-44 px-5 py-3 rounded-xl text-white bg-gradient-to-r ${color}
-                  border border-white text-base font-semibold shadow-md
-                  overflow-hidden transition-transform duration-300`}
+      whileTap={{ scale: 0.95 }}
+      whileHover={{ scale: 1.03 }}
+      transition={{ type: "spring", stiffness: 400, damping: 20, duration: 0.2 }}
+      onClick={() => setTimeout(() => navigate(path), 150)}
+      className={`relative w-36 sm:w-44 px-5 py-3 rounded-xl text-white bg-gradient-to-br ${color}
+                  hover:${hover} border border-white text-base font-semibold shadow-[0_4px_15px_rgba(0,0,0,0.4)]
+                  overflow-hidden transition-colors duration-500 ease-in-out will-change-transform`}
       style={{ transformOrigin: "center" }}
     >
-      {/* Hover animation – smooth wipe */}
+      {/* Transparent wipe effect */}
       <motion.span
         className="absolute inset-0 bg-white/20 pointer-events-none"
         initial={{ x: "-100%" }}
         whileHover={{ x: "100%" }}
-        transition={{ duration: 0.8, ease: "easeInOut" }}
+        transition={{ duration: 0.4, ease: "easeInOut" }}
       />
       {text}
     </motion.button>
   ))}
 
-  {/* Logout Button */}
   <motion.button
-    whileTap={{ scale: 0.92 }}
-    whileHover={{ scale: 1.05 }}
-    transition={{ type: "spring", stiffness: 300, damping: 20 }}
+    whileTap={{ scale: 0.95 }}
+    whileHover={{ scale: 1.03 }}
+    transition={{ type: "spring", stiffness: 400, damping: 20, duration: 0.2 }}
     onClick={handleLogout}
     disabled={logoutLoading}
-    className="relative w-36 sm:w-44 px-5 py-3 rounded-xl text-white bg-gradient-to-r from-rose-400 via-rose-500 to-rose-600
-               border border-white text-base font-semibold shadow-md
-               overflow-hidden transition-transform duration-300"
+    className="relative w-36 sm:w-44 px-5 py-3 rounded-xl text-white bg-gradient-to-br from-rose-400 to-rose-600 
+               hover:from-rose-500 hover:to-rose-700 border border-white text-base font-semibold 
+               shadow-[0_4px_15px_rgba(0,0,0,0.4)] overflow-hidden transition-colors duration-500 ease-in-out will-change-transform"
     style={{ transformOrigin: "center" }}
   >
     <motion.span
       className="absolute inset-0 bg-white/20 pointer-events-none"
       initial={{ x: "-100%" }}
       whileHover={{ x: "100%" }}
-      transition={{ duration: 0.8, ease: "easeInOut" }}
+      transition={{ duration: 0.4, ease: "easeInOut" }}
     />
     {logoutLoading ? (
       <span className="flex items-center gap-2">
         <motion.span
+          key="loading"
           animate={{ rotate: 360 }}
           transition={{ repeat: Infinity, duration: 1, ease: "linear" }}
-          className="inline-block"
         >
           ⏳
         </motion.span>
@@ -480,18 +403,29 @@ useEffect(() => {
       </span>
     ) : logoutSuccess ? (
       <span className="flex items-center gap-1">
-        Logged out 🎉
+        Logged out{" "}
+        <motion.span
+          key="success"
+          initial={{ scale: 0 }}
+          animate={{ scale: 1 }}
+          transition={{ type: "spring", stiffness: 500, damping: 12 }}
+        >
+          🎉
+        </motion.span>
       </span>
     ) : logoutError ? (
-      "❌ Logout failed"
+      <motion.span
+        key="error"
+        animate={{ x: [0, -6, 6, -6, 0] }}
+        transition={{ duration: 0.5 }}
+      >
+        ❌ Logout failed
+      </motion.span>
     ) : (
       "Logout"
     )}
   </motion.button>
 </div>
-
-
-
 
 </div>    
     </PageWrapper>
