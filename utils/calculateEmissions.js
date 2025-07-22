@@ -8,6 +8,7 @@ function calculateEmissions(data) {
 
   // --- FOOD ---
   let foodEmission = 0;
+  // CHANGED: now expects raw `data.food` without pre-calculated emissions
   const foodWithEmission = data.food ? (() => {
     let amountKg = data.food.amountKg || 0;
     if (amountKg > MAX_FOOD_KG) {
@@ -27,6 +28,7 @@ function calculateEmissions(data) {
 
   // --- TRANSPORT ---
   let transportTotal = 0;
+  // CHANGED: iterates over raw values and calculates emissions each time
   const transportWithEmissions = (data.transport || []).map(item => {
     let distanceKm = item.distanceKm || 0;
     if (distanceKm > MAX_TRANSPORT_KM) {
@@ -96,7 +98,6 @@ function calculateEmissions(data) {
   const totalEmissionKg = parseFloat(
     (foodEmission + transportTotal + electricityTotal + wasteTotal).toFixed(2)
   );
-
   // --- Suggestions ---
 let suggestions = capped
   ? "⚠️ Some unusually high values were capped to keep results realistic for a month.\n"

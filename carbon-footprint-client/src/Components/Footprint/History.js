@@ -58,7 +58,7 @@ setHistory(sorted);
   const handleDelete = async (id) => {
   setLoadingId(id);
     const deletedEntry = history.find((e) => e._id === id);
-    const emission = deletedEntry?.totalEmissionKg || deletedEntry?.totalEmissions || "N/A";
+    const emission = deletedEntry?.totalEmissionKg || "N/A";
   try {
     await API.delete(`/footprint/${id}`);
     setSuccess(`Entry (${emission} kg CO₂) deleted successfully 🌱 `);

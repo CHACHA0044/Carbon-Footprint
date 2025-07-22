@@ -7,22 +7,18 @@ const calculateEmissions = require('../utils/calculateEmissions');
 //  POST: Create entry
 router.post('/', authenticateToken, async (req, res) => {
   try {
+    const email = req.user.email;
     const data = req.body;
 
-    // calculate emissions (same as before)
-    const { totalEmissionKg, suggestions, capped, foodWithEmission, transportWithEmissions, electricityWithEmissions, wasteWithEmissions } = calculateEmissions(data);
-    const email = req.user.email;
     const updatedDoc = await CarbonEntry.findOneAndUpdate(
       { email },
       {
         $push: {
           entries: {
-            food: foodWithEmission,
-            transport: transportWithEmissions,
-            electricity: electricityWithEmissions,
-            waste: wasteWithEmissions,
-            totalEmissionKg,
-            suggestions,
+            food: data.food,
+            transport: data.transport,
+            electricity: data.electricity,
+            waste: data.waste,
             createdAt: new Date(),
             updatedAt: new Date()
           }
@@ -31,19 +27,12 @@ router.post('/', authenticateToken, async (req, res) => {
       { new: true, upsert: true }
     );
 
-    res.status(201).json({
-      message: 'Entry added successfully',
-      totalEmissionKg,
-      suggestions,
-      capped,
-      data: updatedDoc
-    });
+    res.status(201).json({ message: 'Entry added successfully', data: updatedDoc });
   } catch (err) {
     console.error('❌ POST /footprint error:', err);
     res.status(500).json({ error: 'Internal server error' });
   }
 });
-
 
 // DELETE all 
 router.delete('/clear/all', authenticateToken, async (req, res) => {
@@ -59,28 +48,42 @@ router.delete('/clear/all', authenticateToken, async (req, res) => {
   }
 });
 
-
 // GET all history 
 router.get('/history', authenticateToken, async (req, res) => {
   try {
     const doc = await CarbonEntry.findOne({ email: req.user.email });
     if (!doc || doc.entries.length === 0) return res.status(200).json([]);
-    res.status(200).json(doc.entries.sort((a, b) => b.createdAt - a.createdAt));
+
+    const enriched = doc.entries
+      .sort((a, b) => b.createdAt - a.createdAt)
+      .map(entry => {
+        const { totalEmissionKg, suggestions } = calculateEmissions(entry);
+        return { ...entry.toObject(), totalEmissionKg, suggestions };
+      });
+
+    res.status(200).json(enriched);
   } catch (err) {
     console.error('❌ GET /history error:', err);
     res.status(500).json({ error: 'Internal server error' });
   }
 });
 
-
 // GET single entry 
 router.get('/:id', authenticateToken, async (req, res) => {
   try {
-    const doc = await CarbonEntry.findOne({ email: req.user.email, "entries._id": req.params.id }, { "entries.$": 1 });
-    if (!doc || doc.entries.length === 0) return res.status(404).json({ error: 'Entry not found' });
-    res.json(doc.entries[0]);
+    const doc = await CarbonEntry.findOne(
+      { email: req.user.email, "entries._id": req.params.id },
+      { "entries.$": 1 }
+    );
+    if (!doc || doc.entries.length === 0)
+      return res.status(404).json({ error: 'Entry not found' });
+
+    const entry = doc.entries[0];
+    const { totalEmissionKg, suggestions } = calculateEmissions(entry);
+    res.json({ ...entry.toObject(), totalEmissionKg, suggestions });
 
   } catch (err) {
+    console.error('❌ GET /:id error:', err);
     res.status(500).json({ error: 'Error fetching entry' });
   }
 });
@@ -92,17 +95,14 @@ router.put('/:entryId', authenticateToken, async (req, res) => {
     const email = req.user.email;
     const data = req.body;
 
-    const { totalEmissionKg, suggestions, capped, foodWithEmission, transportWithEmissions, electricityWithEmissions, wasteWithEmissions } = calculateEmissions(data);
     const updatedDoc = await CarbonEntry.findOneAndUpdate(
       { email, "entries._id": entryId },
       {
         $set: {
-          "entries.$.food": foodWithEmission,
-          "entries.$.transport": transportWithEmissions,
-          "entries.$.electricity": electricityWithEmissions,
-          "entries.$.waste": wasteWithEmissions,
-          "entries.$.totalEmissionKg": totalEmissionKg,
-          "entries.$.suggestions": suggestions,
+          "entries.$.food": data.food,
+          "entries.$.transport": data.transport,
+          "entries.$.electricity": data.electricity,
+          "entries.$.waste": data.waste,
           "entries.$.updatedAt": new Date()
         }
       },
@@ -111,7 +111,7 @@ router.put('/:entryId', authenticateToken, async (req, res) => {
 
     if (!updatedDoc) return res.status(404).json({ error: 'Entry not found' });
 
-    res.json({ message: 'Entry updated successfully', totalEmissionKg, suggestions, capped, data: updatedDoc });
+    res.json({ message: 'Entry updated successfully', data: updatedDoc });
   } catch (err) {
     console.error('❌ PUT /footprint/:entryId error:', err);
     res.status(500).json({ error: 'Error updating entry' });
