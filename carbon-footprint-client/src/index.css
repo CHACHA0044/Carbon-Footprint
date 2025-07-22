@@ -4,7 +4,7 @@
 html, body {
   height: 100%;
   overflow-x: hidden;
-  background-color: transparent;
+  background-color: #000;
   scroll-behavior: smooth;
 }
 .loader { box-sizing: border-box; }
