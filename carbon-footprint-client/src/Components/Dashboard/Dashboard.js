@@ -346,7 +346,7 @@ useEffect(() => {
 }</div>
         </main>
 
-<div className="relative w-full flex flex-col sm:flex-row justify-between items-center px-6 gap-4 mt-6">
+<div className="relative w-full flex flex-col sm:flex-row justify-between items-center px-6 gap-4 mt-8 overflow-visible">
   {[
     { text: "New Entry", colors: ["from-sky-500", "to-sky-700", "hover:from-sky-600", "hover:to-sky-800"], path: "/footprint" },
     { text: "Edit/Delete", colors: ["from-amber-500", "to-amber-700", "hover:from-amber-600", "hover:to-amber-800"], path: "/history" },
@@ -356,19 +356,17 @@ useEffect(() => {
       onClick={() => setTimeout(() => navigate(path), 100)}
       className={`relative w-36 sm:w-44 px-5 py-3 rounded-xl text-white bg-gradient-to-br ${colors[0]} ${colors[1]} 
                  ${colors[2]} ${colors[3]} border border-white font-semibold shadow-md 
-                 flex items-center justify-center overflow-hidden transition-all duration-300 ease-out`}
-      whileHover={{ scale: 1.05 }}
-      whileTap={{ scale: 0.94 }}
-      transition={{ duration: 0.12, ease: "easeOut" }}
-      style={{ transformOrigin: "center" }}
+                 flex items-center justify-center overflow-hidden transform-gpu will-change-transform`}
+      whileHover={{ scale: 1.08 }}
+      whileTap={{ scale: 0.95 }}
+      transition={{ duration: 0.15, ease: "easeOut" }}
     >
-      {/* Left-to-right transparent wipe */}
+      {/* Hover gradient shimmer */}
       <motion.span
-        className="absolute inset-0 bg-white/20 pointer-events-none"
+        className="absolute inset-0 bg-gradient-to-r from-white/40 via-transparent to-white/40 pointer-events-none"
         initial={{ x: "-100%" }}
         whileHover={{ x: "100%" }}
-        transition={{ duration: 0.5, ease: "easeInOut" }}
-        style={{ mixBlendMode: "overlay" }}
+        transition={{ duration: 0.6, ease: "easeInOut" }}
       />
       <span className="relative z-10">{text}</span>
     </motion.button>
@@ -380,19 +378,17 @@ useEffect(() => {
     disabled={logoutLoading}
     className="relative w-36 sm:w-44 px-5 py-3 rounded-xl text-white bg-gradient-to-br from-rose-500 to-rose-700 
                hover:from-rose-600 hover:to-rose-800 border border-white font-semibold shadow-md 
-               flex items-center justify-center gap-2 overflow-hidden transition-all duration-300 ease-out"
-    whileHover={{ scale: 1.05 }}
-    whileTap={{ scale: 0.94 }}
-    transition={{ duration: 0.12, ease: "easeOut" }}
-    style={{ transformOrigin: "center" }}
+               flex items-center justify-center gap-2 overflow-hidden transform-gpu will-change-transform"
+    whileHover={{ scale: 1.08 }}
+    whileTap={{ scale: 0.95 }}
+    transition={{ duration: 0.15, ease: "easeOut" }}
   >
-    {/* Hover wipe effect */}
+    {/* Hover shimmer */}
     <motion.span
-      className="absolute inset-0 bg-white/20 pointer-events-none"
+      className="absolute inset-0 bg-gradient-to-r from-white/40 via-transparent to-white/40 pointer-events-none"
       initial={{ x: "-100%" }}
       whileHover={{ x: "100%" }}
-      transition={{ duration: 0.5, ease: "easeInOut" }}
-      style={{ mixBlendMode: "overlay" }}
+      transition={{ duration: 0.6, ease: "easeInOut" }}
     />
     <span className="relative z-10 flex items-center justify-center gap-2">
       {logoutLoading ? (
