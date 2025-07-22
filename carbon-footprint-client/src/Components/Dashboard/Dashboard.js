@@ -422,23 +422,23 @@ useEffect(() => {
   )}
   </div>
 </div> */}
-<div className="flex flex-col sm:flex-row justify-center items-center gap-6 w-full px-6">
+<div className="relative w-full flex flex-col sm:flex-row justify-between items-center px-6 gap-4 mt-6">
   {[
-    { text: "New Entry", color: "from-sky-400 to-sky-600", path: "/footprint" },
-    { text: "Edit/Delete", color: "from-amber-400 to-amber-600", path: "/history" },
-  ].map(({ text, color, path }) => (
+    { text: "New Entry", color: "from-sky-400 to-sky-600", hover: "from-sky-500 to-sky-700", path: "/footprint" },
+    { text: "Edit/Delete", color: "from-amber-400 to-amber-600", hover: "from-amber-500 to-amber-700", path: "/history" },
+  ].map(({ text, color, hover, path }) => (
     <motion.button
       key={text}
-      whileTap={{ scale: 0.92 }}
+      whileTap={{ scale: 0.92, backgroundColor: "rgba(0,0,0,0.3)" }}
       whileHover={{ scale: 1.05 }}
       transition={{ type: "spring", stiffness: 300, damping: 20 }}
       onClick={() => setTimeout(() => navigate(path), 200)}
       className={`relative w-36 sm:w-44 px-5 py-3 rounded-xl text-white bg-gradient-to-br ${color}
-                  border border-white text-base font-semibold shadow-[0_4px_15px_rgba(0,0,0,0.3)]
-                  overflow-hidden will-change-transform`}
+                  hover:${hover} border border-white text-base font-semibold shadow-[0_4px_15px_rgba(0,0,0,0.4)]
+                  overflow-hidden transition-colors duration-500 ease-in-out will-change-transform`}
       style={{ transformOrigin: "center" }}
     >
-      {/* Animated hover overlay */}
+      {/* Hover wipe animation */}
       <motion.span
         className="absolute inset-0 bg-white/20 pointer-events-none"
         initial={{ x: "-100%" }}
@@ -450,14 +450,14 @@ useEffect(() => {
   ))}
 
   <motion.button
-    whileTap={{ scale: 0.92 }}
+    whileTap={{ scale: 0.92, backgroundColor: "rgba(0,0,0,0.3)" }}
     whileHover={{ scale: 1.05 }}
     transition={{ type: "spring", stiffness: 300, damping: 20 }}
     onClick={handleLogout}
     disabled={logoutLoading}
-    className="relative w-36 sm:w-44 px-5 py-3 rounded-xl text-white bg-gradient-to-br from-rose-400 to-rose-600
-               border border-white text-base font-semibold shadow-[0_4px_15px_rgba(0,0,0,0.3)]
-               overflow-hidden will-change-transform"
+    className="relative w-36 sm:w-44 px-5 py-3 rounded-xl text-white bg-gradient-to-br from-rose-400 to-rose-600 
+               hover:from-rose-500 hover:to-rose-700 border border-white text-base font-semibold 
+               shadow-[0_4px_15px_rgba(0,0,0,0.4)] overflow-hidden transition-colors duration-500 ease-in-out will-change-transform"
     style={{ transformOrigin: "center" }}
   >
     <motion.span
@@ -476,27 +476,31 @@ useEffect(() => {
         ⏳ Logging out...
       </motion.span>
     ) : logoutSuccess ? (
-      <motion.span
-        key="success"
-        initial={{ scale: 0 }}
-        animate={{ scale: 1 }}
-        transition={{ type: "spring", stiffness: 500, damping: 12 }}
-      >
-        🎉
-      </motion.span>
+      <span className="flex items-center gap-1">
+        Logged out{" "}
+        <motion.span
+          key="success"
+          initial={{ scale: 0 }}
+          animate={{ scale: 1 }}
+          transition={{ type: "spring", stiffness: 500, damping: 12 }}
+        >
+          🎉
+        </motion.span>
+      </span>
     ) : logoutError ? (
       <motion.span
         key="error"
         animate={{ x: [0, -6, 6, -6, 0] }}
         transition={{ duration: 0.5 }}
       >
-        ❌
+        ❌ Logout failed
       </motion.span>
     ) : (
       "Logout"
     )}
   </motion.button>
 </div>
+
 
 
 
