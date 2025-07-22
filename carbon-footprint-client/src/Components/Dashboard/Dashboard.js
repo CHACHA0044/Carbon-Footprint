@@ -346,84 +346,68 @@ useEffect(() => {
 }</div>
         </main>
 
-<div className="relative w-full flex flex-col sm:flex-row justify-between items-center px-6 gap-4 mt-6 overflow-hidden">
+<div className="relative w-full flex flex-col sm:flex-row justify-between items-center px-6 gap-4 mt-6">
   {[
-    { text: "New Entry", color: "from-sky-400 to-sky-600", hover: "from-sky-500 to-sky-700", path: "/footprint" },
-    { text: "Edit/Delete", color: "from-amber-400 to-amber-600", hover: "from-amber-500 to-amber-700", path: "/history" },
-  ].map(({ text, color, hover, path }) => (
+    { text: "New Entry", color: "from-sky-400 to-sky-600", path: "/footprint" },
+    { text: "Edit/Delete", color: "from-amber-400 to-amber-600", path: "/history" },
+  ].map(({ text, color, path }) => (
     <motion.button
       key={text}
-      whileTap={{ scale: 0.95 }}
-      whileHover={{ scale: 1.03 }}
-      transition={{ type: "spring", stiffness: 400, damping: 20, duration: 0.2 }}
+      whileTap={{ scale: 0.96 }}
+      whileHover={{ scale: 1.02 }}
+      transition={{ duration: 0.18, ease: "easeOut" }}
       onClick={() => setTimeout(() => navigate(path), 150)}
       className={`relative w-36 sm:w-44 px-5 py-3 rounded-xl text-white bg-gradient-to-br ${color}
-                  hover:${hover} border border-white text-base font-semibold shadow-[0_4px_15px_rgba(0,0,0,0.4)]
-                  overflow-hidden transition-colors duration-500 ease-in-out will-change-transform`}
-      style={{ transformOrigin: "center" }}
+                  border border-white text-base font-semibold shadow-md overflow-hidden will-change-transform`}
     >
-      {/* Transparent wipe effect */}
+      {/* Transparent wipe animation */}
       <motion.span
-        className="absolute inset-0 bg-white/20 pointer-events-none"
+        className="absolute inset-0 bg-white/40"
         initial={{ x: "-100%" }}
         whileHover={{ x: "100%" }}
         transition={{ duration: 0.4, ease: "easeInOut" }}
+        style={{ mixBlendMode: "overlay" }}
       />
-      {text}
+      <span className="relative z-10">{text}</span>
     </motion.button>
   ))}
 
+  {/* Logout button */}
   <motion.button
-    whileTap={{ scale: 0.95 }}
-    whileHover={{ scale: 1.03 }}
-    transition={{ type: "spring", stiffness: 400, damping: 20, duration: 0.2 }}
+    whileTap={{ scale: 0.96 }}
+    whileHover={{ scale: 1.02 }}
+    transition={{ duration: 0.18, ease: "easeOut" }}
     onClick={handleLogout}
     disabled={logoutLoading}
     className="relative w-36 sm:w-44 px-5 py-3 rounded-xl text-white bg-gradient-to-br from-rose-400 to-rose-600 
-               hover:from-rose-500 hover:to-rose-700 border border-white text-base font-semibold 
-               shadow-[0_4px_15px_rgba(0,0,0,0.4)] overflow-hidden transition-colors duration-500 ease-in-out will-change-transform"
-    style={{ transformOrigin: "center" }}
+               border border-white text-base font-semibold shadow-md overflow-hidden will-change-transform"
   >
     <motion.span
-      className="absolute inset-0 bg-white/20 pointer-events-none"
+      className="absolute inset-0 bg-white/40"
       initial={{ x: "-100%" }}
       whileHover={{ x: "100%" }}
       transition={{ duration: 0.4, ease: "easeInOut" }}
+      style={{ mixBlendMode: "overlay" }}
     />
-    {logoutLoading ? (
-      <span className="flex items-center gap-2">
-        <motion.span
-          key="loading"
-          animate={{ rotate: 360 }}
-          transition={{ repeat: Infinity, duration: 1, ease: "linear" }}
-        >
-          ⏳
-        </motion.span>
-        Logging out...
-      </span>
-    ) : logoutSuccess ? (
-      <span className="flex items-center gap-1">
-        Logged out{" "}
-        <motion.span
-          key="success"
-          initial={{ scale: 0 }}
-          animate={{ scale: 1 }}
-          transition={{ type: "spring", stiffness: 500, damping: 12 }}
-        >
-          🎉
-        </motion.span>
-      </span>
-    ) : logoutError ? (
-      <motion.span
-        key="error"
-        animate={{ x: [0, -6, 6, -6, 0] }}
-        transition={{ duration: 0.5 }}
-      >
-        ❌ Logout failed
-      </motion.span>
-    ) : (
-      "Logout"
-    )}
+    <span className="relative z-10 flex items-center gap-2">
+      {logoutLoading ? (
+        <>
+          <motion.span
+            animate={{ rotate: 360 }}
+            transition={{ repeat: Infinity, duration: 1, ease: "linear" }}
+          >
+            ⏳
+          </motion.span>
+          Logging out...
+        </>
+      ) : logoutSuccess ? (
+        <>Logged out 🎉</>
+      ) : logoutError ? (
+        <>❌ Logout failed</>
+      ) : (
+        "Logout"
+      )}
+    </span>
   </motion.button>
 </div>
 
