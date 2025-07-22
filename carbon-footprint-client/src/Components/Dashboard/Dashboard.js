@@ -422,40 +422,50 @@ useEffect(() => {
   )}
   </div>
 </div> */}
-<div className="flex flex-col sm:flex-row justify-between items-center gap-6 w-full px-6">
+<div className="flex flex-col sm:flex-row justify-center items-center gap-6 w-full px-6">
   {[
-    { text: "New Entry", color: "bg-sky-500", path: "/footprint" },
-    { text: "Edit/Delete", color: "bg-amber-500", path: "/history" },
+    { text: "New Entry", color: "from-sky-400 to-sky-600", path: "/footprint" },
+    { text: "Edit/Delete", color: "from-amber-400 to-amber-600", path: "/history" },
   ].map(({ text, color, path }) => (
     <motion.button
       key={text}
-      whileTap={{ scale: 0.9 }}
+      whileTap={{ scale: 0.92 }}
       whileHover={{ scale: 1.05 }}
-      transition={{ type: "spring", stiffness: 350, damping: 20 }}
+      transition={{ type: "spring", stiffness: 300, damping: 20 }}
       onClick={() => setTimeout(() => navigate(path), 200)}
-      className={`relative w-36 sm:w-44 px-5 py-3 rounded-xl text-white ${color} border border-white text-base font-semibold
-                  shadow-lg overflow-hidden will-change-transform`}
+      className={`relative w-36 sm:w-44 px-5 py-3 rounded-xl text-white bg-gradient-to-br ${color}
+                  border border-white text-base font-semibold shadow-[0_4px_15px_rgba(0,0,0,0.3)]
+                  overflow-hidden will-change-transform`}
       style={{ transformOrigin: "center" }}
     >
-      {/* Fade-to-transparent overlay */}
-      <span className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent
-                       opacity-0 hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
+      {/* Animated hover overlay */}
+      <motion.span
+        className="absolute inset-0 bg-white/20 pointer-events-none"
+        initial={{ x: "-100%" }}
+        whileHover={{ x: "100%" }}
+        transition={{ duration: 0.8, ease: "easeInOut" }}
+      />
       {text}
     </motion.button>
   ))}
 
   <motion.button
-    whileTap={{ scale: 0.9 }}
+    whileTap={{ scale: 0.92 }}
     whileHover={{ scale: 1.05 }}
-    transition={{ type: "spring", stiffness: 350, damping: 20 }}
+    transition={{ type: "spring", stiffness: 300, damping: 20 }}
     onClick={handleLogout}
     disabled={logoutLoading}
-    className="relative w-36 sm:w-44 px-5 py-3 rounded-xl text-white bg-rose-500 border border-white text-base font-semibold
-               shadow-lg overflow-hidden will-change-transform"
+    className="relative w-36 sm:w-44 px-5 py-3 rounded-xl text-white bg-gradient-to-br from-rose-400 to-rose-600
+               border border-white text-base font-semibold shadow-[0_4px_15px_rgba(0,0,0,0.3)]
+               overflow-hidden will-change-transform"
     style={{ transformOrigin: "center" }}
   >
-    <span className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent
-                     opacity-0 hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
+    <motion.span
+      className="absolute inset-0 bg-white/20 pointer-events-none"
+      initial={{ x: "-100%" }}
+      whileHover={{ x: "100%" }}
+      transition={{ duration: 0.8, ease: "easeInOut" }}
+    />
     {logoutLoading ? (
       <motion.span
         key="loading"
@@ -470,7 +480,7 @@ useEffect(() => {
         key="success"
         initial={{ scale: 0 }}
         animate={{ scale: 1 }}
-        transition={{ type: "spring", stiffness: 400, damping: 12 }}
+        transition={{ type: "spring", stiffness: 500, damping: 12 }}
       >
         🎉
       </motion.span>
