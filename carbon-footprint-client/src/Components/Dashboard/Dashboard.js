@@ -391,24 +391,32 @@ useEffect(() => {
       transition={{ duration: 0.6, ease: "easeInOut" }}
     />
     <span className="relative z-10 flex items-center justify-center gap-2">
-      {logoutLoading ? (
-        <>
-          <motion.span
-            animate={{ rotate: 360 }}
-            transition={{ repeat: Infinity, duration: 0.9, ease: "linear" }}
-          >
-            ⏳
-          </motion.span>
-          Logging out...
-        </>
-      ) : logoutSuccess ? (
-        <>Logged out 🎉</>
-      ) : logoutError ? (
-        <>❌ Logout failed</>
-      ) : (
-        "Logout"
-      )}
-    </span>
+  {logoutLoading ? (
+    <motion.span
+      animate={{ rotate: 360 }}
+      transition={{ repeat: Infinity, duration: 0.9, ease: "linear" }}
+    >
+      ⏳
+    </motion.span>
+  ) : logoutSuccess ? (
+    <motion.span
+      initial={{ scale: 0 }}
+      animate={{ scale: [1.5, 1], rotate: [0, 15, -15, 0] }}
+      transition={{ duration: 0.6 }}
+    >
+      ✌ Logged out
+    </motion.span>
+  ) : logoutError ? (
+    <>❌ Logout failed</>
+  ) : (
+    <motion.span
+      whileHover={{ rotate: [0, 10, -10, 0], scale: 1.2 }}
+      transition={{ duration: 0.4 }}
+    >
+      👋 Logout
+    </motion.span>
+  )}
+</span>
   </motion.button>
 </div>
 

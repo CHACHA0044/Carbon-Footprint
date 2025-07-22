@@ -4,7 +4,16 @@
 html, body {
   height: 100%;
   overflow-x: hidden;
-  background-color: #000;
+  background-color: transparent;
   scroll-behavior: smooth;
 }
 .loader { box-sizing: border-box; }
+/* Hide scrollbar but keep scrolling */
+::-webkit-scrollbar {
+  width: 0px;
+  background: transparent; /* make scrollbar transparent */
+}
+html {
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE/Edge */
+}
