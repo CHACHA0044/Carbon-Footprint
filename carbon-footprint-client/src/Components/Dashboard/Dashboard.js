@@ -346,7 +346,7 @@ useEffect(() => {
 }</div>
         </main>
 
-<div className="relative w-full flex flex-col sm:flex-row justify-between items-center px-6 gap-4 mt-8 overflow-visible">
+<div className="relative w-full flex flex-col sm:flex-row justify-between items-center px-6 gap-6 mt-12 pb-6">
   {[
     { text: "New Entry", colors: ["from-sky-500", "to-sky-700", "hover:from-sky-600", "hover:to-sky-800"], path: "/footprint" },
     { text: "Edit/Delete", colors: ["from-amber-500", "to-amber-700", "hover:from-amber-600", "hover:to-amber-800"], path: "/history" },
@@ -357,7 +357,7 @@ useEffect(() => {
       className={`relative w-36 sm:w-44 px-5 py-3 rounded-xl text-white bg-gradient-to-br ${colors[0]} ${colors[1]} 
                  ${colors[2]} ${colors[3]} border border-white font-semibold shadow-md 
                  flex items-center justify-center overflow-hidden transform-gpu will-change-transform`}
-      whileHover={{ scale: 1.08 }}
+      whileHover={{ scale: 1.05 }}
       whileTap={{ scale: 0.95 }}
       transition={{ duration: 0.15, ease: "easeOut" }}
     >
@@ -379,7 +379,7 @@ useEffect(() => {
     className="relative w-36 sm:w-44 px-5 py-3 rounded-xl text-white bg-gradient-to-br from-rose-500 to-rose-700 
                hover:from-rose-600 hover:to-rose-800 border border-white font-semibold shadow-md 
                flex items-center justify-center gap-2 overflow-hidden transform-gpu will-change-transform"
-    whileHover={{ scale: 1.08 }}
+    whileHover={{ scale: 1.05 }}
     whileTap={{ scale: 0.95 }}
     transition={{ duration: 0.15, ease: "easeOut" }}
   >
