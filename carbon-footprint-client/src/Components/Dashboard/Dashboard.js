@@ -348,8 +348,8 @@ useEffect(() => {
 
 <div className="relative w-full flex flex-col sm:flex-row justify-between items-center px-6 gap-6 mt-12 pb-6">
   {[
-    { text: "🐣 New Entry", colors: ["from-sky-500", "to-sky-700", "hover:from-sky-600", "hover:to-sky-800"], path: "/footprint" },
-    { text: "📝 Edit/Delete", colors: ["from-amber-500", "to-amber-700", "hover:from-amber-600", "hover:to-amber-800"], path: "/history" },
+    { text: "New Entry", colors: ["from-sky-500", "to-sky-700", "hover:from-sky-600", "hover:to-sky-800"], path: "/footprint" },
+    { text: "Edit/Delete", colors: ["from-amber-500", "to-amber-700", "hover:from-amber-600", "hover:to-amber-800"], path: "/history" },
   ].map(({ text, colors, path }) => (
     <motion.button
       key={text}
